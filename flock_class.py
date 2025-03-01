@@ -80,3 +80,24 @@ class Flock:
         self.positions = np.zeros((N_birds, 2))
         self.velocities = np.zeros((N_birds, 2)) 
         self.last_forces = np.zeros_like(self.velocities)
+
+
+    def init_positions(self):
+        ''' Randomly placing birds inside a square space.
+
+        This function initializes the positions array with following an uniform distribution
+        given the number or birds N and the space dimension.
+
+        Parameters:
+        -----------
+
+
+        Returns:
+        -----------
+        None
+
+        Raises:
+        -----------
+        '''
+
+        self.positions = np.random.uniform(0, self.space_length, (self.N_birds, 2))
