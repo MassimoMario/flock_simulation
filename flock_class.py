@@ -77,48 +77,6 @@ class Flock:
 
         self.max_speed = space_length/9
 
-        self.positions = np.empty((N_birds, 2))
-        self.velocities = np.empty((N_birds, 2)) 
-        self.last_forces = np.empty((N_birds, 2))
-
-
-    def init_positions(self):
-        ''' Randomly placing birds inside a square space.
-
-        This function initializes the positions array with following an uniform distribution
-        given the number or birds N and the space dimension.
-
-        Parameters:
-        -----------
-
-
-        Returns:
-        -----------
-        None
-
-        Raises:
-        -----------
-        '''
-
         self.positions = np.random.uniform(0, self.space_length, (self.N_birds, 2))
-
-
-    def init_velocities(self):
-            ''' Randomly inizialize bird velocities.
-
-            This function initializes the positions array with following an uniform distribution
-            given the number or birds N and the space dimension.
-
-            Parameters:
-            -----------
-
-
-            Returns:
-            -----------
-            None
-
-            Raises:
-            -----------
-            
-            '''
-            self.velocities = np.random.randn(self.N_birds, 2) * np.sqrt(self.max_speed)
+        self.velocities = np.random.randn(self.N_birds, 2) * np.sqrt(self.max_speed/2) 
+        self.last_forces = np.empty((N_birds, 2))
