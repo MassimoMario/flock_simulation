@@ -11,7 +11,7 @@ def test_invalid_type_N_birds_in_constructor():
 
     GIVEN: An invalid type for N_birds in the class constructor
 
-    WHEN: The constructor is called to create an object Flock
+    WHEN: The constructor is called to create a Flock object
 
     THEN: A TypeError is raised 
     """
@@ -28,7 +28,7 @@ def test_invalid_value_N_birds_in_constructor():
 
     GIVEN: A negative number for N_birds in the class constructor
 
-    WHEN: The constructor is called to create an object Flock
+    WHEN: The constructor is called to create a Flock object
 
     THEN: A ValueError is raised 
     """
@@ -45,7 +45,7 @@ def test_invalid_type_space_length_in_constructor():
 
     GIVEN: An invalid type for space_length in the class constructor
 
-    WHEN: The constructor is called to create an object Flock
+    WHEN: The constructor is called to create a Flock object
 
     THEN: A TypeError is raised 
     """
@@ -62,7 +62,7 @@ def test_invalid_value_space_length_in_constructor():
 
     GIVEN: A negative number for space_length in the class constructor
 
-    WHEN: The constructor is called to create an object Flock
+    WHEN: The constructor is called to create a Flock object
 
     THEN: A ValueError is raised 
     """
@@ -71,3 +71,35 @@ def test_invalid_value_space_length_in_constructor():
                        match = 'Space length must be > 0',
                 ): 
                     flock = Flock(N_birds = 200, space_length = -1, seed = random_seed)
+
+
+
+def test_N_birds_initialized_correctly():
+    """Test that the Flock class constructor correctly inizialize N_birds attribute inside the object.
+
+    GIVEN: An acceptable N_birds value in the class constructor
+
+    WHEN: The constructor is called to create a Flock object
+
+    THEN: object.N_birds is equal to the given value
+    """
+
+    flock = Flock(N_birds = 234, space_length = 100, seed = random_seed)
+
+    assert np.isclose(flock.N_birds, 234)
+
+
+
+def test_space_length_initialized_correctly():
+    """Test that the Flock class constructor correctly inizialize space_length attribute inside the object.
+
+    GIVEN: An acceptable space_length value in the class constructor
+
+    WHEN: The constructor is called to create a Flock object
+
+    THEN: object.space_length is equal to the given value
+    """
+
+    flock = Flock(N_birds = 200, space_length = 111.1, seed = random_seed)
+
+    assert np.isclose(flock.space_length, 111.1)
