@@ -77,9 +77,9 @@ class Flock:
 
         self.max_speed = space_length/9
 
-        self.positions = np.zeros((N_birds, 2))
-        self.velocities = np.zeros((N_birds, 2)) 
-        self.last_forces = np.zeros_like(self.velocities)
+        self.positions = np.empty((N_birds, 2))
+        self.velocities = np.empty((N_birds, 2)) 
+        self.last_forces = np.empty((N_birds, 2))
 
 
     def init_positions(self):
