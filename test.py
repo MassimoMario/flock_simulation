@@ -156,13 +156,13 @@ def test_velocities_shape_initialized_correctly():
 
 
 def test_init_given_positions_type_error():
-    """Test that the velocities attribute of the object has the correct shape after an object is created.
+    """Test that the init_given_positions method raises a TypeError when a list is given as input.
 
-    GIVEN: A Flock object
+    GIVEN: An invalid input type for input_given_positions method
 
-    WHEN: I access to his attribute velocities
+    WHEN: I call input_given_positions method
 
-    THEN: object.velocities has the right shape
+    THEN: A TypeError is raised
     """
 
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
@@ -176,13 +176,13 @@ def test_init_given_positions_type_error():
 
 
 def test_init_given_positions_value_error():
-    """Test that the velocities attribute of the object has the correct shape after an object is created.
+    """Test that the init_given_positions method raises a ValueError when an array with invalid shape is given as input.
 
-    GIVEN: A Flock object
+    GIVEN: An array with invalid shape for input_given_positions method
 
-    WHEN: I access to his attribute velocities
+    WHEN: I call input_given_positions method
 
-    THEN: object.velocities has the right shape
+    THEN: A ValueError is raised
     """
 
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
@@ -190,3 +190,39 @@ def test_init_given_positions_value_error():
 
     with pytest.raises(ValueError): 
                     flock.init_given_positions(wrong_array)
+
+
+
+def test_init_given_positions_value_error_when_not_in_range():
+    """Test that the init_given_positions method raises a ValueError when the input array has values out of the right range.
+
+    GIVEN: An array with invalid values for input_given_positions method
+
+    WHEN: I call input_given_positions method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 3, space_length = 100, seed = random_seed)
+    wrong_array = np.array([[1,2], [3,4], [100,-1]])
+
+    with pytest.raises(ValueError): 
+                    flock.init_given_positions(wrong_array)
+
+
+
+def test_init_given_positions_typical_usage():
+    """Test that the init_given_positions input array is equal to the object.positions attribute after calling the method
+
+    GIVEN: A valid array for init_given_positions method
+
+    WHEN: I check object.positions attribute
+
+    THEN: The two arrays are equal
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    input_array = np.zeros((200,2))
+    flock.init_given_positions(input_array)
+
+    assert np.allclose(input_array, flock.positions)
