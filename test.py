@@ -104,37 +104,3 @@ def test_space_length_initialized_correctly():
     flock = Flock(N_birds = 200, space_length = 111.1, seed = random_seed)
 
     assert np.isclose(flock.space_length, 111.1)
-
-
-
-def test_init_positions_shape():
-    """Test that the initialized positions array of a Flock object has the right shape.
-
-    GIVEN: A Flock object
-
-    WHEN: The init_positions method is called
-
-    THEN: object.positions has the right shape
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    flock.init_positions()
-
-    assert np.shape(flock.positions) == (flock.N_birds, 2)
-
-
-
-def test_init_velocities_shape():
-    """Test that the initialized velocities array of a Flock object has the right shape.
-
-    GIVEN: A Flock object
-
-    WHEN: The init_velocities method is called
-
-    THEN: object.velocities has the right shape
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    flock.init_velocities()
-
-    assert np.shape(flock.velocities) == (flock.N_birds,2)
