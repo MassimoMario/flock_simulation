@@ -152,3 +152,41 @@ def test_velocities_shape_initialized_correctly():
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
 
     assert np.shape(flock.velocities) == (200,2)
+
+
+
+def test_init_given_positions_type_error():
+    """Test that the velocities attribute of the object has the correct shape after an object is created.
+
+    GIVEN: A Flock object
+
+    WHEN: I access to his attribute velocities
+
+    THEN: object.velocities has the right shape
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    wrong_list = [[0,0]]*200
+
+    with pytest.raises(TypeError,
+                       match = 'The input array must be a np.ndarray',
+                ): 
+                    flock.init_given_positions(wrong_list)
+
+
+
+def test_init_given_positions_value_error():
+    """Test that the velocities attribute of the object has the correct shape after an object is created.
+
+    GIVEN: A Flock object
+
+    WHEN: I access to his attribute velocities
+
+    THEN: object.velocities has the right shape
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    wrong_array = np.zeros((199, 2))
+
+    with pytest.raises(ValueError): 
+                    flock.init_given_positions(wrong_array)

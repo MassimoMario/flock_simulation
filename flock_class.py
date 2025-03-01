@@ -80,3 +80,32 @@ class Flock:
         self.positions = np.random.uniform(0, self.space_length, (self.N_birds, 2))
         self.velocities = np.random.randn(self.N_birds, 2) * np.sqrt(self.max_speed/2) 
         self.last_forces = np.empty((N_birds, 2))
+
+
+    
+    def init_given_positions(self, array):
+        ''' Initialize birds positions with a given 2D array.
+
+        This function initializes the positions array with a given array with shape (N_birds, 2).
+
+        Parameters:
+        -----------
+        array : np.ndarray
+            2D numpy array with coordinates of every birds initial positions
+
+        Returns:
+        -----------
+        None
+
+        Raises:
+        -----------
+        
+        '''
+
+        if not isinstance(array, (np.ndarray)):
+            raise TypeError('The input array must be a np.ndarray')
+        
+        if np.shape(array) != (self.N_birds, 2):
+            raise ValueError(f'The input array must have shape ({self.N_birds},2)')
+        
+        self.positions = array
