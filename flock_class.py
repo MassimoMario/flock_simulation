@@ -86,12 +86,12 @@ class Flock:
     def init_given_positions(self, array):
         ''' Initialize birds positions with a given 2D array.
 
-        This function initializes the positions array with a given array with shape (N_birds, 2).
+        This function initializes the positions attribute with a given array with shape (N_birds, 2).
 
         Parameters:
         -----------
         array : np.ndarray
-            2D numpy array with coordinates of every birds initial positions
+            2D numpy array with coordinates of every bird initial positions
 
         Returns:
         -----------
@@ -99,7 +99,12 @@ class Flock:
 
         Raises:
         -----------
-        
+        TypeError:
+            If the input array is not a np.ndarray
+
+        ValueError:
+            If the input array shape is not correct
+            If array values are outside the space_length range
         '''
 
         if not isinstance(array, (np.ndarray)):
@@ -108,4 +113,44 @@ class Flock:
         if np.shape(array) != (self.N_birds, 2):
             raise ValueError(f'The input array must have shape ({self.N_birds},2)')
         
+        if not np.all((array >= 0) & (array <= self.space_length)):
+            raise ValueError(f'Every value of the array must be >= 0 and <= {self.space_length}')
+        
         self.positions = array
+
+
+
+    def init_given_velocities(self, array):
+        ''' Initialize birds velocities with a given 2D array.
+
+        This function initializes the velocities attribute with a given array with shape (N_birds, 2).
+
+        Parameters:
+        -----------
+        array : np.ndarray
+            2D numpy array with velocity components of every bird initial condition
+
+        Returns:
+        -----------
+        None
+
+        Raises:
+        -----------
+        TypeError:
+            If the input array is not a np.ndarray
+
+        ValueError:
+            If the input array shape is not correct
+            If the array values exceed the maximum speed
+        '''
+
+        if not isinstance(array, (np.ndarray)):
+            raise TypeError('The input array must be a np.ndarray')
+        
+        if np.shape(array) != (self.N_birds, 2):
+            raise ValueError(f'The input array must have shape ({self.N_birds},2)')
+        
+        if not np.all((array < self.max_speed) & (array > - self.max_speed)):
+            raise ValueError(f'Every value of the array must be < {self.max_speed} and > -{self.max_speed} (a maximum speed is needed for a good simulation behaviour)')
+        
+        self.velocities = array
