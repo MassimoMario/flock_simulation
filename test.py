@@ -104,3 +104,51 @@ def test_space_length_initialized_correctly():
     flock = Flock(N_birds = 200, space_length = 111.1, seed = random_seed)
 
     assert np.isclose(flock.space_length, 111.1)
+
+
+
+def test_positions_shape_initialized_correctly():
+    """Test that the positions attribute of the object has the correct shape after an object is created.
+
+    GIVEN: A Flock object
+
+    WHEN: I access to his attribute positions
+
+    THEN: object.positions has the right shape
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    assert np.shape(flock.positions) == (200,2)
+
+
+
+def test_positions_values_initialized_correctly():
+    """Test that the positions attribute of the object has every value in the right range.
+
+    GIVEN: A Flock object
+
+    WHEN: I access to his attribute positions
+
+    THEN: Every entry of object.positions array is within the right range
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    assert np.all((flock.positions >= 0) & (flock.positions <= 100))
+
+
+
+def test_velocities_shape_initialized_correctly():
+    """Test that the velocities attribute of the object has the correct shape after an object is created.
+
+    GIVEN: A Flock object
+
+    WHEN: I access to his attribute velocities
+
+    THEN: object.velocities has the right shape
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    assert np.shape(flock.velocities) == (200,2)
