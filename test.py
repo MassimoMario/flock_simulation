@@ -5,7 +5,7 @@ import numpy as np
 from flock_class import Flock
 
 random_seed = 1999
-np.random.seed(random_seed)
+
 
 def test_invalid_type_N_birds_in_constructor():
     """Test that the Flock class constructor raises an error when an invalid type in N_birds argument is provided.
@@ -120,6 +120,21 @@ def test_init_positions_shape():
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
     flock.init_positions()
 
-    assert np.shape(flock.positions) == (200,2)
+    assert np.shape(flock.positions) == (flock.N_birds, 2)
 
 
+
+def test_init_velocities_shape():
+    """Test that the initialized velocities array of a Flock object has the right shape.
+
+    GIVEN: A Flock object
+
+    WHEN: The init_velocities method is called
+
+    THEN: object.velocities has the right shape
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock.init_velocities()
+
+    assert np.shape(flock.velocities) == (flock.N_birds,2)
