@@ -226,3 +226,77 @@ def test_init_given_positions_typical_usage():
     flock.init_given_positions(input_array)
 
     assert np.allclose(input_array, flock.positions)
+
+
+
+def test_init_given_velocities_type_error():
+    """Test that the init_given_velocities method raises a TypeError when a list is given as input.
+
+    GIVEN: An invalid input type for input_given_velocities method
+
+    WHEN: I call input_given_velocities method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    wrong_list = [[0,0]]*200
+
+    with pytest.raises(TypeError,
+                       match = 'The input array must be a np.ndarray',
+                ): 
+                    flock.init_given_velocities(wrong_list)
+
+
+
+def test_init_given_velocities_value_error():
+    """Test that the init_given_velocities method raises a ValueError when an array with invalid shape is given as input.
+
+    GIVEN: An array with invalid shape for input_given_velocities method
+
+    WHEN: I call input_given_velocities method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    wrong_array = np.zeros((199, 2))
+
+    with pytest.raises(ValueError): 
+                    flock.init_given_velocities(wrong_array)
+
+
+
+def test_init_given_velocities_value_error_when_not_in_range():
+    """Test that the init_given_velocities method raises a ValueError when the input array has values out of the right range.
+
+    GIVEN: An array with invalid values for input_given_velocities method
+
+    WHEN: I call input_given_velocities method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 3, space_length = 100, seed = random_seed)
+    wrong_array = np.array([[0,0], [0,0], [flock.max_speed+1,0]])
+
+    with pytest.raises(ValueError): 
+                    flock.init_given_velocities(wrong_array)
+
+
+
+def test_init_given_velocities_typical_usage():
+    """Test that the init_given_velocities input array is equal to the object.velocities attribute after calling the method
+
+    GIVEN: A valid array for init_given_velocities method
+
+    WHEN: I check object.velocities attribute
+
+    THEN: The two arrays are equal
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    input_array = np.ones((200,2))
+    flock.init_given_velocities(input_array)
+
+    assert np.allclose(input_array, flock.velocities)
