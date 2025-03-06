@@ -737,3 +737,75 @@ def test_closest_index_typical_usage():
     correct_closest = np.array([1,0,1])
 
     assert np.allclose(closest_index, correct_closest)
+
+
+
+def test_num_close_non_zero_typeerror():
+    """Test that the _num_close_non_zero method raises a TypeError when a string is given as input.
+
+    GIVEN: An invalid input type for _num_close_non_zero method
+
+    WHEN: I call _num_close_non_zero method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Visual range must be a floating number',
+                ): 
+                    flock._num_close_non_zero('quarantaquattro')
+
+
+
+def test_num_close_non_zero_valueerror():
+    """Test that the _num_close_non_zero method raises a ValueError when a negative value is given as input.
+
+    GIVEN: An invalid input type for _num_close_non_zero method
+
+    WHEN: I call _num_close_non_zero method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                    flock._num_close_non_zero(-0.4)
+
+
+
+def test_num_close_non_zero_correct_shape_first_array():
+    """Test that the tuple returned from _num_close_non_zero has the correct shape for the first np.ndarray.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _num_close_non_zero method
+
+    THEN: The first array of the tuple has shape (N_birds)
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    num_close, _ = flock._num_close_non_zero(20)
+
+    assert np.shape(num_close) == (200,)
+
+
+
+def test_num_close_non_zero_correct_shape_second_array():
+    """Test that the tuple returned from _num_close_non_zero has the correct shape for the second np.ndarray.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _num_close_non_zero method
+
+    THEN: The second array of the tuple has shape (N_birds)
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    _, num_close_non_zero = flock._num_close_non_zero(20)
+
+    assert np.shape(num_close_non_zero) == (200,)
