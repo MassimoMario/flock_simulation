@@ -286,7 +286,7 @@ def test_init_given_velocities_value_error_when_not_in_range():
 
 
 def test_init_given_velocities_typical_usage():
-    """Test that the init_given_velocities input array is equal to the object.velocities attribute after calling the method
+    """Test that the init_given_velocities input array is equal to the object.velocities attribute after calling the method.
 
     GIVEN: A valid array for init_given_velocities method
 
@@ -300,3 +300,81 @@ def test_init_given_velocities_typical_usage():
     flock.init_given_velocities(input_array)
 
     assert np.allclose(input_array, flock.velocities)
+
+
+
+def test_directions_between_birds_right_shape():
+    """Test that the _directions_between_birds method returns an array with the right shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _directions_between_birds method
+
+    THEN: The resulting array has shape (N_birds, N_birds, 2)
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    directions = flock._directions_between_birds()
+
+    assert np.shape(directions) == (200,200,2)
+
+
+
+def test_directions_between_birds_single_bird():
+    """Test that the _directions_between_birds method computed with only one bird returns an array of zeros.
+
+    GIVEN: A Flock object with a single bird
+
+    WHEN: I call _directions_between_birds method
+
+    THEN: The resulting array is an array of zeros
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+    directions = flock._directions_between_birds()
+    zero_array = np.zeros((1,1,2))
+
+    assert np.allclose(directions, zero_array)
+
+
+
+def test_directions_between_birds_collapsed_positions():
+    """Test that the _directions_between_birds method computed when every bird is in the same position returns an array of zeros.
+
+    GIVEN: A Flock object with every bird having the same position
+
+    WHEN: I call _directions_between_birds method
+
+    THEN: The resulting array is an array of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    zero_positions = np.ones((200,2))
+    flock.init_given_positions(zero_positions)
+
+    directions = flock._directions_between_birds()
+    zero_array = np.zeros((200,200,2))
+
+    assert np.allclose(directions, zero_array)
+
+
+
+def test_directions_between_birds_typical_usage():
+    """Test that the _directions_between_birds returns the right array when called on two birds.
+
+    GIVEN: A Flock object with two birds with known positions
+
+    WHEN: I call _directions_between_birds method
+
+    THEN: The resulting array is computed correctly
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,2],[3,4]])
+    flock.init_given_positions(initial_positions)
+
+    directions = flock._directions_between_birds()
+    right_directions = np.array([[[ 0,  0], [2, 2]],
+                                [[ -2,  -2], [ 0,  0]]])
+
+    assert np.allclose(directions, right_directions)
