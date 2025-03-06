@@ -292,3 +292,45 @@ class Flock:
         closest_index = np.argmin(distances, axis=1)
 
         return closest_index
+    
+
+
+    def _num_close_non_zero(self, visual_range):
+        ''' Compute the number of birds within the visual range for every bird.
+
+        This function computes two arrays, one contains the number of birds within the visual range for every bird and one is the copy of the latter but with no zeros.
+
+        Parameters:
+        -----------
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        Returns:
+        -----------
+        tuple
+        The tuple contains:
+            - num_close : np.ndarray = Array of number of birds within the visual range for every bird, shape (N_birds)
+            - num_close_non_zero : np.ndarray = Array of number of birds within the visual range for every bird with no 0 values, shape (N_birds)
+
+        Raises:
+        -----------
+        TypeError:
+            If visual_range is not an integer or float
+
+        ValueError:
+            If visual_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
+            raise TypeError('Visual range must be a floating number')
+        
+        if visual_range < 0 or visual_range > self.space_length:
+            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
+        
+        mask = self._visual_range_mask(visual_range)
+
+        num_close = np.count_nonzero(mask, axis=1)
+        num_close_non_zero = num_close
+        num_close_non_zero[num_close == 0] = 1
+
+        return num_close, num_close_non_zero
