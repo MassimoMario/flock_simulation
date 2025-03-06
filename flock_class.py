@@ -160,7 +160,7 @@ class Flock:
     def _directions_between_birds(self):
         ''' Compute directions between any couple of birds.
 
-        This function compute the array direction between any couple of birds as the difference between their positions.
+        This function computes the array direction between any couple of birds as the difference between their positions.
 
         Parameters:
         -----------
@@ -182,7 +182,7 @@ class Flock:
     def _distances_between_birds(self):
         ''' Compute distances between any couple of birds.
 
-        This function compute the scalar distance between any couple of birds as the norm of the direction between them.
+        This function computes the scalar distance between any couple of birds as the norm of the direction between them.
 
         Parameters:
         -----------
@@ -208,7 +208,7 @@ class Flock:
     def _directions_unitary_vectors(self):
         ''' Compute unitary direction arrays between any couple of birds.
 
-        This function compute the unitary direction arrays between any couple of birds as the ratio between directions and distances between them.
+        This function computes the unitary direction arrays between any couple of birds as the ratio between directions and distances between them.
 
         Parameters:
         -----------
@@ -228,3 +228,42 @@ class Flock:
         unit_directions = directions / distances[:,:,None]
 
         return unit_directions
+    
+
+
+    def _visual_range_mask(self, visual_range):
+        ''' Compute mask of boolean values if another bird is near considering a visual range.
+
+        This function computes the boolean mask of having another bird near within a visual range.
+
+        Parameters:
+        -----------
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+        
+        Returns:
+        -----------
+        mask : np.ndarray
+            Boolean np.ndarray that is True when another bird is within the visual range, has shape (N_birds, N_birds)
+
+        Raises:
+        -----------
+        TypeError:
+            If visual_range is not an integer or float
+
+        ValueError:
+            If visual_range is lower than 0 or higher than self.space_length
+        '''
+        
+        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
+            raise TypeError('Visual range must be a floating number')
+        
+        if visual_range < 0 or visual_range > self.space_length:
+            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
+        
+
+        distances = self._distances_between_birds()
+
+        mask = distances < visual_range
+
+        return mask
