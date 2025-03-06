@@ -202,3 +202,29 @@ class Flock:
         distances[distances == 0] = np.inf
 
         return distances
+    
+
+
+    def _directions_unitary_vectors(self):
+        ''' Compute unitary direction arrays between any couple of birds.
+
+        This function compute the unitary direction arrays between any couple of birds as the ratio between directions and distances between them.
+
+        Parameters:
+        -----------
+
+        Returns:
+        -----------
+        unit_directions : np.ndarray
+            Array of unitary direction between any couple of birds, has shape (N_birds, N_birds, 2)
+
+        Raises:
+        -----------
+        '''
+
+        directions = self._directions_between_birds()
+        distances = self._distances_between_birds()
+
+        unit_directions = directions / distances[:,:,None]
+
+        return unit_directions
