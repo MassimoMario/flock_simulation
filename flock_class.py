@@ -154,3 +154,25 @@ class Flock:
             raise ValueError(f'Every value of the array must be < {self.max_speed} and > -{self.max_speed} (a maximum speed is needed for a good simulation behaviour)')
         
         self.velocities = array
+
+
+    
+    def _directions_between_birds(self):
+        ''' Compute directions between any couple of birds.
+
+        This function compute the array direction between any couple of birds as the difference between their positions.
+
+        Parameters:
+        -----------
+
+        Returns:
+        -----------
+        directions : np.ndarray
+            Array of directions between any couple of birds, has shape (N_birds, N_birds, 2)
+
+        Raises:
+        -----------
+        '''
+        directions = self.positions - self.positions[:, None]
+
+        return directions
