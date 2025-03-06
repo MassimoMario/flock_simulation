@@ -254,7 +254,7 @@ class Flock:
         ValueError:
             If visual_range is lower than 0 or higher than self.space_length
         '''
-        
+
         if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
             raise TypeError('Visual range must be a floating number')
         
@@ -267,3 +267,28 @@ class Flock:
         mask = distances < visual_range
 
         return mask
+    
+
+
+    def _closest_index(self):
+        ''' Compute the indices of closest bird for each bird of the flock.
+
+        This function computes the array containing indices of the closest bird for each bird of the flock.
+
+        Parameters:
+        -----------
+        
+        Returns:
+        -----------
+        closest_index : np.ndarray
+            np.ndarray which value are the index of the closest bird, has shape (N_birds)
+
+        Raises:
+        -----------
+        '''
+
+        distances = self._distances_between_birds()
+
+        closest_index = np.argmin(distances, axis=1)
+
+        return closest_index
