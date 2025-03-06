@@ -330,7 +330,7 @@ class Flock:
         mask = self._visual_range_mask(visual_range)
 
         num_close = np.count_nonzero(mask, axis=1)
-        num_close_non_zero = num_close
+        num_close_non_zero = np.copy(num_close)
         num_close_non_zero[num_close == 0] = 1
 
         return num_close, num_close_non_zero
