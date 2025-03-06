@@ -176,3 +176,29 @@ class Flock:
         directions = self.positions - self.positions[:, None]
 
         return directions
+    
+
+
+    def _distances_between_birds(self):
+        ''' Compute distances between any couple of birds.
+
+        This function compute the scalar distance between any couple of birds as the norm of the direction between them.
+
+        Parameters:
+        -----------
+
+        Returns:
+        -----------
+        distances : np.ndarray
+            Array of distances between any couple of birds, has shape (N_birds, N_birds)
+
+        Raises:
+        -----------
+        '''
+
+        directions = self._directions_between_birds()
+
+        distances = np.linalg.norm(directions, axis=2)
+        distances[distances == 0] = np.inf
+
+        return distances
