@@ -456,3 +456,130 @@ def test_distances_between_birds_typical_usage():
                                 [np.sqrt(8), np.inf]])
 
     assert np.allclose(distances, right_distances)
+
+
+
+def test_directions_unitary_vectors_right_shape():
+    """Test that the _directions_unitary_vectors method returns an array with the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _directions_unitary_vectors method
+
+    THEN: The resulting array has shape (N_birds, N_birds, 2)
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    unit_distances = flock._directions_unitary_vectors()
+
+    assert np.shape(unit_distances) == (200,200,2)
+
+
+
+
+def test_directions_unitary_vectors_single_bird():
+    """Test that the _directions_unitary_vectors method computed with only one bird returns an array of zeros.
+
+    GIVEN: A Flock object with a single bird
+
+    WHEN: I call _directions_unitary_vectors method
+
+    THEN: The resulting array is an array of zeros
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+    unit_distances = flock._directions_unitary_vectors()
+    zero_array = np.zeros((1,1,2))
+
+    assert np.allclose(unit_distances, zero_array)
+
+
+
+def test_directions_unitary_vectors_collapsed_positions():
+    """Test that the _directions_unitary_vectors method computed when every bird is in the same position returns an array of zeros.
+
+    GIVEN: A Flock object with every bird having the same position
+
+    WHEN: I call _directions_unitary_vectors method
+
+    THEN: The resulting array is an array of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    zero_positions = np.ones((200,2))
+    flock.init_given_positions(zero_positions)
+
+    unit_directions = flock._directions_unitary_vectors()
+    zero_array = np.zeros((200,200,2))
+
+    assert np.allclose(unit_directions, zero_array)
+
+
+
+def test_directions_unitary_vectors_typical_usage_off_diagonal():
+    """Test that the _directions_unitary_vectors returns an array which rows are normalized to one.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _directions_unitary_vectors method
+
+    THEN: The resulting array rows are normalized to one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    unit_distances = flock._directions_unitary_vectors()
+
+    diagonal_mask = np.eye(200, dtype=bool)
+    normalized_rows = np.linalg.norm(unit_distances[~diagonal_mask], axis=1)
+    correct_normalization = np.ones(200*200-200)
+    
+
+    assert np.allclose(normalized_rows, correct_normalization)
+
+
+
+def test_directions_unitary_vectors_typical_usage_on_diagonal():
+    """Test that the _directions_unitary_vectors returns a matrix which has 0 on the diagonal.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _directions_unitary_vectors method
+
+    THEN: The resulting matrix has zeros on the diagonal
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    unit_distances = flock._directions_unitary_vectors()
+
+    diagonal_mask = np.eye(200, dtype=bool)
+    normalized_rows = np.linalg.norm(unit_distances[diagonal_mask], axis=1)
+    correct_normalization = np.zeros(200)
+    
+
+    assert np.allclose(normalized_rows, correct_normalization, atol = 1e-3)
+
+
+
+def test_directions_unitary_vectors_typical_usage():
+    """Test that the _directions_unitary_vectors returns the correct array when called on two birds.
+
+    GIVEN: A Flock object with two birds with known positions
+
+    WHEN: I call _directions_unitary_vectors method
+
+    THEN: The resulting array is computed correctly
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,2],[3,4]])
+    flock.init_given_positions(initial_positions)
+
+    unit_distances = flock._directions_unitary_vectors()
+    right_unit_distances = np.array([[[ 0.        ,  0.        ],
+                                    [ 2/np.sqrt(8),  2/np.sqrt(8)]],
+                                    [[-2/np.sqrt(8), -2/np.sqrt(8)],
+                                    [ 0.        ,  0.        ]]])
+
+    assert np.allclose(unit_distances, right_unit_distances)
