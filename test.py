@@ -583,3 +583,101 @@ def test_directions_unitary_vectors_typical_usage():
                                     [ 0.        ,  0.        ]]])
 
     assert np.allclose(unit_distances, right_unit_distances)
+
+
+
+def test_visual_range_mask_typeerror():
+    """Test that the _visual_range_mask method raises a TypeError when a string is given as input.
+
+    GIVEN: An invalid input type for _visual_range_mask method
+
+    WHEN: I call _visual_range_mask method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Visual range must be a floating number',
+                ): 
+                    flock._visual_range_mask('ventimilioni')
+
+
+
+def test_visual_range_mask_valueerror():
+    """Test that the _visual_range_mask method raises a ValueError when a negative value is given as input.
+
+    GIVEN: An invalid input type for _visual_range_mask method
+
+    WHEN: I call _visual_range_mask method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                    flock._visual_range_mask(-0.4)
+
+
+
+
+def test_visual_range_mask_right_shape():
+    """Test that the _visual_range_mask method returns a np.ndarray with the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _visual_range_mask method
+
+    THEN: The resulting array has shape (N_birds, N_birds)
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    mask = flock._visual_range_mask(20)
+
+    assert np.shape(mask) == (200,200)
+
+
+
+
+def test_visual_range_mask_zero_visual_range():
+    """Test that the _visual_range_mask method returns a mask full of False when visual_range is 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _visual_range_mask method with visual_range = 0
+
+    THEN: The resulting mask is full of False
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    mask = flock._visual_range_mask(0)
+    zero_mask = np.zeros((200,200), dtype = bool)
+
+    assert np.allclose(mask, zero_mask)
+
+
+
+def test_visual_range_mask_zero_tyipical_usage():
+    """Test that the _visual_range_mask method returns a mask with True off the diagonal when birds are near each other.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _visual_range_mask method having two birds near each other
+
+    THEN: The resulting mask has True off the diagonal
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,2], [3,4]])
+    flock.init_given_positions(initial_positions)
+
+    diagonal_mask = np.eye(2, dtype=bool)
+    mask = flock._visual_range_mask(50)
+    true_array = np.array([True, True])
+    
+
+    assert np.allclose(mask[~diagonal_mask], true_array)
