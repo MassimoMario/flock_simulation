@@ -304,7 +304,7 @@ def test_init_given_velocities_typical_usage():
 
 
 def test_directions_between_birds_right_shape():
-    """Test that the _directions_between_birds method returns an array with the right shape.
+    """Test that the _directions_between_birds method returns an array with the correct shape.
 
     GIVEN: A Flock object
 
@@ -360,7 +360,7 @@ def test_directions_between_birds_collapsed_positions():
 
 
 def test_directions_between_birds_typical_usage():
-    """Test that the _directions_between_birds returns the right array when called on two birds.
+    """Test that the _directions_between_birds returns the correct array when called on two birds.
 
     GIVEN: A Flock object with two birds with known positions
 
@@ -378,3 +378,81 @@ def test_directions_between_birds_typical_usage():
                                 [[ -2,  -2], [ 0,  0]]])
 
     assert np.allclose(directions, right_directions)
+
+
+
+def test_distances_between_birds_right_shape():
+    """Test that the _distances_between_birds method returns an array with the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _distances_between_birds method
+
+    THEN: The resulting array has shape (N_birds, N_birds)
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    distances = flock._distances_between_birds()
+
+    assert np.shape(distances) == (200,200)
+
+
+
+def test_distances_between_birds_single_bird():
+    """Test that the _distances_between_birds method computed with only one bird returns an array of np.inf.
+
+    GIVEN: A Flock object with a single bird
+
+    WHEN: I call _distances_between_birds method
+
+    THEN: The resulting array is an array of np.inf
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+    distances = flock._distances_between_birds()
+    inf_array = np.ones((1,1))*np.inf
+
+    assert np.allclose(distances, inf_array)
+
+
+
+def test_distances_between_birds_collapsed_positions():
+    """Test that the _distances_between_birds method computed when every bird is in the same position returns an array of np.inf.
+
+    GIVEN: A Flock object with every bird having the same position
+
+    WHEN: I call _distances_between_birds method
+
+    THEN: The resulting array is an array of np.inf
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    zero_positions = np.ones((200,2))
+    flock.init_given_positions(zero_positions)
+
+    distances = flock._distances_between_birds()
+    inf_array = np.ones((200,200))*np.inf
+
+    assert np.allclose(distances, inf_array)
+
+
+
+def test_distances_between_birds_typical_usage():
+    """Test that the _distances_between_birds returns the correct array when called on two birds.
+
+    GIVEN: A Flock object with two birds with known positions
+
+    WHEN: I call _distances_between_birds method
+
+    THEN: The resulting array is computed correctly
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,2],[3,4]])
+    flock.init_given_positions(initial_positions)
+
+    distances = flock._distances_between_birds()
+    right_distances = np.array([[np.inf, np.sqrt(8)],
+                                [np.sqrt(8), np.inf]])
+
+    assert np.allclose(distances, right_distances)
