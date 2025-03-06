@@ -778,34 +778,36 @@ def test_num_close_non_zero_valueerror():
 
 
 
-def test_num_close_non_zero_correct_shape_first_array():
-    """Test that the tuple returned from _num_close_non_zero has the correct shape for the first np.ndarray.
+def test_num_close_non_zero_correct_shape():
+    """Test that the array returned from _num_close_non_zero has the correct shape.
 
     GIVEN: A Flock object
 
     WHEN: I call _num_close_non_zero method
 
-    THEN: The first array of the tuple has shape (N_birds)
+    THEN: The returned array has shape (N_birds)
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    num_close, _ = flock._num_close_non_zero(20)
-
-    assert np.shape(num_close) == (200,)
-
-
-
-def test_num_close_non_zero_correct_shape_second_array():
-    """Test that the tuple returned from _num_close_non_zero has the correct shape for the second np.ndarray.
-
-    GIVEN: A Flock object
-
-    WHEN: I call _num_close_non_zero method
-
-    THEN: The second array of the tuple has shape (N_birds)
-    """
-    
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    _, num_close_non_zero = flock._num_close_non_zero(20)
+    num_close_non_zero = flock._num_close_non_zero(20)
 
     assert np.shape(num_close_non_zero) == (200,)
+
+
+
+
+def test_num_close_non_zero_only_one_bird():
+    """Test that the returned array from _num_close_non_zero is [1] if only one bird is present.
+
+    GIVEN: A Flock object with only one bird
+
+    WHEN: I call _num_close_non_zero method
+
+    THEN: The returned array is equal to [1]
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+    num_close_non_zero = flock._num_close_non_zero(20)
+    one_array = np.array([1])
+
+    assert np.allclose(num_close_non_zero, one_array)
