@@ -811,3 +811,24 @@ def test_num_close_non_zero_only_one_bird():
     one_array = np.array([1])
 
     assert np.allclose(num_close_non_zero, one_array)
+
+
+
+def test_num_close_non_zero_typical_usage():
+    """Test that the _num_close_non_zero method returns an array as expected given three birds with known positions.
+
+    GIVEN: A Flock object with three birds with known positions
+
+    WHEN: I call _num_close_non_zero method
+
+    THEN: The returned array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 3, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,1],[1,2],[2,2]])
+    flock.init_given_positions(initial_positions)
+
+    num_close_non_zero = flock._num_close_non_zero(20)
+    expected_array = np.array([2,2,2])
+
+    assert np.allclose(num_close_non_zero, expected_array)
