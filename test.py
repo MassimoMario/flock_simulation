@@ -625,7 +625,7 @@ def test_visual_range_mask_valueerror():
 
 
 
-def test_visual_range_mask_right_shape():
+def test_visual_range_mask_correct_shape():
     """Test that the _visual_range_mask method returns a np.ndarray with the correct shape.
 
     GIVEN: A Flock object
@@ -681,3 +681,59 @@ def test_visual_range_mask_zero_tyipical_usage():
     
 
     assert np.allclose(mask[~diagonal_mask], true_array)
+
+
+
+def test_closest_index_correct_shape():
+    """Test that the _closest_index method returns a np.ndarray with the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _closest_index method
+
+    THEN: The resulting array has shape (N_birds)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    closest_index = flock._closest_index()
+
+    assert np.shape(closest_index) == (200,)
+
+
+
+def test_closest_index_only_one_bird():
+    """Test that the _closest_index method returns a [0] np.ndarray if there is only one bird.
+
+    GIVEN: A Flock object with one bird
+
+    WHEN: I call _closest_index method
+
+    THEN: The resulting array is equal to [0]
+    """
+
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+    closest_index = flock._closest_index()
+    one_closest = np.array([0])
+
+    assert np.allclose(closest_index, one_closest)
+
+
+
+def test_closest_index_typical_usage():
+    """Test that the _closest_index method returns the expected np.ndarray given three bird with known positions.
+
+    GIVEN: A Flock object with three birds with known position
+
+    WHEN: I call _closest_index method
+
+    THEN: The resulting array has the correct values
+    """
+
+    flock = Flock(N_birds = 3, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,1], [0,3], [0,10]])
+    flock.init_given_positions(initial_positions)
+
+    closest_index = flock._closest_index()
+    correct_closest = np.array([1,0,1])
+
+    assert np.allclose(closest_index, correct_closest)
