@@ -307,10 +307,8 @@ class Flock:
 
         Returns:
         -----------
-        tuple
-        The tuple contains:
-            - num_close : np.ndarray = Array of number of birds within the visual range for every bird, shape (N_birds)
-            - num_close_non_zero : np.ndarray = Array of number of birds within the visual range for every bird with no 0 values, shape (N_birds)
+        num_close : np.ndarray
+            Array of number of birds within the visual range for every bird, shape (N_birds)
 
         Raises:
         -----------
@@ -330,7 +328,6 @@ class Flock:
         mask = self._visual_range_mask(visual_range)
 
         num_close = np.count_nonzero(mask, axis=1)
-        num_close_non_zero = np.copy(num_close)
-        num_close_non_zero[num_close == 0] = 1
+        num_close[num_close == 0] = 1
 
-        return num_close, num_close_non_zero
+        return num_close
