@@ -372,7 +372,7 @@ class Flock:
 
 
 
-    def _get_coherence_vector(self, visual_range):
+    def _coherence_vector(self, visual_range):
         ''' Compute the direction of the coherence force.
 
         Parameters:
@@ -382,7 +382,7 @@ class Flock:
 
         Returns:
         -----------
-        alignment_vector : np.ndarray
+        coherence_vector : np.ndarray
             Array of alignment force direction, shape (N_birds, 2)
 
         Raises:
@@ -406,3 +406,37 @@ class Flock:
         coherence_vector = (mask[:, :, None] * self.positions).sum(axis=1) / num_close_non_zero[:, None] - self.positions
 
         return coherence_vector
+    
+
+
+    def _edge_mask(self, avoid_range):
+        ''' Compute the boolean array describing if the edge of the simulation space is within a given range.
+
+        Parameters:
+        -----------
+        avoid_range : float
+            Radius of a circle with which a bird can see simulation barriers
+
+        Returns:
+        -----------
+        edge_mask : np.ndarray
+            Boolean array, shape (N_birds)
+
+        Raises:
+        -----------
+        TypeError:
+            If avoid_range is not an integer or float
+
+        ValueError:
+            If avoid_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(avoid_range, (int, np.integer, float, np.floating)) or isinstance(avoid_range, bool):
+            raise TypeError('Avoid range must be a floating number')
+        
+        if avoid_range < 0 or avoid_range > self.space_length:
+            raise ValueError(f'Avoid range must be in range [{0}, {self.space_length}]')
+        
+        edge_mask = np.any(np.abs(self.positions - self.space_length/2.0) >= (self.space_length/2.0 - avoid_range), axis=1)
+
+        return edge_mask
