@@ -1050,6 +1050,25 @@ def test_coherence_vector_only_one_bird():
 
 
 
+
+def test_coherence_vector_zero_visual_range():
+    """Test that the _coherence_vector method returns the opposite of object.positions when visual_range == 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _coherence_vector method with visual_range = 0
+
+    THEN: The resulting array is equal to  - object.positions
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    coherence_vector = flock._coherence_vector(0)
+    expected_array = - flock.positions
+
+    assert np.allclose(coherence_vector, expected_array)
+
+
+
 def test_coherence_vector_typical_usage():
     """Test that the _coherence_vector method returns an array as expected given two birds with known positions.
 
