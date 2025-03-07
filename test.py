@@ -951,7 +951,7 @@ def test_coherence_vector_typeerror():
     with pytest.raises(TypeError,
                        match = 'Visual range must be a floating number',
                 ): 
-                    flock._coherence_vector('voleco essere un duro')
+                    flock._coherence_vector('volevo essere un duro')
 
 
 
@@ -1032,3 +1032,80 @@ def test_coherence_vector_typical_usage():
                                 [0., -1.]])
 
     assert np.allclose(coherence_vector, expected_array)
+
+
+
+def test_edge_mask_typeerror():
+    """Test that the _edge_mask method raises a TypeError when a string is given as input.
+
+    GIVEN: An invalid input type for _edge_mask method
+
+    WHEN: I call _edge_mask method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Avoid range must be a floating number',
+                ): 
+                    flock._edge_mask('ventinove e qualcosina')
+
+
+
+def test_edge_mask_valueerror():
+    """Test that the _edge_mask method raises a ValueError when a negative value is given as input.
+
+    GIVEN: An invalid input type for _edge_mask method
+
+    WHEN: I call _edge_mask method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                    flock._edge_mask(-1.2)
+
+
+
+
+def test_edge_mask_correct_shape():
+    """Test that the array returned from _edge_mask has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _edge_mask method
+
+    THEN: The returned array has shape (N_birds)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    edge_mask = flock._edge_mask(20)
+
+    assert np.shape(edge_mask) == (200,)
+
+
+
+def test_edge_mask_typical_usage():
+    """Test that the _edge_mask method returns an array as expected given two birds with known positions.
+
+    GIVEN: A Flock object with two birds with known positions
+
+    WHEN: I call _edge_mask method
+
+    THEN: The returned array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,1],[50,50]])
+    flock.init_given_positions(initial_positions)
+
+    edge_mask = flock._edge_mask(20)
+    expected_array = np.array([True, False])
+
+    assert np.allclose(edge_mask, expected_array)
