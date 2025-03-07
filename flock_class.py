@@ -440,3 +440,28 @@ class Flock:
         edge_mask = np.any(np.abs(self.positions - self.space_length/2.0) >= (self.space_length/2.0 - avoid_range), axis=1)
 
         return edge_mask
+    
+
+
+    def _center_direction(self):
+        ''' Compute the center direction array.
+
+        Parameters:
+        -----------
+
+        Returns:
+        -----------
+        center_direction : np.ndarray
+            Unitary array of the center direction, shape (N_birds, 2)
+
+        Raises:
+        -----------
+        '''
+        
+        center = np.array([self.space_length/2, self.space_length/2])
+        center_directions = center - self.positions
+
+        center_directions[np.all(center_directions==[0,0], axis=1)] = [1e-5, 1e-5]
+        center_directions /= np.linalg.norm(center_directions, axis=1)[:,None]
+
+        return center_directions
