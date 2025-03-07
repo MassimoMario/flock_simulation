@@ -914,7 +914,7 @@ def test_alignment_vector_only_one_bird():
 def test_alignment_vector_typical_usage():
     """Test that the _alignment_vector method returns an array as expected given two birds with known positions and velocities.
 
-    GIVEN: A Flock object with two birds with known positions
+    GIVEN: A Flock object with two birds with known positions and velocities
 
     WHEN: I call _alignment_vector method
 
@@ -932,3 +932,103 @@ def test_alignment_vector_typical_usage():
                                 [1., 1.]])
 
     assert np.allclose(alignment_vector, expected_array)
+
+
+
+def test_coherence_vector_typeerror():
+    """Test that the _coherence_vector method raises a TypeError when a string is given as input.
+
+    GIVEN: An invalid input type for _coherence_vector method
+
+    WHEN: I call _coherence_vector method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Visual range must be a floating number',
+                ): 
+                    flock._coherence_vector('voleco essere un duro')
+
+
+
+def test_coherence_vector_valueerror():
+    """Test that the _coherence_vector method raises a ValueError when a negative value is given as input.
+
+    GIVEN: An invalid input type for _coherence_vector method
+
+    WHEN: I call _coherence_vector method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                    flock._coherence_vector(-1.2)
+
+
+    
+
+def test_coherence_vector_correct_shape():
+    """Test that the array returned from _coherence_vector has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _coherence_vector method
+
+    THEN: The returned array has shape (N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    coherence_vector = flock._coherence_vector(20)
+
+    assert np.shape(coherence_vector) == (200,2)
+
+
+
+
+def test_coherence_vector_only_one_bird():
+    """Test that the returned array from _coherence_vector with only one bird is equal to the opposite of his position.
+
+    GIVEN: A Flock object with only one bird
+
+    WHEN: I call _coherence_vector method
+
+    THEN: The returned array is equal to the opposite of his position
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,1]])
+    flock.init_given_positions(initial_positions)
+
+    coherence_vector = flock._coherence_vector(20)
+    expected_array = np.array([[-1],[-1]])
+
+    assert np.allclose(coherence_vector, expected_array)
+
+
+
+def test_coherence_vector_typical_usage():
+    """Test that the _coherence_vector method returns an array as expected given two birds with known positions.
+
+    GIVEN: A Flock object with two birds with known positions
+
+    WHEN: I call _coherence_vector method
+
+    THEN: The returned array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,1],[1,2]])
+    flock.init_given_positions(initial_positions)
+
+    coherence_vector = flock._coherence_vector(20)
+    expected_array = np.array([[0., 1.],
+                                [0., -1.]])
+
+    assert np.allclose(coherence_vector, expected_array)
