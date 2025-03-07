@@ -1109,3 +1109,72 @@ def test_edge_mask_typical_usage():
     expected_array = np.array([True, False])
 
     assert np.allclose(edge_mask, expected_array)
+
+
+
+def test_center_direction_correct_shape():
+    """Test that the array returned from _center_direction has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _center_direction method
+
+    THEN: The returned array has shape (N_birds)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    edge_mask = flock._center_direction()
+
+    assert np.shape(edge_mask) == (200, 2)
+
+
+
+
+def test_center_direction_vectors_normalization():
+    """Test that the _center_direction returns an array which second dimension is normalized to 1.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _center_direction method
+
+    THEN: The resulting array second dimension is normalized to one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    unit_center_distances = flock._center_direction()
+
+    normalized_vector = np.linalg.norm(unit_center_distances, axis=1)
+    correct_normalization = np.ones(200)
+    
+
+    assert np.allclose(normalized_vector, correct_normalization)
+
+
+
+
+def test_center_direction_vectors_typical_usage():
+    """Test that the _center_direction returns the expected array when 4 birds with known positions are given.
+
+    GIVEN: A Flock object with 4 birds with known positions
+
+    WHEN: I call _center_direction method
+
+    THEN: The resulting array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,50],
+                                  [50,0],
+                                  [100,50],
+                                  [10,10]])
+    flock.init_given_positions(initial_positions)
+
+    unit_center_distances = flock._center_direction()
+
+    expected_center_distances = np.array([[1,0],
+                                          [0,1],
+                                          [-1,0],
+                                          [np.sqrt(2)/2,np.sqrt(2)/2]])
+    
+    assert np.allclose(unit_center_distances, expected_center_distances)
