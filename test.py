@@ -821,14 +821,14 @@ def test_num_close_non_zero_zero_visual_range():
 
     WHEN: I call _num_close_non_zero method with visual_range = 0
 
-    THEN: The resulting mask is full of ones
+    THEN: The resulting array is full of ones
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
     num_close_non_zero = flock._num_close_non_zero(0)
-    zero_array = np.ones((200,))
+    one_array = np.ones((200,))
 
-    assert np.allclose(num_close_non_zero, zero_array)
+    assert np.allclose(num_close_non_zero, one_array)
 
 
 
@@ -926,6 +926,25 @@ def test_alignment_vector_only_one_bird():
     one_array = np.array([[0],[0]])
 
     assert np.allclose(alignment_vector, one_array)
+
+
+
+
+def test_alignment_vector_zero_visual_range():
+    """Test that the _alignment_vector method returns an array full of ones when visual_range is 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _alignment_vector method with visual_range = 0
+
+    THEN: The resulting array is full of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    alignment_vector = flock._alignment_vector(0)
+    zero_array = np.zeros((200,2))
+
+    assert np.allclose(alignment_vector, zero_array)
 
 
 
