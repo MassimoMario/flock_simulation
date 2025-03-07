@@ -832,3 +832,79 @@ def test_num_close_non_zero_typical_usage():
     expected_array = np.array([2,2,2])
 
     assert np.allclose(num_close_non_zero, expected_array)
+
+
+
+
+def test_alignment_vector_typeerror():
+    """Test that the _alignment_vector method raises a TypeError when a string is given as input.
+
+    GIVEN: An invalid input type for _alignment_vector method
+
+    WHEN: I call _alignment_vector method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Visual range must be a floating number',
+                ): 
+                    flock._alignment_vector('se telefonando')
+
+
+
+
+def test_alignment_vector_valueerror():
+    """Test that the _alignment_vector method raises a ValueError when a negative value is given as input.
+
+    GIVEN: An invalid input type for _alignment_vector method
+
+    WHEN: I call _alignment_vector method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                    flock._alignment_vector(-8.2)
+
+
+
+
+def test_alignment_vector_correct_shape():
+    """Test that the array returned from _alignment_vector has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _alignment_vector method
+
+    THEN: The returned array has shape (N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    alignment_vector = flock._alignment_vector(20)
+
+    assert np.shape(alignment_vector) == (200,2)
+
+
+
+def test_alignment_vector_only_one_bird():
+    """Test that the returned array from _alignment_vector is [[0],[0]] if only one bird is present.
+
+    GIVEN: A Flock object with only one bird
+
+    WHEN: I call _alignment_vector method
+
+    THEN: The returned array is equal to [[0],[0]]
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+    alignment_vector = flock._alignment_vector(20)
+    one_array = np.array([[0],[0]])
+
+    assert np.allclose(alignment_vector, one_array)
