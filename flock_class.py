@@ -331,3 +331,40 @@ class Flock:
         num_close[num_close == 0] = 1
 
         return num_close
+    
+
+
+    def _alignment_vector(self, visual_range):
+        ''' Compute the direction of the alignment force.
+
+        Parameters:
+        -----------
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        Returns:
+        -----------
+        alignment_vector : np.ndarray
+            Array of alignment force direction, shape (N_birds, 2)
+
+        Raises:
+        -----------
+        TypeError:
+            If visual_range is not an integer or float
+
+        ValueError:
+            If visual_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
+            raise TypeError('Visual range must be a floating number')
+        
+        if visual_range < 0 or visual_range > self.space_length:
+            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
+        
+        mask = self._visual_range_mask(visual_range)
+        num_close_non_zero = self._num_close_non_zero(visual_range)
+
+        aligment_vector = (mask[:, :, None] * self.velocities).sum(axis=1) / num_close_non_zero[:, None]
+
+        return aligment_vector
