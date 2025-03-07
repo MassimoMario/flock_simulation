@@ -908,3 +908,27 @@ def test_alignment_vector_only_one_bird():
     one_array = np.array([[0],[0]])
 
     assert np.allclose(alignment_vector, one_array)
+
+
+
+def test_alignment_vector_typical_usage():
+    """Test that the _alignment_vector method returns an array as expected given two birds with known positions and velocities.
+
+    GIVEN: A Flock object with two birds with known positions
+
+    WHEN: I call _alignment_vector method
+
+    THEN: The returned array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[1,1],[1,2]])
+    initial_velocities = np.array([[1,1],[1,2]])
+    flock.init_given_velocities(initial_velocities)
+    flock.init_given_positions(initial_positions)
+
+    alignment_vector = flock._alignment_vector(20)
+    expected_array = np.array([[1., 2.],
+                                [1., 1.]])
+
+    assert np.allclose(alignment_vector, expected_array)
