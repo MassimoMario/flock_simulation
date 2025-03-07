@@ -1147,6 +1147,25 @@ def test_edge_mask_correct_shape():
 
 
 
+
+def test_edge_mask_zero_visual_range():
+    """Test that the _edge_mask method returns a mask full of False when avoid_range is 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _edge_mask method with avoid_range = 0
+
+    THEN: The resulting mask is full of False
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    mask = flock._edge_mask(0)
+    zero_mask = np.zeros((200,), dtype = bool)
+
+    assert np.allclose(mask, zero_mask)
+
+
+
 def test_edge_mask_typical_usage():
     """Test that the _edge_mask method returns an array as expected given two birds with known positions.
 
