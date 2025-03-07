@@ -814,6 +814,24 @@ def test_num_close_non_zero_only_one_bird():
 
 
 
+def test_num_close_non_zero_zero_visual_range():
+    """Test that the _num_close_non_zero method returns an array full of ones when visual_range is 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _num_close_non_zero method with visual_range = 0
+
+    THEN: The resulting mask is full of ones
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    num_close_non_zero = flock._num_close_non_zero(0)
+    zero_array = np.ones((200,))
+
+    assert np.allclose(num_close_non_zero, zero_array)
+
+
+
 def test_num_close_non_zero_typical_usage():
     """Test that the _num_close_non_zero method returns an array as expected given three birds with known positions.
 
