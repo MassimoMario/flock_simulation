@@ -110,6 +110,9 @@ class Flock:
         if not isinstance(array, (np.ndarray)):
             raise TypeError('The input array must be a np.ndarray')
         
+        if not np.issubdtype(array.dtype, np.number):
+            raise TypeError('The input array must have only numeric values')
+        
         if np.shape(array) != (self.N_birds, 2):
             raise ValueError(f'The input array must have shape ({self.N_birds},2)')
         

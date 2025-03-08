@@ -154,8 +154,26 @@ def test_velocities_shape_initialized_correctly():
     assert np.shape(flock.velocities) == (200,2)
 
 
+def test_init_given_positions_type_error_bool():
+    """Test that the init_given_positions method raises a TypeError when a np.array with boolean values is given as input.
 
-def test_init_given_positions_type_error():
+    GIVEN: An invalid input type for input_given_positions method
+
+    WHEN: I call input_given_positions method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    wrong_array =  np.array([True, False, False])
+
+    with pytest.raises(TypeError,
+                       match = 'The input array must have only numeric values',
+                ): 
+                    flock.init_given_positions(wrong_array)
+
+
+def test_init_given_positions_type_error_list():
     """Test that the init_given_positions method raises a TypeError when a list is given as input.
 
     GIVEN: An invalid input type for input_given_positions method
@@ -1223,7 +1241,7 @@ def test_center_direction_correct_shape():
 
 
 
-def test_center_direction_vectors_normalization():
+def test_center_direction_normalization():
     """Test that the _center_direction returns an array which second dimension is normalized to 1.
 
     GIVEN: A Flock object 
@@ -1246,7 +1264,7 @@ def test_center_direction_vectors_normalization():
 
 
 
-def test_center_direction_vectors_typical_usage():
+def test_center_direction_typical_usage():
     """Test that the _center_direction returns the expected array when 4 birds with known positions are given.
 
     GIVEN: A Flock object with 4 birds with known positions
