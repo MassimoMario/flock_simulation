@@ -1198,7 +1198,8 @@ def test_edge_mask_typical_usage():
     flock.init_given_positions(initial_positions)
 
     edge_mask = flock._edge_mask(20)
-    expected_array = np.array([True, False])
+
+    expected_array = np.any(np.abs(flock.positions - flock.space_length/2.0) >= (flock.space_length/2.0 - 20), axis=1)
 
     assert np.allclose(edge_mask, expected_array)
 
