@@ -374,7 +374,7 @@ def test_directions_between_birds_typical_usage():
     flock.init_given_positions(initial_positions)
 
     directions = flock._directions_between_birds()
-    
+
     right_directions = flock.positions - flock.positions[:, None]
 
     assert np.allclose(directions, right_directions)
@@ -452,8 +452,11 @@ def test_distances_between_birds_typical_usage():
     flock.init_given_positions(initial_positions)
 
     distances = flock._distances_between_birds()
-    right_distances = np.array([[np.inf, np.sqrt(8)],
-                                [np.sqrt(8), np.inf]])
+
+    directions = flock._directions_between_birds()
+
+    right_distances = np.linalg.norm(directions, axis=2)
+    right_distances[right_distances == 0] = np.inf
 
     assert np.allclose(distances, right_distances)
 
