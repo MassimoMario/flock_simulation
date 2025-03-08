@@ -579,13 +579,14 @@ def test_directions_unitary_vectors_typical_usage():
     initial_positions = np.array([[1,2],[3,4]])
     flock.init_given_positions(initial_positions)
 
-    unit_distances = flock._directions_unitary_vectors()
-    right_unit_distances = np.array([[[ 0.        ,  0.        ],
-                                    [ 2/np.sqrt(8),  2/np.sqrt(8)]],
-                                    [[-2/np.sqrt(8), -2/np.sqrt(8)],
-                                    [ 0.        ,  0.        ]]])
+    unit_directions = flock._directions_unitary_vectors()
 
-    assert np.allclose(unit_distances, right_unit_distances)
+    directions = flock._directions_between_birds()
+    distances = flock._distances_between_birds()
+
+    right_unit_directions = directions / distances[:,:,None]
+
+    assert np.allclose(unit_directions, right_unit_directions)
 
 
 
