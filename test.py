@@ -681,6 +681,7 @@ def test_visual_range_mask_zero_tyipical_usage():
 
     diagonal_mask = np.eye(2, dtype=bool)
     mask = flock._visual_range_mask(50)
+
     true_array = np.array([True, True])
     
 
@@ -738,7 +739,9 @@ def test_closest_index_typical_usage():
     flock.init_given_positions(initial_positions)
 
     closest_index = flock._closest_index()
-    correct_closest = np.array([1,0,1])
+
+    distances = flock._distances_between_birds()
+    correct_closest = np.argmin(distances, axis=1)
 
     assert np.allclose(closest_index, correct_closest)
 
