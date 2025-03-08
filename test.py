@@ -976,8 +976,11 @@ def test_alignment_vector_typical_usage():
     flock.init_given_positions(initial_positions)
 
     alignment_vector = flock._alignment_vector(20)
-    expected_array = np.array([[1., 2.],
-                                [1., 1.]])
+
+    mask = flock._visual_range_mask(20)
+    num_close_non_zero = flock._num_close_non_zero(20)
+
+    expected_array = (mask[:, :, None] * flock.velocities).sum(axis=1) / num_close_non_zero[:, None]
 
     assert np.allclose(alignment_vector, expected_array)
 
