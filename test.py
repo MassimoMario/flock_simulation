@@ -1098,8 +1098,11 @@ def test_coherence_vector_typical_usage():
     flock.init_given_positions(initial_positions)
 
     coherence_vector = flock._coherence_vector(20)
-    expected_array = np.array([[0., 1.],
-                                [0., -1.]])
+
+    mask = flock._visual_range_mask(20)
+    num_close_non_zero = flock._num_close_non_zero(20)
+
+    expected_array = (mask[:, :, None] * flock.positions).sum(axis=1) / num_close_non_zero[:, None] - flock.positions
 
     assert np.allclose(coherence_vector, expected_array)
 
