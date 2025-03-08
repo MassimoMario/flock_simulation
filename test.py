@@ -168,7 +168,7 @@ def test_init_given_positions_type_error_bool():
     wrong_array =  np.array([True, False, False])
 
     with pytest.raises(TypeError,
-                       match = 'The input array must have only numeric values',
+                       match = 'The input array must contain only numeric values',
                 ): 
                     flock.init_given_positions(wrong_array)
 
@@ -247,7 +247,27 @@ def test_init_given_positions_typical_usage():
 
 
 
-def test_init_given_velocities_type_error():
+def test_init_given_positions_type_error_string():
+    """Test that the init_given_positions method raises a TypeError when a np.array full of strings is given as input.
+
+    GIVEN: An invalid input type for input_given_positions method
+
+    WHEN: I call input_given_positions method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    wrong_array =  np.array(['se telefonando', 'io', 'potessi dirti addio'])
+
+    with pytest.raises(TypeError,
+                       match = 'The input array must contain only numeric values',
+                ): 
+                    flock.init_given_velocities(wrong_array)
+
+
+
+def test_init_given_velocities_type_error_list():
     """Test that the init_given_velocities method raises a TypeError when a list is given as input.
 
     GIVEN: An invalid input type for input_given_velocities method
