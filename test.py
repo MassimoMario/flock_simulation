@@ -374,8 +374,8 @@ def test_directions_between_birds_typical_usage():
     flock.init_given_positions(initial_positions)
 
     directions = flock._directions_between_birds()
-    right_directions = np.array([[[ 0,  0], [2, 2]],
-                                [[ -2,  -2], [ 0,  0]]])
+    
+    right_directions = flock.positions - flock.positions[:, None]
 
     assert np.allclose(directions, right_directions)
 
