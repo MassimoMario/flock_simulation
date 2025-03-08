@@ -854,7 +854,11 @@ def test_num_close_non_zero_typical_usage():
     flock.init_given_positions(initial_positions)
 
     num_close_non_zero = flock._num_close_non_zero(20)
-    expected_array = np.array([2,2,2])
+
+    mask = flock._visual_range_mask(20)
+
+    expected_array = np.count_nonzero(mask, axis=1)
+    expected_array[expected_array == 0] = 1
 
     assert np.allclose(num_close_non_zero, expected_array)
 
