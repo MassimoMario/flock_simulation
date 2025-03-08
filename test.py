@@ -1265,9 +1265,10 @@ def test_center_direction_vectors_typical_usage():
 
     unit_center_distances = flock._center_direction()
 
-    expected_center_distances = np.array([[1,0],
-                                          [0,1],
-                                          [-1,0],
-                                          [np.sqrt(2)/2,np.sqrt(2)/2]])
+    center = np.array([flock.space_length/2, flock.space_length/2])
+    expected_center_distances = center - flock.positions
+
+    expected_center_distances[np.all(expected_center_distances==[0,0], axis=1)] = [1e-5, 1e-5]
+    expected_center_distances /= np.linalg.norm(expected_center_distances, axis=1)[:,None]
     
     assert np.allclose(unit_center_distances, expected_center_distances)
