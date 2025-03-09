@@ -324,12 +324,6 @@ class Flock:
         ValueError:
             If visual_range is lower than 0 or higher than self.space_length
         '''
-
-        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
-            raise TypeError('Visual range must be a floating number')
-        
-        if visual_range < 0 or visual_range > self.space_length:
-            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
         
         mask = self._visual_range_mask(visual_range)
 

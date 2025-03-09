@@ -785,43 +785,6 @@ def test_closest_index_typical_usage():
 
 
 
-def test_num_close_non_zero_typeerror():
-    """Test that the _num_close_non_zero method raises a TypeError when a string is given as input.
-
-    GIVEN: An invalid input type for _num_close_non_zero method
-
-    WHEN: I call _num_close_non_zero method
-
-    THEN: A TypeError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(TypeError,
-                       match = 'Visual range must be a floating number',
-                ): 
-                    flock._num_close_non_zero(visual_range = 'quarantaquattro')
-
-
-
-def test_num_close_non_zero_valueerror():
-    """Test that the _num_close_non_zero method raises a ValueError when a negative value is given as input.
-
-    GIVEN: An invalid input value for _num_close_non_zero method
-
-    WHEN: I call _num_close_non_zero method
-
-    THEN: A ValueError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(ValueError):
-                    flock._num_close_non_zero(visual_range = -0.4)
-
-
 
 def test_num_close_non_zero_correct_shape():
     """Test that the array returned from _num_close_non_zero has the correct shape.
