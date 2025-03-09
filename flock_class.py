@@ -577,14 +577,8 @@ class Flock:
         if not isinstance(coherence, (int, np.integer, float, np.floating)) or isinstance(coherence, bool):
             raise TypeError('Coherence parameter must be a floating number')
         
-        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
-            raise TypeError('Visual range must be a floating number')
-        
         if coherence < 0:
             raise ValueError('Coherence parameter must be >= 0')
-        
-        if visual_range < 0 or visual_range > self.space_length:
-            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
         
         coherence_vector = self._coherence_vector(visual_range)
         

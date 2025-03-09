@@ -1500,27 +1500,8 @@ def test_coherence_force_type_error_coherence():
     with pytest.raises(TypeError,
                        match = 'Coherence parameter must be a floating number',
                 ): 
-                    flock._coherence_force(coherence = 'ho sceso dandoti il braccio', visual_range = 20)
+                    flock._coherence_force(coherence = 'ho sceso dandoti il braccio almeno un milione di scale', visual_range = 20)
 
-
-
-def test_coherence_force_type_error_visual_range():
-    """Test that the _coherence_force method raises an error when a string is given as input for visual_range argument.
-
-    GIVEN: An invalid input type for visual_range in _coherence_force method
-
-    WHEN: I call _coherence_force method
-
-    THEN: A TypeError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(TypeError,
-                       match = 'Visual range must be a floating number',
-                ): 
-                    flock._coherence_force(coherence = 1, visual_range = 'almeno un milione di scale')
 
 
 
@@ -1541,24 +1522,6 @@ def test_coherence_force_valueerror_coherence():
                        match = 'Coherence parameter must be >= 0'
                        ):
                         flock._coherence_force(coherence = -1, visual_range = 20)
-
-
-
-def test_coherence_force_valueerror_visual_range():
-    """Test that the _coherence_force method raises a ValueError when a negative value for visual_range is given as input.
-
-    GIVEN: An invalid input value for visual_range argument in _coherence_force method
-
-    WHEN: I call _coherence_force method
-
-    THEN: A ValueError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(ValueError):
-                        flock._coherence_force(coherence = 1, visual_range = -20)
 
 
 
