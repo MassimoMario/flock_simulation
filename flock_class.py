@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 
 class Flock:
@@ -764,3 +765,90 @@ class Flock:
         self.velocities = self.velocities / speed_limit_factors[:, None]
 
         self.velocities = np.clip(self.velocities, -self.max_speed, self.max_speed)
+
+
+
+    def simulate(self, separation = 10, alignment = 2.2, coherence = 2.2, avoidance = 10, dt = 0.1, num_time_steps = 100, visual_range = 30, avoid_range = 40):
+        ''' Simulates the flock dynamic 
+
+        Parameters:
+        -----------
+        separation : float
+            Value of the separation parameter
+
+        alignment : float
+            Value of the alignment parameter
+
+        coherence : float
+            Value of the coherence parameter
+
+        avoidance : float
+            Value of the avoidance parameter
+        
+        dt : float
+            Time step of the simulation
+
+        num_time_steps : int
+            Total number of time steps
+
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        avoid_range : float
+            Radius of a circle with which a bird sees the simulation edges
+
+        Returns:
+        -----------
+        A tuple conatining:
+            - birds_positions_per_time_step : np.ndarray, shape (num_time_steps, N_birds, 2)
+            - birds_velocities_per_time_step : np.ndarray, shape (num_time_steps, N_birds, 2)
+            
+
+
+        Raises:
+        -----------
+        TypeError:
+            If separation is not an integer or float
+            If alignment is not an integer or float
+            If coherence is not an integer or float
+            If avoidance is not an integer or float
+            If dt is not an integer or float
+            If num_time_steps is not an integer
+            If visual_range is not an integer or float
+            If avoid_range is not an integer or float
+
+        ValueError:
+            If separation is negative
+            If alignment is negative
+            If coherence is negative
+            If avoidance is negative
+            If dt is <= 0
+            If num_time_steps is <= 0
+            If visual_range is lower than 0 or higher than self.space_length
+            If avoid_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(num_time_steps, (int, np.integer)) or isinstance(num_time_steps, bool):
+            raise TypeError('Number of time steps must be an integer')
+        
+        if num_time_steps <= 0:
+            raise ValueError('Number of time steps must be > 0')
+        
+        birds_positions_per_time_step = np.zeros((num_time_steps, self.N_birds, 2))
+        birds_velocities_per_time_step = np.zeros((num_time_steps, self.N_birds, 2))
+
+        print('Simulating flock . . .')
+
+        for i in tqdm(range(num_time_steps)):
+            birds_positions_per_time_step[i] = self.positions
+            birds_velocities_per_time_step[i] = self.velocities
+
+            self._update_state(dt = dt,
+                                separation = separation, 
+                                alignment = alignment, 
+                                coherence = coherence,
+                                avoidance = avoidance,
+                                visual_range = visual_range, 
+                                avoid_range = avoid_range)
+
+        return birds_positions_per_time_step, birds_velocities_per_time_step

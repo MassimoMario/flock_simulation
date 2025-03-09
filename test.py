@@ -2050,3 +2050,192 @@ def test_update_state_velocities_under_zero_force_parameters():
     correct_final_velocities = np.clip(initial_velocities, -flock.max_speed, flock.max_speed)
 
     assert np.allclose(final_velocities, correct_final_velocities)
+
+
+
+
+def test_simulate_type_error_num_time_steps():
+    """Test that the simulate method raises an error when a float is given as input for num_time_steps argument.
+
+    GIVEN: An invalid input type for num_time_steps in simulate method
+
+    WHEN: I call simulate method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Number of time steps must be an integer',
+                ): 
+                    flock.simulate(num_time_steps = 100.5)
+
+
+
+def test_simulate_value_error_num_time_steps():
+    """Test that the simulate method raises an error when a negative value is given as input for num_time_steps argument.
+
+    GIVEN: A negative value for num_time_steps in simulate method
+
+    WHEN: I call simulate method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError,
+                       match = 'Number of time steps must be > 0',
+                ): 
+                    flock.simulate(num_time_steps = -100)
+
+
+
+def test_simulate_correct_shape_first_array():
+    """Test that the first array returned from simulate has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call simulate method
+
+    THEN: The first returned array has shape (num_time_steps,N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+    birds_positions_per_time_steps, _ = flock.simulate(num_time_steps = 10)
+
+    assert np.shape(birds_positions_per_time_steps) == (10, 50, 2)
+
+
+
+def test_simulate_correct_shape_second_array():
+    """Test that the second array returned from simulate has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call simulate method
+
+    THEN: The second returned array has shape (num_time_steps,N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+    _, birds_velocities_per_time_steps = flock.simulate(num_time_steps = 10)
+
+    assert np.shape(birds_velocities_per_time_steps) == (10, 50, 2)
+
+
+
+
+def test_simulate_zero_velocity_and_forces():
+    """Test that given initial static birds without forces, the final positions are equal to the initial positions.
+
+    GIVEN: A Flock object with static birds
+
+    WHEN: I call simulate method with force parameters set to 0, i.e. total force equal 0
+
+    THEN: The initial and final positions are equal
+    """
+
+    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+    zero_velocities = np.zeros((50,2))
+    flock.init_given_velocities(zero_velocities)
+
+    initial_positions = np.copy(flock.positions)
+
+    _,_ = flock.simulate(separation = 0, 
+                        alignment = 0, 
+                        coherence = 0,
+                        avoidance = 0,
+                        num_time_steps = 50)
+
+    final_positions = np.copy(flock.positions)
+
+    assert np.allclose(initial_positions, final_positions)
+
+
+
+def test_simulate_typical_usage_first_array():
+    """Test that the first array returned from simulate is equal to the expected one given typical values of parameters.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call simulate method 
+
+    THEN: The first array is equal to the expected one
+    """
+
+    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+
+
+    birds_positions_per_time_step,_ = flock.simulate(separation = 10, 
+                                                    alignment = 2.2, 
+                                                    coherence = 2.2,
+                                                    avoidance = 10,
+                                                    dt = 0.1,
+                                                    num_time_steps = 40,
+                                                    visual_range = 30,
+                                                    avoid_range = 40)
+
+
+    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+    correct_positions_per_time_step = np.zeros((40, 50, 2))
+    
+
+    for i in (range(40)):
+        correct_positions_per_time_step[i] = flock.positions
+
+        flock._update_state(dt = 0.1,
+                            separation = 10, 
+                            alignment = 2.2, 
+                            coherence = 2.2,
+                            avoidance = 10,
+                            visual_range = 30, 
+                            avoid_range = 40)
+
+    assert np.allclose(birds_positions_per_time_step, correct_positions_per_time_step)
+
+
+
+
+def test_simulate_typical_usage_second_array():
+    """Test that the second array returned from simulate is equal to the expected one given typical values of parameters.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call simulate method 
+
+    THEN: The second array is equal to the expected one
+    """
+
+    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+
+
+    _, birds_velocities_per_time_step = flock.simulate(separation = 10, 
+                                                    alignment = 2.2, 
+                                                    coherence = 2.2,
+                                                    avoidance = 10,
+                                                    dt = 0.1,
+                                                    num_time_steps = 40,
+                                                    visual_range = 30,
+                                                    avoid_range = 40)
+
+
+    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+    correct_velocities_per_time_step = np.zeros((40, 50, 2))
+    
+
+    for i in (range(40)):
+        correct_velocities_per_time_step[i] = flock.velocities
+
+        flock._update_state(dt = 0.1,
+                            separation = 10, 
+                            alignment = 2.2, 
+                            coherence = 2.2,
+                            avoidance = 10,
+                            visual_range = 30, 
+                            avoid_range = 40)
+
+    assert np.allclose(birds_velocities_per_time_step, correct_velocities_per_time_step)
