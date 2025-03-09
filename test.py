@@ -1489,3 +1489,182 @@ def test_separation_force_typical_usage():
     expected_separation_force = - 2 * unit_directions[np.arange(unit_directions.shape[0]),closest_index] * mask[np.arange(mask.shape[0]),closest_index][:,None]
     
     assert np.allclose(separation_force, expected_separation_force)
+
+
+
+
+def test_alignment_force_type_error_separation():
+    """Test that the _alignment_force method raises an error when a string is given as input for alignment argument.
+
+    GIVEN: An invalid input type for alignment in _alignment_force method
+
+    WHEN: I call _alignment_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Alignment parameter must be a floating number',
+                ): 
+                    flock._alignment_force(alignment = 'uno', visual_range = 20)
+
+
+                
+def test_alignment_force_type_error_visual_range():
+    """Test that the _alignment_force method raises an error when a string is given as input for visual_range argument.
+
+    GIVEN: An invalid input type for visual_range in _alignment_force method
+
+    WHEN: I call _alignment_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Visual range must be a floating number',
+                ): 
+                    flock._alignment_force(alignment = 1, visual_range = 'venti')
+
+
+
+def test_alignment_force_valueerror_separation():
+    """Test that the _alignment_force method raises a ValueError when a negative value for alignment is given as input.
+
+    GIVEN: An invalid input value for alignment argument in _alignment_force method
+
+    WHEN: I call _alignment_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError,
+                       match = 'Alignment parameter must be >= 0'
+                       ):
+                        flock._alignment_force(alignment = -1, visual_range = 20)
+
+
+
+def test_alignment_force_valueerror_visual_range():
+    """Test that the _alignment_force method raises a ValueError when a negative value for visual_range is given as input.
+
+    GIVEN: An invalid input value for visual_range argument in _alignment_force method
+
+    WHEN: I call _alignment_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                        flock._alignment_force(alignment = 1, visual_range = -20)
+
+
+
+
+def test_alignment_force_correct_shape():
+    """Test that the array returned from _alignment_force has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _alignment_force method
+
+    THEN: The returned array has shape (N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    alignment_force = flock._alignment_force(alignment = 1, visual_range = 20)
+
+    assert np.shape(alignment_force) == (200, 2)
+
+
+
+def test_alignment_force_only_one_bird():
+    """Test that the returned array from _alignment_force method with only one bird is equal to [0].
+
+    GIVEN: A Flock object with only one bird
+
+    WHEN: I call _alignment_force method
+
+    THEN: The returned array is equal to [0]
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+
+    alignment_force = flock._alignment_force(alignment = 2, visual_range = 20)
+    expected_array = np.array([0])
+
+    assert np.allclose(alignment_force, expected_array)
+
+
+
+
+def test_alignment_force_zero_separation():
+    """Test that the returned array from _alignment_force method with alignment = 0 is full of zeros.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _alignment_force method with alignment = 0
+
+    THEN: The returned array is full of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    alignment_force = flock._alignment_force(alignment = 0, visual_range = 20)
+    expected_array = np.zeros((200,2))
+
+    assert np.allclose(alignment_force, expected_array)
+
+
+
+
+def test_alignment_force_zero_visual_range():
+    """Test that the returned array from _alignment_force method with visual_range = 0 is full of zeros.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _alignment_force method with visual_range = 0
+
+    THEN: The returned array is full of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    alignment_force = flock._alignment_force(alignment = 2, visual_range = 0)
+    expected_array = np.zeros((200,2))
+
+    assert np.allclose(alignment_force, expected_array)
+
+
+
+def test_alignment_force_typical_usage():
+    """Test that the _alignment_force returns the expected array.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _alignment_force method
+
+    THEN: The resulting array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    alignment_force = flock._alignment_force(alignment = 2, visual_range = 20)
+
+    aligment_vector = flock._alignment_vector(visual_range = 20)
+    aligment_lengths = np.linalg.norm(aligment_vector, axis=1)
+    aligment_lengths[aligment_lengths == 0] = 1
+    expected_force_alignment = 2 * aligment_vector / aligment_lengths[:,None]
+    
+    assert np.allclose(alignment_force, expected_force_alignment)

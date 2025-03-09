@@ -522,3 +522,54 @@ class Flock:
         force_separation = - separation * unit_directions[np.arange(unit_directions.shape[0]),closest_index] * mask[np.arange(mask.shape[0]),closest_index][:,None]
 
         return force_separation
+    
+
+
+    def _alignment_force(self, alignment, visual_range):
+        ''' Computes the alignment force for every bird.
+
+        Parameters:
+        -----------
+        alignment : float
+            Value of the alignment parameter
+
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        Returns:
+        -----------
+        force_alignment : np.ndarray
+            Array of alignment force direction, shape (N_birds, 2)
+
+        Raises:
+        -----------
+        TypeError:
+            If alignment is not an integer or float
+            If visual_range is not an integer or float
+
+        ValueError:
+            If alignment is negative
+            If visual_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(alignment, (int, np.integer, float, np.floating)) or isinstance(alignment, bool):
+            raise TypeError('Alignment parameter must be a floating number')
+        
+        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
+            raise TypeError('Visual range must be a floating number')
+        
+        if alignment < 0:
+            raise ValueError('Alignment parameter must be >= 0')
+        
+        if visual_range < 0 or visual_range > self.space_length:
+            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
+        
+
+        aligment_vector = self._alignment_vector(visual_range)
+
+        aligment_lengths = np.linalg.norm(aligment_vector, axis=1)
+        aligment_lengths[aligment_lengths == 0] = 1
+        
+        force_alignment = alignment * aligment_vector / aligment_lengths[:,None]
+    
+        return force_alignment
