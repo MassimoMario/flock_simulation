@@ -668,3 +668,45 @@ class Flock:
         force_avoidance = avoidance * center_directions * edge_mask[:,None]
 
         return force_avoidance
+    
+
+
+
+    def _compute_forces(self, separation, alignment, coherence, avoidance, visual_range, avoid_range):
+        ''' Computes the total 2D force acting on a single bird, for every bird.
+
+        Parameters:
+        -----------
+        separation : float
+            Value of the separation parameter
+
+        alignment : float
+            Value of the alignment parameter
+
+        coherence : float
+            Value of the coherence parameter
+
+        avoidance : float
+            Value of the avoidance parameter
+
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        avoid_range : float
+            Radius of a circle with which a bird sees the simulation edges
+
+        Returns:
+        -----------
+        None
+
+        Raises:
+        -----------
+        '''
+        
+        force_separation = self._separation_force(separation, visual_range)
+        force_alignment = self._alignment_force(alignment, visual_range)
+        force_coherence = self._coherence_force(coherence, visual_range)
+        
+        force_avoidance = self._avoidance_force(avoidance, avoid_range)
+                    
+        self.last_forces =  force_coherence + force_avoidance + force_alignment + force_separation

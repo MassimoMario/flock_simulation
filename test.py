@@ -2002,3 +2002,106 @@ def test_avoidance_force_typical_usage():
     expected_avoidance_force = 2 * center_directions * edge_mask[:,None]
     
     assert np.allclose(avoidance_force, expected_avoidance_force)
+
+
+
+def test_compute_forces_changes_attribute_last_forces():
+    """Test that the _compute_forces method overwrite the last_forces object attribute.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _compute_forces method
+
+    THEN: The last_forces object attribute is overwritten
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    initial_forces = flock.last_forces
+    flock._compute_forces(separation = 10, 
+                          alignment = 2.2, 
+                          coherence = 2.2, 
+                          avoidance = 10, 
+                          visual_range = 20, 
+                          avoid_range = 20)
+    
+    final_forces = flock.last_forces
+
+    assert not np.allclose(initial_forces, final_forces)
+
+
+
+def test_compute_forces_zero_force_parameters():
+    """Test that the last_forces object attribute is full of zeros after calling _compute_forces when all the force parameters are 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _compute_forces method with all the force parameters equal to 0
+
+    THEN: The object last_forces attribute is full of zeros
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock._compute_forces(separation = 0, 
+                          alignment = 0, 
+                          coherence = 0, 
+                          avoidance = 0, 
+                          visual_range = 20, 
+                          avoid_range = 20)
+    
+    zero_array = np.zeros((200,2))
+
+    assert np.allclose(flock.last_forces, zero_array)
+
+
+
+def test_compute_forces_zero_range_parameters():
+    """Test that the last_forces object attribute is equal to the coherence force after calling _compute_forces when all the range parameters are 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _compute_forces method with all the range parameters equal to 0
+
+    THEN: The object last_forces attribute is equal to the coherence force
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock._compute_forces(separation = 10, 
+                          alignment = 2.2, 
+                          coherence = 2.2, 
+                          avoidance = 10, 
+                          visual_range = 0, 
+                          avoid_range = 0)
+    
+    coherence_force = flock._coherence_force(coherence = 2.2, visual_range = 0)
+
+    assert np.allclose(flock.last_forces, coherence_force)
+
+
+
+def test_compute_forces_typical_usage():
+    """Test that the _compute_forces returns the expected array.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _compute_forces method
+
+    THEN: The resulting array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    flock._compute_forces(separation = 10, 
+                          alignment = 2.2, 
+                          coherence = 2., 
+                          avoidance = 10, 
+                          visual_range = 30, 
+                          avoid_range = 20)
+
+    force_separation = flock._separation_force(separation = 10, visual_range = 30)
+    force_alignment = flock._alignment_force(alignment = 2.2, visual_range = 30)
+    force_coherence = flock._coherence_force(coherence = 2., visual_range = 30)
+    force_avoidance = flock._avoidance_force(avoidance = 10, avoid_range = 20)
+
+    expected_last_forces = force_coherence + force_avoidance + force_alignment + force_separation
+    
+    assert np.allclose(flock.last_forces, expected_last_forces)
