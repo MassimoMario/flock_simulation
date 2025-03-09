@@ -486,14 +486,9 @@ class Flock:
         if not isinstance(separation, (int, np.integer, float, np.floating)) or isinstance(separation, bool):
             raise TypeError('Separation parameter must be a floating number')
         
-        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
-            raise TypeError('Visual range must be a floating number')
-        
         if separation < 0:
             raise ValueError('Separation parameter must be >= 0')
-        
-        if visual_range < 0 or visual_range > self.space_length:
-            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
+    
         
         unit_directions = self._directions_unitary_vectors()
 
