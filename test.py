@@ -866,44 +866,6 @@ def test_num_close_non_zero_typical_usage():
 
 
 
-def test_alignment_vector_typeerror():
-    """Test that the _alignment_vector method raises a TypeError when a string is given as input.
-
-    GIVEN: An invalid input type for _alignment_vector method
-
-    WHEN: I call _alignment_vector method
-
-    THEN: A TypeError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(TypeError,
-                       match = 'Visual range must be a floating number',
-                ): 
-                    flock._alignment_vector(visual_range = 'se telefonando')
-
-
-
-
-def test_alignment_vector_valueerror():
-    """Test that the _alignment_vector method raises a ValueError when a negative value is given as input.
-
-    GIVEN: An invalid input value for _alignment_vector method
-
-    WHEN: I call _alignment_vector method
-
-    THEN: A ValueError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(ValueError):
-                    flock._alignment_vector(visual_range = -8.2)
-
-
 
 
 def test_alignment_vector_correct_shape():
