@@ -620,3 +620,51 @@ class Flock:
         force_coherence = coherence * coherence_vector / np.linalg.norm(coherence_vector, axis=1)[:,None]
 
         return force_coherence
+    
+
+
+    def _avoidance_force(self, avoidance, avoid_range):
+        ''' Computes the avoidance force for every bird.
+
+        Parameters:
+        -----------
+        avoidance : float
+            Value of the avoidance parameter
+
+        avoid_range : float
+            Radius of a circle with which a bird sees the simulation edges
+
+        Returns:
+        -----------
+        force_avoidance : np.ndarray
+            Array of avoidance force direction, shape (N_birds, 2)
+
+        Raises:
+        -----------
+        TypeError:
+            If avoidance is not an integer or float
+            If avoid_range is not an integer or float
+
+        ValueError:
+            If avoidance is negative
+            If avoid_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(avoidance, (int, np.integer, float, np.floating)) or isinstance(avoidance, bool):
+            raise TypeError('Avoidance parameter must be a floating number')
+        
+        if not isinstance(avoid_range, (int, np.integer, float, np.floating)) or isinstance(avoid_range, bool):
+            raise TypeError('Avoid range must be a floating number')
+        
+        if avoidance < 0:
+            raise ValueError('Avoidance parameter must be >= 0')
+        
+        if avoid_range < 0 or avoid_range > self.space_length:
+            raise ValueError(f'Avoid range must be in range [{0}, {self.space_length}]')
+        
+        edge_mask = self._edge_mask(avoid_range)
+        center_directions = self._center_direction()
+
+        force_avoidance = avoidance * center_directions * edge_mask[:,None]
+
+        return force_avoidance

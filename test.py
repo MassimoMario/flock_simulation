@@ -1844,3 +1844,161 @@ def test_coherence_force_typical_usage():
     expected_force_coherence = 2 * coherence_vector / np.linalg.norm(coherence_vector, axis=1)[:,None]
     
     assert np.allclose(coherence_force, expected_force_coherence)
+
+
+
+
+def test_avoidance_force_type_error_avoidance():
+    """Test that the _avoidance_force method raises an error when a string is given as input for avoidance argument.
+
+    GIVEN: An invalid input type for avoidance in _avoidance_force method
+
+    WHEN: I call _avoidance_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Avoidance parameter must be a floating number',
+                ): 
+                    flock._avoidance_force(avoidance = 'e ora che non ci sei', avoid_range = 20)
+
+
+
+def test_avoidance_force_type_error_avoid_range():
+    """Test that the _avoidance_force method raises an error when a string is given as input for avoid_range argument.
+
+    GIVEN: An invalid input type for avoid_range in _avoidance_force method
+
+    WHEN: I call _avoidance_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Avoid range must be a floating number',
+                ): 
+                    flock._avoidance_force(avoidance = 1, avoid_range = 'è il vuoto ad ogni gradino')
+
+
+
+def test_avoidance_force_valueerror_avoidance():
+    """Test that the _avoidance_force method raises a ValueError when a negative value for avoidance is given as input.
+
+    GIVEN: An invalid input value for avoidance argument in _avoidance_force method
+
+    WHEN: I call _avoidance_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError,
+                       match = 'Avoidance parameter must be >= 0'
+                       ):
+                        flock._avoidance_force(avoidance = -1, avoid_range = 20)
+
+
+
+def test_avoidance_force_valueerror_avoid_range():
+    """Test that the _avoidance_force method raises a ValueError when a negative value for avoid_range is given as input.
+
+    GIVEN: An invalid input value for avoid_range argument in _avoidance_force method
+
+    WHEN: I call _avoidance_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                        flock._avoidance_force(avoidance = 1, avoid_range = -20)
+
+
+
+def test_avoidance_force_correct_shape():
+    """Test that the array returned from _avoidance_force has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _avoidance_force method
+
+    THEN: The returned array has shape (N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    avoidance_force = flock._avoidance_force(avoidance = 1, avoid_range = 20)
+
+    assert np.shape(avoidance_force) == (200, 2)
+
+
+
+
+
+def test_avoidance_force_zero_separation():
+    """Test that the returned array from _avoidance_force method with avoidance = 0 is full of zeros.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _avoidance_force method with avoidance = 0
+
+    THEN: The returned array is full of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    avoidance_force = flock._avoidance_force(avoidance = 0, avoid_range = 20)
+    expected_array = np.zeros((200,2))
+
+    assert np.allclose(avoidance_force, expected_array)
+
+
+
+def test_avoidance_force_zero_avoid_range():
+    """Test that the returned array from _avoidance_force method with avoid_range = 0 is equal to the expected one.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _avoidance_force method with avoid_range = 0
+
+    THEN: The returned array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    avoidance_force = flock._avoidance_force(avoidance = 2, avoid_range = 0)
+    expected_array = np.zeros((200,2))
+
+    assert np.allclose(avoidance_force, expected_array)
+
+
+
+def test_avoidance_force_typical_usage():
+    """Test that the _avoidance_force returns the expected array.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _avoidance_force method
+
+    THEN: The resulting array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    avoidance_force = flock._avoidance_force(avoidance = 2, avoid_range = 20)
+
+    edge_mask = flock._edge_mask(avoid_range = 20)
+    center_directions = flock._center_direction()
+    expected_avoidance_force = 2 * center_directions * edge_mask[:,None]
+    
+    assert np.allclose(avoidance_force, expected_avoidance_force)
