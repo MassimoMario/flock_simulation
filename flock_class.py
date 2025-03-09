@@ -471,3 +471,54 @@ class Flock:
         center_directions /= np.linalg.norm(center_directions, axis=1)[:,None]
 
         return center_directions
+    
+
+
+    def _separation_force(self, separation, visual_range):
+        ''' Computes the separation force for every bird.
+
+        Parameters:
+        -----------
+        separation : float
+            Value of the separation parameter
+
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        Returns:
+        -----------
+        force_separation : np.ndarray
+            Array of separation force direction, shape (N_birds, 2)
+
+        Raises:
+        -----------
+        TypeError:
+            If separation is not an integer or float
+            If visual_range is not an integer or float
+
+        ValueError:
+            If separation is negative
+            If visual_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(separation, (int, np.integer, float, np.floating)) or isinstance(separation, bool):
+            raise TypeError('Separation parameter must be a floating number')
+        
+        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
+            raise TypeError('Visual range must be a floating number')
+        
+        if separation < 0:
+            raise ValueError('Separation parameter must be >= 0')
+        
+        if visual_range < 0 or visual_range > self.space_length:
+            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
+        
+        unit_directions = self._directions_unitary_vectors()
+
+        mask = self._visual_range_mask(visual_range)
+        
+        closest_index = self._closest_index()
+
+        force_separation = - separation * unit_directions[np.arange(unit_directions.shape[0]),closest_index] * mask[np.arange(mask.shape[0]),closest_index][:,None]
+
+        return force_separation

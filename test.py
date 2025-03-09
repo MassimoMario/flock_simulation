@@ -644,14 +644,14 @@ def test_visual_range_mask_typeerror():
     with pytest.raises(TypeError,
                        match = 'Visual range must be a floating number',
                 ): 
-                    flock._visual_range_mask('ventimilioni')
+                    flock._visual_range_mask(visual_range = 'ventimilioni')
 
 
 
 def test_visual_range_mask_valueerror():
     """Test that the _visual_range_mask method raises a ValueError when a negative value is given as input.
 
-    GIVEN: An invalid input type for _visual_range_mask method
+    GIVEN: An invalid input value for _visual_range_mask method
 
     WHEN: I call _visual_range_mask method
 
@@ -662,7 +662,7 @@ def test_visual_range_mask_valueerror():
     
 
     with pytest.raises(ValueError):
-                    flock._visual_range_mask(-0.4)
+                    flock._visual_range_mask(visual_range = -0.4)
 
 
 
@@ -678,7 +678,7 @@ def test_visual_range_mask_correct_shape():
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    mask = flock._visual_range_mask(20)
+    mask = flock._visual_range_mask(visual_range = 20)
 
     assert np.shape(mask) == (200,200)
 
@@ -696,7 +696,7 @@ def test_visual_range_mask_zero_visual_range():
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    mask = flock._visual_range_mask(0)
+    mask = flock._visual_range_mask(visual_range = 0)
     zero_mask = np.zeros((200,200), dtype = bool)
 
     assert np.allclose(mask, zero_mask)
@@ -718,7 +718,7 @@ def test_visual_range_mask_zero_tyipical_usage():
     flock.init_given_positions(initial_positions)
 
     diagonal_mask = np.eye(2, dtype=bool)
-    mask = flock._visual_range_mask(50)
+    mask = flock._visual_range_mask(visual_range = 50)
 
     true_array = np.array([True, True])
     
@@ -801,14 +801,14 @@ def test_num_close_non_zero_typeerror():
     with pytest.raises(TypeError,
                        match = 'Visual range must be a floating number',
                 ): 
-                    flock._num_close_non_zero('quarantaquattro')
+                    flock._num_close_non_zero(visual_range = 'quarantaquattro')
 
 
 
 def test_num_close_non_zero_valueerror():
     """Test that the _num_close_non_zero method raises a ValueError when a negative value is given as input.
 
-    GIVEN: An invalid input type for _num_close_non_zero method
+    GIVEN: An invalid input value for _num_close_non_zero method
 
     WHEN: I call _num_close_non_zero method
 
@@ -819,7 +819,7 @@ def test_num_close_non_zero_valueerror():
     
 
     with pytest.raises(ValueError):
-                    flock._num_close_non_zero(-0.4)
+                    flock._num_close_non_zero(visual_range = -0.4)
 
 
 
@@ -834,7 +834,7 @@ def test_num_close_non_zero_correct_shape():
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    num_close_non_zero = flock._num_close_non_zero(20)
+    num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
 
     assert np.shape(num_close_non_zero) == (200,)
 
@@ -852,7 +852,7 @@ def test_num_close_non_zero_only_one_bird():
     """
     
     flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
-    num_close_non_zero = flock._num_close_non_zero(20)
+    num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
     one_array = np.array([1])
 
     assert np.allclose(num_close_non_zero, one_array)
@@ -870,7 +870,7 @@ def test_num_close_non_zero_zero_visual_range():
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    num_close_non_zero = flock._num_close_non_zero(0)
+    num_close_non_zero = flock._num_close_non_zero(visual_range = 0)
     one_array = np.ones((200,))
 
     assert np.allclose(num_close_non_zero, one_array)
@@ -891,9 +891,9 @@ def test_num_close_non_zero_typical_usage():
     initial_positions = np.array([[1,1],[1,2],[2,2]])
     flock.init_given_positions(initial_positions)
 
-    num_close_non_zero = flock._num_close_non_zero(20)
+    num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
 
-    mask = flock._visual_range_mask(20)
+    mask = flock._visual_range_mask(visual_range = 20)
 
     expected_array = np.count_nonzero(mask, axis=1)
     expected_array[expected_array == 0] = 1
@@ -919,7 +919,7 @@ def test_alignment_vector_typeerror():
     with pytest.raises(TypeError,
                        match = 'Visual range must be a floating number',
                 ): 
-                    flock._alignment_vector('se telefonando')
+                    flock._alignment_vector(visual_range = 'se telefonando')
 
 
 
@@ -927,7 +927,7 @@ def test_alignment_vector_typeerror():
 def test_alignment_vector_valueerror():
     """Test that the _alignment_vector method raises a ValueError when a negative value is given as input.
 
-    GIVEN: An invalid input type for _alignment_vector method
+    GIVEN: An invalid input value for _alignment_vector method
 
     WHEN: I call _alignment_vector method
 
@@ -938,7 +938,7 @@ def test_alignment_vector_valueerror():
     
 
     with pytest.raises(ValueError):
-                    flock._alignment_vector(-8.2)
+                    flock._alignment_vector(visual_range = -8.2)
 
 
 
@@ -954,7 +954,7 @@ def test_alignment_vector_correct_shape():
     """
 
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    alignment_vector = flock._alignment_vector(20)
+    alignment_vector = flock._alignment_vector(visual_range = 20)
 
     assert np.shape(alignment_vector) == (200,2)
 
@@ -971,7 +971,7 @@ def test_alignment_vector_only_one_bird():
     """
     
     flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
-    alignment_vector = flock._alignment_vector(20)
+    alignment_vector = flock._alignment_vector(visual_range = 20)
     one_array = np.array([[0],[0]])
 
     assert np.allclose(alignment_vector, one_array)
@@ -990,7 +990,7 @@ def test_alignment_vector_zero_visual_range():
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    alignment_vector = flock._alignment_vector(0)
+    alignment_vector = flock._alignment_vector(visual_range = 0)
     zero_array = np.zeros((200,2))
 
     assert np.allclose(alignment_vector, zero_array)
@@ -1013,10 +1013,10 @@ def test_alignment_vector_typical_usage():
     flock.init_given_velocities(initial_velocities)
     flock.init_given_positions(initial_positions)
 
-    alignment_vector = flock._alignment_vector(20)
+    alignment_vector = flock._alignment_vector(visual_range = 20)
 
-    mask = flock._visual_range_mask(20)
-    num_close_non_zero = flock._num_close_non_zero(20)
+    mask = flock._visual_range_mask(visual_range = 20)
+    num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
 
     expected_array = (mask[:, :, None] * flock.velocities).sum(axis=1) / num_close_non_zero[:, None]
 
@@ -1040,14 +1040,14 @@ def test_coherence_vector_typeerror():
     with pytest.raises(TypeError,
                        match = 'Visual range must be a floating number',
                 ): 
-                    flock._coherence_vector('volevo essere un duro')
+                    flock._coherence_vector(visual_range = 'volevo essere un duro')
 
 
 
 def test_coherence_vector_valueerror():
     """Test that the _coherence_vector method raises a ValueError when a negative value is given as input.
 
-    GIVEN: An invalid input type for _coherence_vector method
+    GIVEN: An invalid input value for _coherence_vector method
 
     WHEN: I call _coherence_vector method
 
@@ -1058,7 +1058,7 @@ def test_coherence_vector_valueerror():
     
 
     with pytest.raises(ValueError):
-                    flock._coherence_vector(-1.2)
+                    flock._coherence_vector(visual_range = -1.2)
 
 
     
@@ -1074,7 +1074,7 @@ def test_coherence_vector_correct_shape():
     """
 
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    coherence_vector = flock._coherence_vector(20)
+    coherence_vector = flock._coherence_vector(visual_range = 20)
 
     assert np.shape(coherence_vector) == (200,2)
 
@@ -1095,7 +1095,7 @@ def test_coherence_vector_only_one_bird():
     initial_positions = np.array([[1,1]])
     flock.init_given_positions(initial_positions)
 
-    coherence_vector = flock._coherence_vector(20)
+    coherence_vector = flock._coherence_vector(visual_range = 20)
     expected_array = np.array([[-1],[-1]])
 
     assert np.allclose(coherence_vector, expected_array)
@@ -1114,7 +1114,7 @@ def test_coherence_vector_zero_visual_range():
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    coherence_vector = flock._coherence_vector(0)
+    coherence_vector = flock._coherence_vector(visual_range = 0)
     expected_array = - flock.positions
 
     assert np.allclose(coherence_vector, expected_array)
@@ -1135,10 +1135,10 @@ def test_coherence_vector_typical_usage():
     initial_positions = np.array([[1,1],[1,2]])
     flock.init_given_positions(initial_positions)
 
-    coherence_vector = flock._coherence_vector(20)
+    coherence_vector = flock._coherence_vector(visual_range = 20)
 
-    mask = flock._visual_range_mask(20)
-    num_close_non_zero = flock._num_close_non_zero(20)
+    mask = flock._visual_range_mask(visual_range = 20)
+    num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
 
     expected_array = (mask[:, :, None] * flock.positions).sum(axis=1) / num_close_non_zero[:, None] - flock.positions
 
@@ -1162,14 +1162,14 @@ def test_edge_mask_typeerror():
     with pytest.raises(TypeError,
                        match = 'Avoid range must be a floating number',
                 ): 
-                    flock._edge_mask('ventinove e qualcosina')
+                    flock._edge_mask(avoid_range = 'ventinove e qualcosina')
 
 
 
 def test_edge_mask_valueerror():
     """Test that the _edge_mask method raises a ValueError when a negative value is given as input.
 
-    GIVEN: An invalid input type for _edge_mask method
+    GIVEN: An invalid input value for _edge_mask method
 
     WHEN: I call _edge_mask method
 
@@ -1180,7 +1180,7 @@ def test_edge_mask_valueerror():
     
 
     with pytest.raises(ValueError):
-                    flock._edge_mask(-1.2)
+                    flock._edge_mask(avoid_range = -1.2)
 
 
 
@@ -1196,7 +1196,7 @@ def test_edge_mask_correct_shape():
     """
 
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    edge_mask = flock._edge_mask(20)
+    edge_mask = flock._edge_mask(avoid_range = 20)
 
     assert np.shape(edge_mask) == (200,)
 
@@ -1214,7 +1214,7 @@ def test_edge_mask_zero_visual_range():
     """
     
     flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    mask = flock._edge_mask(0)
+    mask = flock._edge_mask(avoid_range = 0)
     zero_mask = np.zeros((200,), dtype = bool)
 
     assert np.allclose(mask, zero_mask)
@@ -1235,7 +1235,7 @@ def test_edge_mask_typical_usage():
     initial_positions = np.array([[1,1],[50,50]])
     flock.init_given_positions(initial_positions)
 
-    edge_mask = flock._edge_mask(20)
+    edge_mask = flock._edge_mask(avoid_range = 20)
 
     expected_array = np.any(np.abs(flock.positions - flock.space_length/2.0) >= (flock.space_length/2.0 - 20), axis=1)
 
@@ -1310,3 +1310,182 @@ def test_center_direction_typical_usage():
     expected_center_distances /= np.linalg.norm(expected_center_distances, axis=1)[:,None]
     
     assert np.allclose(unit_center_distances, expected_center_distances)
+
+
+
+
+def test_separation_force_type_error_separation():
+    """Test that the _separation_force method raises an error when a string is given as input for separation argument.
+
+    GIVEN: An invalid input type for separation in _separation_force method
+
+    WHEN: I call _separation_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Separation parameter must be a floating number',
+                ): 
+                    flock._separation_force(separation = 'uno', visual_range = 20)
+
+
+
+def test_separation_force_type_error_visual_range():
+    """Test that the _separation_force method raises an error when a string is given as input for visual_range argument.
+
+    GIVEN: An invalid input type for visual_range in _separation_force method
+
+    WHEN: I call _separation_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Visual range must be a floating number',
+                ): 
+                    flock._separation_force(separation = 1, visual_range = 'venti')
+
+
+
+def test_separation_force_valueerror_separation():
+    """Test that the _separation_force method raises a ValueError when a negative value for separation is given as input.
+
+    GIVEN: An invalid input value for separation argument in _separation_force method
+
+    WHEN: I call _separation_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError,
+                       match = 'Separation parameter must be >= 0'
+                       ):
+                        flock._separation_force(separation = -1, visual_range = 20)
+
+
+
+def test_separation_force_valueerror_visual_range():
+    """Test that the _separation_force method raises a ValueError when a negative value for visual_range is given as input.
+
+    GIVEN: An invalid input value for visual_range argument in _separation_force method
+
+    WHEN: I call _separation_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                        flock._separation_force(separation = 1, visual_range = -20)
+
+
+
+
+def test_separation_force_correct_shape():
+    """Test that the array returned from _separation_force has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _separation_force method
+
+    THEN: The returned array has shape (N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    separation_force = flock._separation_force(separation = 1, visual_range = 20)
+
+    assert np.shape(separation_force) == (200, 2)
+
+
+
+
+def test_separation_force_only_one_bird():
+    """Test that the returned array from _separation_force method with only one bird is equal to [0].
+
+    GIVEN: A Flock object with only one bird
+
+    WHEN: I call _separation_force method
+
+    THEN: The returned array is equal to [0]
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+
+    separation_force = flock._separation_force(separation = 2, visual_range = 20)
+    expected_array = np.array([0])
+
+    assert np.allclose(separation_force, expected_array)
+
+
+
+
+def test_separation_force_zero_separation():
+    """Test that the returned array from _separation_force method with separation = 0 is full of zeros.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _separation_force method with separation = 0
+
+    THEN: The returned array is full of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    separation_force = flock._separation_force(separation = 0, visual_range = 20)
+    expected_array = np.zeros((200,2))
+
+    assert np.allclose(separation_force, expected_array)
+
+
+
+def test_separation_force_zero_visual_range():
+    """Test that the returned array from _separation_force method with visual_range = 0 is full of zeros.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _separation_force method with visual_range = 0
+
+    THEN: The returned array is full of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    separation_force = flock._separation_force(separation = 2, visual_range = 0)
+    expected_array = np.zeros((200,2))
+
+    assert np.allclose(separation_force, expected_array)
+
+
+
+def test_separation_force_typical_usage():
+    """Test that the _separation_force returns the expected array.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _separation_force method
+
+    THEN: The resulting array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    separation_force = flock._separation_force(separation = 2, visual_range = 20)
+
+    unit_directions = flock._directions_unitary_vectors()
+    mask = flock._visual_range_mask(visual_range = 20)
+    closest_index = flock._closest_index()
+    expected_separation_force = - 2 * unit_directions[np.arange(unit_directions.shape[0]),closest_index] * mask[np.arange(mask.shape[0]),closest_index][:,None]
+    
+    assert np.allclose(separation_force, expected_separation_force)
