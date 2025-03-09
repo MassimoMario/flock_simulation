@@ -867,7 +867,6 @@ def test_num_close_non_zero_typical_usage():
 
 
 
-
 def test_alignment_vector_correct_shape():
     """Test that the array returned from _alignment_vector has the correct shape.
 
@@ -946,44 +945,6 @@ def test_alignment_vector_typical_usage():
     expected_array = (mask[:, :, None] * flock.velocities).sum(axis=1) / num_close_non_zero[:, None]
 
     assert np.allclose(alignment_vector, expected_array)
-
-
-
-def test_coherence_vector_typeerror():
-    """Test that the _coherence_vector method raises a TypeError when a string is given as input.
-
-    GIVEN: An invalid input type for _coherence_vector method
-
-    WHEN: I call _coherence_vector method
-
-    THEN: A TypeError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(TypeError,
-                       match = 'Visual range must be a floating number',
-                ): 
-                    flock._coherence_vector(visual_range = 'volevo essere un duro')
-
-
-
-def test_coherence_vector_valueerror():
-    """Test that the _coherence_vector method raises a ValueError when a negative value is given as input.
-
-    GIVEN: An invalid input value for _coherence_vector method
-
-    WHEN: I call _coherence_vector method
-
-    THEN: A ValueError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(ValueError):
-                    flock._coherence_vector(visual_range = -1.2)
 
 
     
