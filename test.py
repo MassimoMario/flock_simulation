@@ -1908,3 +1908,145 @@ def test_compute_forces_typical_usage():
     expected_last_forces = force_coherence + force_avoidance + force_alignment + force_separation
     
     assert np.allclose(flock.last_forces, expected_last_forces)
+
+
+
+def test_update_state_type_error_dt():
+    """Test that the _update_state method raises an error when a string is given as input for dt argument.
+
+    GIVEN: An invalid input type for dt in _update_state method
+
+    WHEN: I call _update_state method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Time step dt must be a floating number',
+                ): 
+                    flock._update_state(dt = '0.5')
+
+
+
+def test_update_state_value_error_dt():
+    """Test that the _update_state method raises an error when a negative value is given as input for dt argument.
+
+    GIVEN: An invalid value for dt in _update_state method
+
+    WHEN: I call _update_state method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError,
+                       match = 'Time step dt must be > 0',
+                ): 
+                    flock._update_state(dt = -0.5)
+
+
+
+def test_update_state_changes_positions():
+    """Test that the _update_state method changed the internal attribute positions.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _update_state method
+
+    THEN: The object.positions array is changed
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    initial_positions = np.copy(flock.positions)
+
+    flock._update_state(dt = 0.5)
+    final_positions = np.copy(flock.positions)
+
+    assert not np.allclose(initial_positions, final_positions)
+
+
+
+def test_update_state_changes_velocities():
+    """Test that the _update_state method changed the internal attribute velocities.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _update_state method
+
+    THEN: The object.velocities array is changed
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    initial_velocities = np.copy(flock.velocities)
+
+    flock._update_state(dt = 0.5)
+    final_velocities = np.copy(flock.velocities)
+
+    assert not np.allclose(initial_velocities, final_velocities)
+
+
+
+def test_update_state_positions_under_zero_force_parameters():
+    """Test that the positions change as expected if all the force parameters are set to 0, i.e. the total force is 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _update_state method with all the force parameters set to 0
+
+    THEN: The object.positions array changes as expected
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    initial_velocities = np.copy(flock.velocities)
+    correct_final_positions = np.copy(flock.positions)
+
+    flock._update_state(dt = 0.5,
+                        separation = 0, 
+                        alignment = 0, 
+                        coherence = 0, 
+                        avoidance = 0, 
+                        visual_range = 20, 
+                        avoid_range = 20)
+    
+    final_positions = np.copy(flock.positions)
+
+    correct_final_positions += initial_velocities*0.5
+
+    assert np.allclose(final_positions, correct_final_positions)
+
+
+
+def test_update_state_velocities_under_zero_force_parameters():
+    """Test that the velocities change as expected if all the force parameters are set to 0, i.e. the total force is 0.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _update_state method with all the force parameters set to 0
+
+    THEN: The object.velocities array changes as expected
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    initial_velocities = np.copy(flock.velocities)
+
+    flock._update_state(dt = 0.5,
+                        separation = 0, 
+                        alignment = 0, 
+                        coherence = 0, 
+                        avoidance = 0, 
+                        visual_range = 20, 
+                        avoid_range = 20)
+    
+    final_velocities = np.copy(flock.velocities)
+
+    speed_limit_factors = flock._speed_limit_factors()
+    initial_velocities = initial_velocities/ speed_limit_factors[:, None]
+
+    correct_final_velocities = np.clip(initial_velocities, -flock.max_speed, flock.max_speed)
+
+    assert np.allclose(final_velocities, correct_final_velocities)

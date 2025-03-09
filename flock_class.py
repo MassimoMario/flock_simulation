@@ -637,7 +637,7 @@ class Flock:
 
 
     def _compute_forces(self, separation, alignment, coherence, avoidance, visual_range, avoid_range):
-        ''' Computes the total 2D force acting on a single bird, for every bird.
+        ''' Computes the total 2D force acting on a single bird, for every bird and overwrite the last_forces attribute
 
         Parameters:
         -----------
@@ -689,3 +689,78 @@ class Flock:
         force_avoidance = self._avoidance_force(avoidance, avoid_range)
                     
         self.last_forces =  force_coherence + force_avoidance + force_alignment + force_separation
+
+
+
+    def _update_state(self, dt, separation = 10, alignment = 2.2, coherence = 2.2, avoidance = 10, visual_range = 30, avoid_range = 40):
+        ''' Update the internal attributes of the class for every time step of the simulation
+
+        Parameters:
+        -----------
+        dt : float
+            Time step of the simulation
+
+        separation : float
+            Value of the separation parameter
+
+        alignment : float
+            Value of the alignment parameter
+
+        coherence : float
+            Value of the coherence parameter
+
+        avoidance : float
+            Value of the avoidance parameter
+
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        avoid_range : float
+            Radius of a circle with which a bird sees the simulation edges
+
+        Returns:
+        -----------
+        None
+
+        Raises:
+        -----------
+        TypeError:
+            If dt is not an integer or float
+            If separation is not an integer or float
+            If alignment is not an integer or float
+            If coherence is not an integer or float
+            If avoidance is not an integer or float
+            If visual_range is not an integer or float
+            If avoid_range is not an integer or float
+
+        ValueError:
+            If dt is <= 0
+            If separation is negative
+            If alignment is negative
+            If coherence is negative
+            If avoidance is negative
+            If visual_range is lower than 0 or higher than self.space_length
+            If avoid_range is lower than 0 or higher than self.space_length
+        '''
+        
+        if not isinstance(dt, (int, np.integer, float, np.floating)) or isinstance(dt, bool):
+            raise TypeError('Time step dt must be a floating number')
+        
+        if dt <= 0:
+            raise ValueError('Time step dt must be > 0')
+        
+        self._compute_forces(separation = separation, 
+                                 alignment = alignment, 
+                                 coherence = coherence,
+                                 avoidance = avoidance,
+                                 visual_range = visual_range, 
+                                 avoid_range = avoid_range)
+        
+        self.positions += self.velocities *dt + 0.5*self.last_forces*dt*dt
+        self.velocities += self.last_forces*dt
+
+        speed_limit_factors = self._speed_limit_factors()
+
+        self.velocities = self.velocities / speed_limit_factors[:, None]
+
+        self.velocities = np.clip(self.velocities, -self.max_speed, self.max_speed)
