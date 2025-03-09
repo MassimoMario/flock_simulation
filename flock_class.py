@@ -617,15 +617,11 @@ class Flock:
 
         if not isinstance(avoidance, (int, np.integer, float, np.floating)) or isinstance(avoidance, bool):
             raise TypeError('Avoidance parameter must be a floating number')
-        
-        if not isinstance(avoid_range, (int, np.integer, float, np.floating)) or isinstance(avoid_range, bool):
-            raise TypeError('Avoid range must be a floating number')
+    
         
         if avoidance < 0:
             raise ValueError('Avoidance parameter must be >= 0')
-        
-        if avoid_range < 0 or avoid_range > self.space_length:
-            raise ValueError(f'Avoid range must be in range [{0}, {self.space_length}]')
+    
         
         edge_mask = self._edge_mask(avoid_range)
         center_directions = self._center_direction()

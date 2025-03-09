@@ -1640,27 +1640,8 @@ def test_avoidance_force_type_error_avoidance():
     with pytest.raises(TypeError,
                        match = 'Avoidance parameter must be a floating number',
                 ): 
-                    flock._avoidance_force(avoidance = 'e ora che non ci sei', avoid_range = 20)
+                    flock._avoidance_force(avoidance = 'e ora che non ci sei è il vuoto ad ogni gradino', avoid_range = 20)
 
-
-
-def test_avoidance_force_type_error_avoid_range():
-    """Test that the _avoidance_force method raises an error when a string is given as input for avoid_range argument.
-
-    GIVEN: An invalid input type for avoid_range in _avoidance_force method
-
-    WHEN: I call _avoidance_force method
-
-    THEN: A TypeError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(TypeError,
-                       match = 'Avoid range must be a floating number',
-                ): 
-                    flock._avoidance_force(avoidance = 1, avoid_range = 'è il vuoto ad ogni gradino')
 
 
 
@@ -1682,23 +1663,6 @@ def test_avoidance_force_valueerror_avoidance():
                        ):
                         flock._avoidance_force(avoidance = -1, avoid_range = 20)
 
-
-
-def test_avoidance_force_valueerror_avoid_range():
-    """Test that the _avoidance_force method raises a ValueError when a negative value for avoid_range is given as input.
-
-    GIVEN: An invalid input value for avoid_range argument in _avoidance_force method
-
-    WHEN: I call _avoidance_force method
-
-    THEN: A ValueError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(ValueError):
-                        flock._avoidance_force(avoidance = 1, avoid_range = -20)
 
 
 
