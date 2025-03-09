@@ -1361,24 +1361,6 @@ def test_alignment_force_type_error_separation():
                     flock._alignment_force(alignment = 'uno', visual_range = 20)
 
 
-                
-def test_alignment_force_type_error_visual_range():
-    """Test that the _alignment_force method raises an error when a string is given as input for visual_range argument.
-
-    GIVEN: An invalid input type for visual_range in _alignment_force method
-
-    WHEN: I call _alignment_force method
-
-    THEN: A TypeError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(TypeError,
-                       match = 'Visual range must be a floating number',
-                ): 
-                    flock._alignment_force(alignment = 1, visual_range = 'venti')
 
 
 
@@ -1399,24 +1381,6 @@ def test_alignment_force_valueerror_separation():
                        match = 'Alignment parameter must be >= 0'
                        ):
                         flock._alignment_force(alignment = -1, visual_range = 20)
-
-
-
-def test_alignment_force_valueerror_visual_range():
-    """Test that the _alignment_force method raises a ValueError when a negative value for visual_range is given as input.
-
-    GIVEN: An invalid input value for visual_range argument in _alignment_force method
-
-    WHEN: I call _alignment_force method
-
-    THEN: A ValueError is raised
-    """
-
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
-    
-
-    with pytest.raises(ValueError):
-                        flock._alignment_force(alignment = 1, visual_range = -20)
 
 
 

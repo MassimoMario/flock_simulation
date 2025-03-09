@@ -532,14 +532,8 @@ class Flock:
         if not isinstance(alignment, (int, np.integer, float, np.floating)) or isinstance(alignment, bool):
             raise TypeError('Alignment parameter must be a floating number')
         
-        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
-            raise TypeError('Visual range must be a floating number')
-        
         if alignment < 0:
             raise ValueError('Alignment parameter must be >= 0')
-        
-        if visual_range < 0 or visual_range > self.space_length:
-            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
         
 
         aligment_vector = self._alignment_vector(visual_range)
