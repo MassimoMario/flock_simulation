@@ -500,7 +500,7 @@ def test_distances_between_birds_typical_usage():
 
 
 
-def test_directions_unitary_vectors_right_shape():
+def test_directions_unitary_vectors_correct_shape():
     """Test that the _directions_unitary_vectors method returns an array with the correct shape.
 
     GIVEN: A Flock object
@@ -628,6 +628,69 @@ def test_directions_unitary_vectors_typical_usage():
 
 
 
+
+def test_speed_limit_factors_correct_shape():
+    """Test that the _speed_limit_factors method returns an array with the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _speed_limit_factors method
+
+    THEN: The resulting array has shape (N_birds)
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    speed_limit_factors = flock._speed_limit_factors()
+
+    assert np.shape(speed_limit_factors) == (200,)
+
+
+
+
+def test_speed_limit_factors_zero_velocities():
+    """Test that the _speed_limit_factors method returns an array full one ones if the object.velocities are zeros.
+
+    GIVEN: A Flock object with object.velocities being full of zeros
+
+    WHEN: I call _speed_limit_factors method
+
+    THEN: The resulting array is full of ones
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    zero_array = np.zeros((200,2))
+    flock.init_given_velocities(zero_array)
+
+    speed_limit_factors = flock._speed_limit_factors()
+    correct_speed_limits = np.ones((200))
+
+    assert np.allclose(speed_limit_factors, correct_speed_limits)
+
+
+
+
+def test_speed_limit_factors_typical_usage():
+    """Test that the _speed_limit_factors returns the correct array when called on two birds.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _speed_limit_factors method
+
+    THEN: The resulting array is computed correctly
+    """
+    
+    flock = Flock(N_birds = 2, space_length = 100, seed = random_seed)
+    
+    speed_limit_factors = flock._speed_limit_factors()
+
+    correct_speed_limit_factors = np.linalg.norm(flock.velocities, axis=1) / flock.max_speed
+    correct_speed_limit_factors[correct_speed_limit_factors < 1] = 1
+
+    assert np.allclose(correct_speed_limit_factors, speed_limit_factors)
+
+
+       
 def test_visual_range_mask_typeerror():
     """Test that the _visual_range_mask method raises a TypeError when a string is given as input.
 

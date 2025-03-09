@@ -175,9 +175,6 @@ class Flock:
         -----------
         directions : np.ndarray
             Array of directions between any couple of birds, has shape (N_birds, N_birds, 2)
-
-        Raises:
-        -----------
         '''
         directions = self.positions - self.positions[:, None]
 
@@ -197,9 +194,6 @@ class Flock:
         -----------
         distances : np.ndarray
             Array of distances between any couple of birds, has shape (N_birds, N_birds)
-
-        Raises:
-        -----------
         '''
 
         directions = self._directions_between_birds()
@@ -223,9 +217,6 @@ class Flock:
         -----------
         unit_directions : np.ndarray
             Array of unitary direction between any couple of birds, has shape (N_birds, N_birds, 2)
-
-        Raises:
-        -----------
         '''
 
         directions = self._directions_between_birds()
@@ -235,6 +226,24 @@ class Flock:
 
         return unit_directions
     
+
+    
+    def _speed_limit_factors(self):
+        ''' Compute the speed limit factor that has to be applied to every bird velocity.
+
+        Parameters:
+        -----------
+        
+        Returns:
+        -----------
+        speed_limit_factors : np.ndarray
+            np.ndarray of speed limit factors for every bird, shape (N_birds)
+        '''
+
+        speed_limit_factors = np.linalg.norm(self.velocities, axis=1) / self.max_speed
+        speed_limit_factors[speed_limit_factors < 1] = 1
+    
+        return speed_limit_factors
 
 
     def _visual_range_mask(self, visual_range):
@@ -288,9 +297,6 @@ class Flock:
         -----------
         closest_index : np.ndarray
             np.ndarray which value are the index of the closest bird, has shape (N_birds)
-
-        Raises:
-        -----------
         '''
 
         distances = self._distances_between_birds()
@@ -441,9 +447,6 @@ class Flock:
         -----------
         center_direction : np.ndarray
             Unitary array of the center direction, shape (N_birds, 2)
-
-        Raises:
-        -----------
         '''
         
         center = np.array([self.space_length/2, self.space_length/2])
@@ -662,6 +665,21 @@ class Flock:
 
         Raises:
         -----------
+        TypeError:
+            If separation is not an integer or float
+            If alignment is not an integer or float
+            If coherence is not an integer or float
+            If avoidance is not an integer or float
+            If visual_range is not an integer or float
+            If avoid_range is not an integer or float
+
+        ValueError:
+            If separation is negative
+            If alignment is negative
+            If coherence is negative
+            If avoidance is negative
+            If visual_range is lower than 0 or higher than self.space_length
+            If avoid_range is lower than 0 or higher than self.space_length
         '''
         
         force_separation = self._separation_force(separation, visual_range)
