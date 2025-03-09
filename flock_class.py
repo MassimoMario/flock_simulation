@@ -573,3 +573,50 @@ class Flock:
         force_alignment = alignment * aligment_vector / aligment_lengths[:,None]
     
         return force_alignment
+    
+
+
+    def _coherence_force(self, coherence, visual_range):
+        ''' Computes the coherence force for every bird.
+
+        Parameters:
+        -----------
+        coherence : float
+            Value of the coherence parameter
+
+        visual_range : float
+            Radius of a circle with which a bird can see other birds
+
+        Returns:
+        -----------
+        force_coherence : np.ndarray
+            Array of coherence force direction, shape (N_birds, 2)
+
+        Raises:
+        -----------
+        TypeError:
+            If coherence is not an integer or float
+            If visual_range is not an integer or float
+
+        ValueError:
+            If coherence is negative
+            If visual_range is lower than 0 or higher than self.space_length
+        '''
+
+        if not isinstance(coherence, (int, np.integer, float, np.floating)) or isinstance(coherence, bool):
+            raise TypeError('Coherence parameter must be a floating number')
+        
+        if not isinstance(visual_range, (int, np.integer, float, np.floating)) or isinstance(visual_range, bool):
+            raise TypeError('Visual range must be a floating number')
+        
+        if coherence < 0:
+            raise ValueError('Coherence parameter must be >= 0')
+        
+        if visual_range < 0 or visual_range > self.space_length:
+            raise ValueError(f'Visual range must be in range [{0}, {self.space_length}]')
+        
+        coherence_vector = self._coherence_vector(visual_range)
+        
+        force_coherence = coherence * coherence_vector / np.linalg.norm(coherence_vector, axis=1)[:,None]
+
+        return force_coherence

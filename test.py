@@ -1668,3 +1668,179 @@ def test_alignment_force_typical_usage():
     expected_force_alignment = 2 * aligment_vector / aligment_lengths[:,None]
     
     assert np.allclose(alignment_force, expected_force_alignment)
+
+
+
+def test_coherence_force_type_error_coherence():
+    """Test that the _coherence_force method raises an error when a string is given as input for coherence argument.
+
+    GIVEN: An invalid input type for coherence in _coherence_force method
+
+    WHEN: I call _coherence_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Coherence parameter must be a floating number',
+                ): 
+                    flock._coherence_force(coherence = 'ho sceso dandoti il braccio', visual_range = 20)
+
+
+
+def test_coherence_force_type_error_visual_range():
+    """Test that the _coherence_force method raises an error when a string is given as input for visual_range argument.
+
+    GIVEN: An invalid input type for visual_range in _coherence_force method
+
+    WHEN: I call _coherence_force method
+
+    THEN: A TypeError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(TypeError,
+                       match = 'Visual range must be a floating number',
+                ): 
+                    flock._coherence_force(coherence = 1, visual_range = 'almeno un milione di scale')
+
+
+
+def test_coherence_force_valueerror_coherence():
+    """Test that the _coherence_force method raises a ValueError when a negative value for coherence is given as input.
+
+    GIVEN: An invalid input value for coherence argument in _coherence_force method
+
+    WHEN: I call _coherence_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError,
+                       match = 'Coherence parameter must be >= 0'
+                       ):
+                        flock._coherence_force(coherence = -1, visual_range = 20)
+
+
+
+def test_coherence_force_valueerror_visual_range():
+    """Test that the _coherence_force method raises a ValueError when a negative value for visual_range is given as input.
+
+    GIVEN: An invalid input value for visual_range argument in _coherence_force method
+
+    WHEN: I call _coherence_force method
+
+    THEN: A ValueError is raised
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    
+
+    with pytest.raises(ValueError):
+                        flock._coherence_force(coherence = 1, visual_range = -20)
+
+
+
+def test_coherence_force_correct_shape():
+    """Test that the array returned from _coherence_force has the correct shape.
+
+    GIVEN: A Flock object
+
+    WHEN: I call _coherence_force method
+
+    THEN: The returned array has shape (N_birds, 2)
+    """
+
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    coherence_force = flock._coherence_force(coherence = 1, visual_range = 20)
+
+    assert np.shape(coherence_force) == (200, 2)
+
+
+
+
+def test_coherence_force_only_one_bird():
+    """Test that the returned array from _coherence_force method with only one bird is equal to the expected one.
+
+    GIVEN: A Flock object with only one bird
+
+    WHEN: I call _coherence_force method
+
+    THEN: The returned array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 1, space_length = 100, seed = random_seed)
+
+    coherence_force = flock._coherence_force(coherence = 2, visual_range = 20)
+    expected_array = -2*flock.positions/np.linalg.norm(flock.positions)
+
+    assert np.allclose(coherence_force, expected_array)
+
+
+
+
+
+def test_coherence_force_zero_separation():
+    """Test that the returned array from _coherence_force method with coherence = 0 is full of zeros.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _coherence_force method with coherence = 0
+
+    THEN: The returned array is full of zeros
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    coherence_force = flock._coherence_force(coherence = 0, visual_range = 20)
+    expected_array = np.zeros((200,2))
+
+    assert np.allclose(coherence_force, expected_array)
+
+
+
+def test_coherence_force_zero_visual_range():
+    """Test that the returned array from _coherence_force method with visual_range = 0 is equal to the expected one.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _coherence_force method with visual_range = 0
+
+    THEN: The returned array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    coherence_force = flock._coherence_force(coherence = 2, visual_range = 0)
+    expected_array = -2*flock.positions / np.linalg.norm(flock.positions, axis=1)[:,None]
+
+    assert np.allclose(coherence_force, expected_array)
+
+
+
+def test_coherence_force_typical_usage():
+    """Test that the _coherence_force returns the expected array.
+
+    GIVEN: A Flock object 
+
+    WHEN: I call _coherence_force method
+
+    THEN: The resulting array is equal to the expected one
+    """
+    
+    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+
+    coherence_force = flock._coherence_force(coherence = 2, visual_range = 20)
+
+    coherence_vector = flock._coherence_vector(visual_range = 20)
+    expected_force_coherence = 2 * coherence_vector / np.linalg.norm(coherence_vector, axis=1)[:,None]
+    
+    assert np.allclose(coherence_force, expected_force_coherence)
