@@ -5,8 +5,8 @@ Date: March 2025
 '''
 
 import argparse
-from flock_class import Flock
-from animation import animate
+from scripts.flock_class import Flock
+from scripts.animation import animate
 
 
 def main():
