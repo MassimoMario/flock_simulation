@@ -13,13 +13,13 @@ class Flock:
         Parameters:
         -----------
         N_birds : int, optional
-            Number of birds of the simulation
+            Number of birds of the simulation, default is 200
         
         space_length : float, optional
-            Length of the side of the square containing the birds
+            Length of the side of the square containing the birds, default is 100
 
         seed : int, optional
-            Integer initializing the random seed for reproducibility
+            Integer initializing the random seed for reproducibility, default is 1999
 
         
         Attributes of a Flock object:
@@ -693,31 +693,31 @@ class Flock:
 
 
 
-    def _update_state(self, dt, separation = 10, alignment = 2.2, coherence = 2.2, avoidance = 10, visual_range = 30, avoid_range = 40):
+    def _update_state(self, dt = 0.1, separation = 10, alignment = 2.2, coherence = 2.2, avoidance = 10, visual_range = 30, avoid_range = 40):
         ''' Update the internal attributes of the class for every time step of the simulation
 
         Parameters:
         -----------
-        dt : float
-            Time step of the simulation
+        dt : float, optional
+            Time step of the simulation, default is 0.1
 
-        separation : float
-            Value of the separation parameter
+        separation : float, optional
+            Value of the separation parameter, default is 10
 
-        alignment : float
-            Value of the alignment parameter
+        alignment : float, optional
+            Value of the alignment parameter, default is 2.2
 
-        coherence : float
-            Value of the coherence parameter
+        coherence : float, optional
+            Value of the coherence parameter, default is 2.2
 
-        avoidance : float
-            Value of the avoidance parameter
+        avoidance : float, optional
+            Value of the avoidance parameter, default is 10
 
-        visual_range : float
-            Radius of a circle with which a bird can see other birds
+        visual_range : float, optional
+            Radius of a circle with which a bird can see other birds, default is 30
 
-        avoid_range : float
-            Radius of a circle with which a bird sees the simulation edges
+        avoid_range : float, optional
+            Radius of a circle with which a bird sees the simulation edges, default is 40
 
         Returns:
         -----------
@@ -773,29 +773,29 @@ class Flock:
 
         Parameters:
         -----------
-        separation : float
-            Value of the separation parameter
+        separation : float, optional
+            Value of the separation parameter, default is 10
 
-        alignment : float
-            Value of the alignment parameter
+        alignment : float, optional
+            Value of the alignment parameter, default is 2.2
 
-        coherence : float
-            Value of the coherence parameter
+        coherence : float, optional
+            Value of the coherence parameter, default is 2.2
 
-        avoidance : float
-            Value of the avoidance parameter
+        avoidance : float, optional
+            Value of the avoidance parameter, default is 10
         
-        dt : float
-            Time step of the simulation
+        dt : float, optional
+            Time step of the simulation, default is 0.1
 
-        num_time_steps : int
-            Total number of time steps
+        num_time_steps : int, optional
+            Total number of time steps, default is 100
 
-        visual_range : float
-            Radius of a circle with which a bird can see other birds
+        visual_range : float, optional
+            Radius of a circle with which a bird can see other birds, default is 30
 
-        avoid_range : float
-            Radius of a circle with which a bird sees the simulation edges
+        avoid_range : float, optional
+            Radius of a circle with which a bird sees the simulation edges, default is 40
 
         Returns:
         -----------
