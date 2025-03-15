@@ -26,6 +26,12 @@ def main():
     space_length : float, optional
         Length of the side of the square containing the birds, default is 100
 
+    positions_i : list, optional
+        2d list with initial positions (will be casted into np.ndarray), shape [N,2]
+
+    velocities_i: list, optional
+        2d list with initial velocities (will be casted into np.ndarray), shape [N,2]
+
     seed : int, optional
             Integer initializing the random seed for reproducibility, default is 1999
 
@@ -93,6 +99,15 @@ def main():
         nargs = '+',
         type = float,
         help = "Initial positions array (must be given calling --positions_i with 2 numbers as many times as N)"
+    )
+
+
+    parser.add_argument(
+        "--velocities_i",
+        action = 'append',
+        nargs = '+',
+        type = float,
+        help = "Initial velocities array (must be given calling --velocities_i with 2 numbers as many times as N)"
     )
 
 
@@ -195,9 +210,13 @@ def main():
                   seed = args.seed)
     
 
-    if args.init_positions:
-        init_positions = np.array(args.init_positions)
+    if args.positions_i:
+        init_positions = np.array(args.positions_i)
         flock.init_given_positions(init_positions)
+
+    if args.velocities_i:
+        init_positions = np.array(args.velocities_i)
+        flock.init_given_velocities(init_positions)
 
 
     birds_positions_per_time_step, birds_velocities_per_time_step = flock.simulate(separation = args.separation, 
