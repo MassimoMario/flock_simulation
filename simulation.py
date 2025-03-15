@@ -5,8 +5,11 @@ Date: March 2025
 '''
 
 import argparse
+import configparser
+import sys
 from scripts.flock_class import Flock
-from scripts.animation import animate
+from scripts.utils import animate
+from scripts.utils import set_type
 
 
 def main():
@@ -61,6 +64,12 @@ def main():
     parser = argparse.ArgumentParser(
         description = "Simulate and animate a flock dynamic")
     
+    parser.add_argument(
+        "--config",
+        type=str,
+        help="Path to configuration file (.ini). Command-line arguments override config file values"
+    )
+
     parser.add_argument(
         "--N",
         type = int,
@@ -151,13 +160,22 @@ def main():
 
     parser.add_argument(
         "--save",
-        type = bool,
+        type = str,
         help = "Save choice (True/False or Yes/No)",
-        default = False
+        default = 'False'
     )
 
 
     args = parser.parse_args()
+    setattr(args, 'save', set_type(args.save))
+
+    if args.config:
+        config = configparser.ConfigParser()
+        config.read(args.config)
+
+        for key, value in vars(args).items():
+            if key in config['Default']:
+                setattr(args, key, value if f'--{key}' in sys.argv else set_type(config['Default'][key]))
 
 
     flock = Flock(N_birds = args.N, 
