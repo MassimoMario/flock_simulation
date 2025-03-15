@@ -13,7 +13,7 @@ Agent based imulation of Flock dynamic with Python. The scripts contained in thi
 3. [Repository structure](#Repository-structure)
 4. [Documentation](#Documentation)
 5. [Scripts pverview](#Scripts-overview)
-6. [Usage and examples][(#Usage-and-examples)
+6. [Usage and examples](#Usage-and-examples)
 7. [Theory background](#Theory-background)
 
 # Installation
