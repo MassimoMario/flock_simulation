@@ -6,7 +6,7 @@ from IPython.display import display, HTML
 
 
 def animate(birds_positions_per_time_step, birds_velocities_per_time_step, space_length, num_time_steps, save = False):
-        """ Animates the simulation creating a video/GIF
+        """ Animates the simulation creating a video/GIF and save it if required
 
         Parameters:
         -----------
@@ -28,8 +28,16 @@ def animate(birds_positions_per_time_step, birds_velocities_per_time_step, space
         Returns:
         -----------
             None
+        
+        Raises:
+
+        TypeError:
+            If save is not Bool
         """
 
+        if not isinstance(save, bool):
+            raise TypeError('Save argument must be boolean')
+              
         fig, ax = plt.subplots(figsize=(7,7))
 
         velocities_magnitudes = np.linalg.norm(birds_velocities_per_time_step[0], axis=1)
