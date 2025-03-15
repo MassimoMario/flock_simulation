@@ -7,6 +7,7 @@ Date: March 2025
 import argparse
 import configparser
 import sys
+import numpy as np
 from scripts.flock_class import Flock
 from scripts.utils import animate
 from scripts.utils import set_type
@@ -83,6 +84,15 @@ def main():
         type = float,
         help = "Simulation space length (float)",
         default = 100
+    )
+
+
+    parser.add_argument(
+        "--positions_i",
+        action = 'append',
+        nargs = '+',
+        type = float,
+        help = "Initial positions array (must be given calling --positions_i with 2 numbers as many times as N)"
     )
 
 
@@ -176,12 +186,19 @@ def main():
         for key, value in vars(args).items():
             if key in config['Default']:
                 setattr(args, key, value if f'--{key}' in sys.argv else set_type(config['Default'][key]))
+            else: 
+                pass
 
 
     flock = Flock(N_birds = args.N, 
                   space_length = args.space_length,
                   seed = args.seed)
     
+
+    if args.init_positions:
+        init_positions = np.array(args.init_positions)
+        flock.init_given_positions(init_positions)
+
 
     birds_positions_per_time_step, birds_velocities_per_time_step = flock.simulate(separation = args.separation, 
                                                                                     alignment = args.alignment, 
