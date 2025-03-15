@@ -125,3 +125,24 @@ def isfloat(string):
         return True
     except ValueError:
         return False
+    
+
+def isbool(string):
+    ''' A function that returns True if the input string
+        is equal to one of the key words meaning a bool variable
+
+        Parameters:
+        -----------
+        string : str
+            Input string
+
+        Returns:
+        -----------
+        True : bool
+            If the input string is within a list of key words
+
+        False : bool
+            If the input string isn't within a list of key words
+    '''
+
+    return string.lower() in ['true', 'false', 'yes', 'no']
