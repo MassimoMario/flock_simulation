@@ -93,8 +93,35 @@ def isint(string):
         False : bool
             If the input string cannot be casted into an int
     '''
+
     try:
         int(string)  
+        return True
+    except ValueError:
+        return False
+    
+
+
+def isfloat(string):
+    ''' A function that returns True if the input string
+        can be casted into a float without ValueError
+
+        Parameters:
+        -----------
+        string : str
+            Input string to be casted
+
+        Returns:
+        -----------
+        True : bool
+            If the input string can be casted into a float
+
+        False : bool
+            If the input string cannot be casted into a float
+    '''
+
+    try:
+        float(string)  
         return True
     except ValueError:
         return False
