@@ -64,7 +64,7 @@ def main():
     parser.add_argument(
         "--N",
         type = int,
-        help = "Number of birds",
+        help = "Number of birds (int)",
         default = 200
     )
 
@@ -72,7 +72,7 @@ def main():
     parser.add_argument(
         "--space_length",
         type = float,
-        help = "Simulation space length",
+        help = "Simulation space length (float)",
         default = 100
     )
 
@@ -80,7 +80,7 @@ def main():
     parser.add_argument(
         "--seed",
         type = int,
-        help = "Random seed",
+        help = "Random seed (int)",
         default = 1999
     )
 
@@ -88,7 +88,7 @@ def main():
     parser.add_argument(
         "--separation",
         type = float,
-        help = "Separation coefficient",
+        help = "Separation coefficient (float)",
         default = 10.
     )
 
@@ -96,7 +96,7 @@ def main():
     parser.add_argument(
         "--alignment",
         type = float,
-        help = "Aligment coefficient",
+        help = "Aligment coefficient (float)",
         default = 2.2
     )
 
@@ -104,7 +104,7 @@ def main():
     parser.add_argument(
         "--coherence",
         type = float,
-        help = "Coherence coefficient",
+        help = "Coherence coefficient (float)",
         default = 2.2
     )
 
@@ -112,7 +112,7 @@ def main():
     parser.add_argument(
         "--avoidance",
         type = float,
-        help = "Avoidance coefficient",
+        help = "Avoidance coefficient (float)",
         default = 10.
     )
 
@@ -120,7 +120,7 @@ def main():
     parser.add_argument(
         "--visual_range",
         type = float,
-        help = "Visual range",
+        help = "Visual range (float)",
         default = 30.
     )
 
@@ -128,7 +128,7 @@ def main():
     parser.add_argument(
         "--avoid_range",
         type = float,
-        help = "Avoid range",
+        help = "Avoid range (float)",
         default = 40.
     )
 
@@ -136,7 +136,7 @@ def main():
     parser.add_argument(
         "--dt",
         type = float,
-        help = "Time step of the simulation",
+        help = "Time step of the simulation (float)",
         default = 0.1
     )
 
@@ -144,7 +144,7 @@ def main():
     parser.add_argument(
         "--num_t_steps",
         type = int,
-        help = "Total number of time steps",
+        help = "Total number of time steps (int)",
         default = 300
     )
 
@@ -152,7 +152,7 @@ def main():
     parser.add_argument(
         "--save",
         type = bool,
-        help = "Save choice",
+        help = "Save choice (True/False or Yes/No)",
         default = False
     )
 
