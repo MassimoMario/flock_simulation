@@ -146,3 +146,48 @@ def isbool(string):
     '''
 
     return string.lower() in ['true', 'false', 'yes', 'no']
+
+
+def set_type(string):
+    ''' A function that given a string returns the value 
+    of the string content with the correct type (i.e. an int, a float or a bool) 
+    if the content is not a sentence/a word
+
+    Parameters:
+        -----------
+        string : str
+            Input string
+
+        Returns:
+        -----------
+        int(string) : int
+            If the input string can be casted into an int
+
+        float(string) : float
+            If the input string cannot be casted into a 
+        
+        True : bool
+            If the input string is within a list of key words meaning boolean True
+
+        False : bool
+            If the input string is within a list of key words meaning boolean False
+
+        string : str
+            Otherwise
+    '''
+
+    if isint(string):
+        return int(string)
+    
+    elif isfloat(string):
+        return float(string)
+    
+    elif isbool(string):
+        if string.lower() in ['true', 'yes']:
+            return True
+        
+        elif string.lower() in ['false', 'no']:
+            return False
+        
+    else: 
+        return string
