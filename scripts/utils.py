@@ -70,7 +70,7 @@ def animate(birds_positions_per_time_step, birds_velocities_per_time_step, space
     plt.show()
 
     if save:
-            ani.save('flock_simulation.gif', writer="pillow", fps=60)
+            ani.save('flock_simulation.gif', writer="pillow", fps=30)
 
 
 
