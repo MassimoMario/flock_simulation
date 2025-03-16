@@ -1,6 +1,6 @@
 <div align="center">
 
-# What the Flock! :bird: :bird: :bird:
+# :bird: :bird: :bird: What the Flock! :bird: :bird: :bird:
 
 </div>
 
@@ -29,10 +29,14 @@ This project requires **Python &ge; 3.8** and the following libraries:
 - `matplotlib`
 - `ipython`
 - `tqdm`
-- `argpare`
-- `configparser`
 - `pytest`
 - `pytest-cov`
+
+To install them you can run on the Bash:
+
+```
+pip install -r requirements.txt
+```
 
 # Repository structure
 The repository contains the following folders and files:
@@ -42,6 +46,7 @@ The repository contains the following folders and files:
   - [`test.py`](scripts/test.py) is the unit test scripts made using pytest
   - [`utils.py`](scripts/utils) script contains the animation function and some useful function for the command line interface arguments interpretation
 - [`config`](config) folder contains 3 configuration files `.ini` to be used from command line as inputs in `simulation.py` script
+- [`requirements.txt`](requirements.txt) file contains the list of dependencies required for the project
 
 # Documentation
 
