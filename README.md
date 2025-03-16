@@ -93,3 +93,31 @@ You can save the animation as a GIF:
 python simulation.py --save True
 ```
 # Theory background
+To simulate the collective emerging behaviour of a flock four simple rules have been taken into account that each bird must follow:
+
+- **Separation**: move away from neighbour that is too near to avoid collision
+- **Alignment**: adapt its velocity to the flock average velocity to move in the same direction as other birds
+- **Coherence**: adapt its position to the flock average position moving toward the center of the flock to keep group toghether
+- **Avoidance**: move away from obstacles/simulation barriers
+
+![Graphical representation of flock rules](images_gif/flocking_rules.png)
+:--:
+*Graphical representation of flock rules. From [DataSctientest](https://datascientest.com/en/the-flocking-algorithm-or-the-simulation-of-collective-behaviour)*
+
+Mathematically, each rule is associated with a force and a scaling factor, and the simulation update is done using a pseudo accerelerated system formula.
+
+First the flock mean position and velocity is computed, ![Formula](https://latex.codecogs.com/png.latex?\vec{x}) and ![Formula](https://latex.codecogs.com/png.latex?\vec{v}). Then for each bird $i$ with position ![Formula](https://latex.codecogs.com/png.latex?\vec{x}_i) is computed the  position of the nearest bird to ![Formula](https://latex.codecogs.com/png.latex?\vec{x}_i), named nearest(![Formula](https://latex.codecogs.com/png.latex?\vec{x}_i)). 
+
+For each bird $i$ with position ![Formula](https://latex.codecogs.com/png.latex?\vec{x}_i) and velocity ![Formula](https://latex.codecogs.com/png.latex?\vec{v}_i) four forces are computed:
+
+- ![Formula](https://latex.codecogs.com/png.latex?\vec{f}_{separation}=-\lambda_{separation}\cdot(nearest(\vec{x}_i)-\vec{x}_i))
+- ![Formula](https://latex.codecogs.com/png.latex?\vec{f}_{alignment}=\lambda_{alignment}\cdot(\vec{v}-\vec{v}_i))
+- ![Formula](https://latex.codecogs.com/png.latex?\vec{f}_{coherence}=\lambda_{coherence}\cdot(\vec{x}-\vec{x}_i))
+- ![Formula](https://latex.codecogs.com/png.latex?\vec{f}_{avoidance}=\lambda_{avoidance}\cdot\overrightarrow{center})
+
+Where ![Formula](https://latex.codecogs.com/png.latex?\overrightarrow{center}) is the vector connecting each bird to the center of the simulation space.
+
+The total force ![Formula](https://latex.codecogs.com/png.latex?\vec{f}_{total}=\vec{f}_{separation}+\vec{f}_{alignment}+\vec{f}_{coherence}+\vec{f}_{avoidance}) is used for updating birds position abd velocity:
+
+-  ![Formula](https://latex.codecogs.com/png.latex?\vec{x}_i=\vec{x}_i+\vec{v}_i\cdot\Delta{t}+\frac{1}{2}\vec{f}_{total}\cdot\Delta{t^2})
+-  ![Formula](https://latex.codecogs.com/png.latex?\vec{v}_i=\vec{v}_i+\vec{f}_{total}\cdot\Delta{t})
