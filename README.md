@@ -53,5 +53,38 @@ The repository contains the following folders and files:
 # Scripts overview
 
 # Usage and examples
+The main script `simulation.py` can be runned from the command line providing different argument ending in different configuration.
 
+## :information_source: Help
+For a complete list of parameters and their descriptions, run:
+
+```python simulation.py --help
+```
+
+## :one: Simulate and animate a flock
+Example of a simulation with a parameters that produce a good behaviour flock dynamic:
+
+```python simulation.py --N 300 --separation 11 --alignment 2.35 --coherence 1.1 --visual_range 30 --avoid_range 23 
+```
+
+![Example gif of a good behaviour flock dynamic](images_gif/flock_simulation.gif)
+
+## :two: Provide intial positions and velocities
+You can provide initial positions and velocities of N birds:
+
+```python simulation.py --N 3 --positions_i 1 1 --positions_i 50 50 --positions_i 30 55 --velocities_i 1 1 --velocities_i -5 5 --velocities_i -1.1 -2.3
+```
+:warning: The previous setup produce an initial position array equal to `[[1,1],[50,50],[30,55]]` and an initial velocity array equal to `[[1,1],[-5,5],[-1.1,-2.3]]`
+
+## :three: Provide a config file
+You can provide simulation parameter from a `.ini` config file:
+
+```python simulation.py --config config/config_good_behaviour.ini
+```
+
+## :four: Save the animation
+You can save the animation as a GIF:
+
+```python simulation.py --save True
+```
 # Theory background
