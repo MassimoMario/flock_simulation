@@ -67,17 +67,17 @@ Script containing the `animation` function, which animates and displays the floc
 
 Script containing unit tests for all methods in [`flock_class.py`](script/flock_class.py). The tests ensure correctness and stability of the code following the unit testing approach and are implemented using `pytest`.
 
-	- **Usage** : To run all the tests, navigate in the `scripts` folder and run:
+**Usage** : To run all the tests, navigate in the `scripts` folder and run:
 	
-	```
-	pytest test.py
-	```
-	
-	- **Coverage** : To check the test coverage, use `pytest-cov`:
-	
-	```
-	pytest --cov=flock_class test.py
-	```
+```
+pytest test.py
+```
+
+**Coverage** : To check the test coverage, use `pytest-cov`:
+
+```
+pytest --cov=flock_class test.py
+```
 	
 ---
 
@@ -91,7 +91,7 @@ The simulation is agent-based, it computes the interaction between birds and upd
 :warning: If you are providing a config file, take in mind that explicit command line arguments overwrite the config file ones.
 
 # Usage and examples
-The main script `simulation.py` can be runned from the command line providing different argument ending in different configuration.
+The main script [`simulation.py`](simulation.py) can be runned from the command line providing different argument ending in different configuration.
 
 ## :information_source: Help
 For a complete list of parameters and their descriptions, run:
