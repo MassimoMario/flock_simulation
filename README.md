@@ -52,16 +52,19 @@ The repository contains the following folders and files:
 
 # Scripts overview
 - [`scripts/flock_class.py`](scripts/flock_class.py)
+
 Script containing the Flock class definition. Each Flock object is an ensamble of N birds and can simulate their interaction and dynamic. The only methods accessible to the user are `init_given_position`, `init_given_velocities` which initialize the birds positions/velocities with given arrays, and `simulate` which simulate the flock dynamic given physic parameters such as separation, alignment, coherence and avoidance (see [Theory background](#Theory-background) section).
 
 ---
 
 - [`scripts/utils.py`](scripts/utils.py)
+
 Script containing the `animation` function, which animates and displays the flock dynamic with `matplotlib.animation` and `IPython.display` taking as input the resulting arrays of a Flock object simulation method. The script contains also some useful functions for the configparser arguments interpretation, which cast a string in the corresponding correct type in order to give it as input to the simulation.
 
 ---
 
 - :wrench: [`scripts/test.py`](script/test.py)
+
 Script containing unit tests for all methods in [`flock_class.py`](script/flock_class.py). The tests ensure correctness and stability of the code following the unit testing approach and are implemented using `pytest`.
 
 	- **Usage** : To run all the tests, navigate in the `scripts` folder and run:
@@ -80,6 +83,7 @@ Script containing unit tests for all methods in [`flock_class.py`](script/flock_
 
 
 - [`simulation.py`](simulation.py)
+
 It's the main script where all the required parameters are taken from command line using `argparse` or from a config file `.ini` using `configparser` library. In this script a flock dynamic is simulated and animated using a Flock object and the animation function from [`utils.py`](scripts/utils.py). The user can choose to save the animation if GIF format using the `--save` argument in the command line.
 
 The simulation is agent-based, it computes the interaction between birds and update their positions and velocities following some simple rules. The main paramaters of the simulation are **separation**, **alignment**, **coherence** and **avoidance**. Each of those parameters controls the strength of a force acting on each bird. See [Theory background](#Theory-background) section for a mathematical description.
