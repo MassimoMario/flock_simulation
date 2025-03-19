@@ -85,9 +85,7 @@ class Flock:
 
     
     def init_given_positions(self, array):
-        ''' Initialize birds positions with a given 2D array.
-
-        This function initializes the positions attribute with a given array with shape (N_birds, 2).
+        ''' Initialize birds positions with a given array with shape (N_birds, 2).
 
         Parameters:
         -----------
@@ -125,9 +123,8 @@ class Flock:
 
 
     def init_given_velocities(self, array):
-        ''' Initialize birds velocities with a given 2D array.
+        ''' Initialize birds velocities with a given array with shape (N_birds, 2).
 
-        This function initializes the velocities attribute with a given array with shape (N_birds, 2).
 
         Parameters:
         -----------
@@ -165,9 +162,9 @@ class Flock:
 
     
     def _directions_between_birds(self):
-        ''' Compute directions between any couple of birds.
+        ''' Compute directions between any couple of birds as the difference between their positions.
 
-        This function computes the array direction between any couple of birds as the difference between their positions.
+ 
 
         Parameters:
         -----------
@@ -184,9 +181,7 @@ class Flock:
 
 
     def _distances_between_birds(self):
-        ''' Compute distances between any couple of birds.
-
-        This function computes the scalar distance between any couple of birds as the norm of the direction between them.
+        ''' Compute the scalar distance between any couple of birds as the norm of the 	direction between them.
 
         Parameters:
         -----------
@@ -207,9 +202,8 @@ class Flock:
 
 
     def _directions_unitary_vectors(self):
-        ''' Compute unitary direction arrays between any couple of birds.
-
-        This function computes the unitary direction arrays between any couple of birds as the ratio between directions and distances between them.
+        ''' Compute unitary direction arrays between any couple of birds as the ratio
+between directions and distances between them.
 
         Parameters:
         -----------
@@ -248,9 +242,8 @@ class Flock:
 
 
     def _visual_range_mask(self, visual_range):
-        ''' Compute mask of boolean values if another bird is near considering a visual range.
+        ''' Compute mask of boolean mask of having another bird near within a visual range.
 
-        This function computes the boolean mask of having another bird near within a visual range.
 
         Parameters:
         -----------
@@ -289,8 +282,6 @@ class Flock:
     def _closest_index(self):
         ''' Compute the indices of closest bird for each bird of the flock.
 
-        This function computes the array containing indices of the closest bird for each bird of the flock.
-
         Parameters:
         -----------
         
@@ -309,9 +300,7 @@ class Flock:
 
 
     def _num_close_non_zero(self, visual_range):
-        ''' Compute the number of birds within the visual range for every bird.
-
-        This function computes two arrays, one contains the number of birds within the visual range for every bird and one is the copy of the latter but with no zeros.
+        ''' Compute an arrays containing the number of birds within the visual range for 	every bird with no zeros.
 
         Parameters:
         -----------
