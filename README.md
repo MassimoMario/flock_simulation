@@ -47,8 +47,14 @@ The repository contains the following folders and files:
   - [`utils.py`](scripts/utils.py) script contains the animation function and some useful functions for the configparser arguments interpretation
 - [`config`](config) folder contains 3 configuration files `.ini` to be used from command line as inputs in `simulation.py` script
 - [`requirements.txt`](requirements.txt) file contains the list of dependencies required for the project
+-[`docs`](docs) folder contains the source files used to generate the documentation.
 
 # Documentation
+The documentation can be seen at this [link](https://massimomario.github.io/flock_simulation/).
+
+It's a Github page containing the html files generated using **Sphinx** starting from docstrings in the code.
+
+[`docs`](docs) folder contains the source files used to generate this documentation.
 
 # Scripts overview
 - [`scripts/flock_class.py`](scripts/flock_class.py)
