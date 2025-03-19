@@ -202,8 +202,7 @@ class Flock:
 
 
     def _directions_unitary_vectors(self):
-        ''' Compute unitary direction arrays between any couple of birds as the ratio
-between directions and distances between them.
+        ''' Compute unitary direction arrays between any couple of birds as the ratio between directions and distances between them.
 
         Parameters:
         -----------
@@ -300,7 +299,7 @@ between directions and distances between them.
 
 
     def _num_close_non_zero(self, visual_range):
-        ''' Compute an arrays containing the number of birds within the visual range for 	every bird with no zeros.
+        ''' Compute an arrays containing the number of birds within the visual range for every bird with no zeros.
 
         Parameters:
         -----------
