@@ -1,0 +1,1206 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>test module &mdash; Flock simulation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Flock simulation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">test module</a><ul>
+<li><a class="reference internal" href="#test.test_N_birds_initialized_correctly"><code class="docutils literal notranslate"><span class="pre">test_N_birds_initialized_correctly()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_force_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_alignment_force_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_force_only_one_bird"><code class="docutils literal notranslate"><span class="pre">test_alignment_force_only_one_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_force_type_error_separation"><code class="docutils literal notranslate"><span class="pre">test_alignment_force_type_error_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_force_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_alignment_force_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_force_valueerror_separation"><code class="docutils literal notranslate"><span class="pre">test_alignment_force_valueerror_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_force_zero_separation"><code class="docutils literal notranslate"><span class="pre">test_alignment_force_zero_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_force_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_alignment_force_zero_visual_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_vector_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_alignment_vector_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_vector_only_one_bird"><code class="docutils literal notranslate"><span class="pre">test_alignment_vector_only_one_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_vector_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_alignment_vector_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_alignment_vector_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_alignment_vector_zero_visual_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_avoidance_force_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_avoidance_force_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_avoidance_force_type_error_avoidance"><code class="docutils literal notranslate"><span class="pre">test_avoidance_force_type_error_avoidance()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_avoidance_force_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_avoidance_force_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_avoidance_force_valueerror_avoidance"><code class="docutils literal notranslate"><span class="pre">test_avoidance_force_valueerror_avoidance()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_avoidance_force_zero_avoid_range"><code class="docutils literal notranslate"><span class="pre">test_avoidance_force_zero_avoid_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_avoidance_force_zero_separation"><code class="docutils literal notranslate"><span class="pre">test_avoidance_force_zero_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_center_direction_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_center_direction_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_center_direction_normalization"><code class="docutils literal notranslate"><span class="pre">test_center_direction_normalization()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_center_direction_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_center_direction_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_closest_index_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_closest_index_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_closest_index_only_one_bird"><code class="docutils literal notranslate"><span class="pre">test_closest_index_only_one_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_closest_index_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_closest_index_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_force_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_coherence_force_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_force_only_one_bird"><code class="docutils literal notranslate"><span class="pre">test_coherence_force_only_one_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_force_type_error_coherence"><code class="docutils literal notranslate"><span class="pre">test_coherence_force_type_error_coherence()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_force_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_coherence_force_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_force_valueerror_coherence"><code class="docutils literal notranslate"><span class="pre">test_coherence_force_valueerror_coherence()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_force_zero_separation"><code class="docutils literal notranslate"><span class="pre">test_coherence_force_zero_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_force_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_coherence_force_zero_visual_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_vector_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_coherence_vector_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_vector_only_one_bird"><code class="docutils literal notranslate"><span class="pre">test_coherence_vector_only_one_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_vector_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_coherence_vector_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_coherence_vector_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_coherence_vector_zero_visual_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_compute_forces_changes_attribute_last_forces"><code class="docutils literal notranslate"><span class="pre">test_compute_forces_changes_attribute_last_forces()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_compute_forces_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_compute_forces_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_compute_forces_zero_force_parameters"><code class="docutils literal notranslate"><span class="pre">test_compute_forces_zero_force_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_compute_forces_zero_range_parameters"><code class="docutils literal notranslate"><span class="pre">test_compute_forces_zero_range_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_between_birds_collapsed_positions"><code class="docutils literal notranslate"><span class="pre">test_directions_between_birds_collapsed_positions()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_between_birds_right_shape"><code class="docutils literal notranslate"><span class="pre">test_directions_between_birds_right_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_between_birds_single_bird"><code class="docutils literal notranslate"><span class="pre">test_directions_between_birds_single_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_between_birds_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_directions_between_birds_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_unitary_vectors_collapsed_positions"><code class="docutils literal notranslate"><span class="pre">test_directions_unitary_vectors_collapsed_positions()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_unitary_vectors_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_directions_unitary_vectors_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_unitary_vectors_single_bird"><code class="docutils literal notranslate"><span class="pre">test_directions_unitary_vectors_single_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_unitary_vectors_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_directions_unitary_vectors_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_unitary_vectors_typical_usage_off_diagonal"><code class="docutils literal notranslate"><span class="pre">test_directions_unitary_vectors_typical_usage_off_diagonal()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_directions_unitary_vectors_typical_usage_on_diagonal"><code class="docutils literal notranslate"><span class="pre">test_directions_unitary_vectors_typical_usage_on_diagonal()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_distances_between_birds_collapsed_positions"><code class="docutils literal notranslate"><span class="pre">test_distances_between_birds_collapsed_positions()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_distances_between_birds_right_shape"><code class="docutils literal notranslate"><span class="pre">test_distances_between_birds_right_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_distances_between_birds_single_bird"><code class="docutils literal notranslate"><span class="pre">test_distances_between_birds_single_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_distances_between_birds_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_distances_between_birds_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_edge_mask_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_edge_mask_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_edge_mask_typeerror"><code class="docutils literal notranslate"><span class="pre">test_edge_mask_typeerror()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_edge_mask_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_edge_mask_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_edge_mask_valueerror"><code class="docutils literal notranslate"><span class="pre">test_edge_mask_valueerror()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_edge_mask_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_edge_mask_zero_visual_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_positions_type_error_bool"><code class="docutils literal notranslate"><span class="pre">test_init_given_positions_type_error_bool()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_positions_type_error_list"><code class="docutils literal notranslate"><span class="pre">test_init_given_positions_type_error_list()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_positions_type_error_string"><code class="docutils literal notranslate"><span class="pre">test_init_given_positions_type_error_string()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_positions_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_init_given_positions_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_positions_value_error"><code class="docutils literal notranslate"><span class="pre">test_init_given_positions_value_error()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_positions_value_error_when_not_in_range"><code class="docutils literal notranslate"><span class="pre">test_init_given_positions_value_error_when_not_in_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_velocities_type_error_list"><code class="docutils literal notranslate"><span class="pre">test_init_given_velocities_type_error_list()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_velocities_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_init_given_velocities_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_velocities_value_error"><code class="docutils literal notranslate"><span class="pre">test_init_given_velocities_value_error()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_init_given_velocities_value_error_when_not_in_range"><code class="docutils literal notranslate"><span class="pre">test_init_given_velocities_value_error_when_not_in_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_invalid_type_N_birds_in_constructor"><code class="docutils literal notranslate"><span class="pre">test_invalid_type_N_birds_in_constructor()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_invalid_type_space_length_in_constructor"><code class="docutils literal notranslate"><span class="pre">test_invalid_type_space_length_in_constructor()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_invalid_value_N_birds_in_constructor"><code class="docutils literal notranslate"><span class="pre">test_invalid_value_N_birds_in_constructor()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_invalid_value_space_length_in_constructor"><code class="docutils literal notranslate"><span class="pre">test_invalid_value_space_length_in_constructor()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_num_close_non_zero_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_num_close_non_zero_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_num_close_non_zero_only_one_bird"><code class="docutils literal notranslate"><span class="pre">test_num_close_non_zero_only_one_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_num_close_non_zero_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_num_close_non_zero_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_num_close_non_zero_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_num_close_non_zero_zero_visual_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_positions_shape_initialized_correctly"><code class="docutils literal notranslate"><span class="pre">test_positions_shape_initialized_correctly()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_positions_values_initialized_correctly"><code class="docutils literal notranslate"><span class="pre">test_positions_values_initialized_correctly()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_separation_force_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_separation_force_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_separation_force_only_one_bird"><code class="docutils literal notranslate"><span class="pre">test_separation_force_only_one_bird()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_separation_force_type_error_separation"><code class="docutils literal notranslate"><span class="pre">test_separation_force_type_error_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_separation_force_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_separation_force_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_separation_force_valueerror_separation"><code class="docutils literal notranslate"><span class="pre">test_separation_force_valueerror_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_separation_force_zero_separation"><code class="docutils literal notranslate"><span class="pre">test_separation_force_zero_separation()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_separation_force_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_separation_force_zero_visual_range()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_simulate_correct_shape_first_array"><code class="docutils literal notranslate"><span class="pre">test_simulate_correct_shape_first_array()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_simulate_correct_shape_second_array"><code class="docutils literal notranslate"><span class="pre">test_simulate_correct_shape_second_array()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_simulate_type_error_num_time_steps"><code class="docutils literal notranslate"><span class="pre">test_simulate_type_error_num_time_steps()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_simulate_typical_usage_first_array"><code class="docutils literal notranslate"><span class="pre">test_simulate_typical_usage_first_array()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_simulate_typical_usage_second_array"><code class="docutils literal notranslate"><span class="pre">test_simulate_typical_usage_second_array()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_simulate_value_error_num_time_steps"><code class="docutils literal notranslate"><span class="pre">test_simulate_value_error_num_time_steps()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_simulate_zero_velocity_and_forces"><code class="docutils literal notranslate"><span class="pre">test_simulate_zero_velocity_and_forces()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_space_length_initialized_correctly"><code class="docutils literal notranslate"><span class="pre">test_space_length_initialized_correctly()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_speed_limit_factors_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_speed_limit_factors_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_speed_limit_factors_typical_usage"><code class="docutils literal notranslate"><span class="pre">test_speed_limit_factors_typical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_speed_limit_factors_zero_velocities"><code class="docutils literal notranslate"><span class="pre">test_speed_limit_factors_zero_velocities()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_changes_positions"><code class="docutils literal notranslate"><span class="pre">test_update_state_changes_positions()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_changes_velocities"><code class="docutils literal notranslate"><span class="pre">test_update_state_changes_velocities()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_positions_under_zero_force_parameters"><code class="docutils literal notranslate"><span class="pre">test_update_state_positions_under_zero_force_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_type_error_dt"><code class="docutils literal notranslate"><span class="pre">test_update_state_type_error_dt()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_typical_usage_positions"><code class="docutils literal notranslate"><span class="pre">test_update_state_typical_usage_positions()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_typical_usage_velocities"><code class="docutils literal notranslate"><span class="pre">test_update_state_typical_usage_velocities()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_value_error_dt"><code class="docutils literal notranslate"><span class="pre">test_update_state_value_error_dt()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_update_state_velocities_under_zero_force_parameters"><code class="docutils literal notranslate"><span class="pre">test_update_state_velocities_under_zero_force_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_velocities_shape_initialized_correctly"><code class="docutils literal notranslate"><span class="pre">test_velocities_shape_initialized_correctly()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_visual_range_mask_correct_shape"><code class="docutils literal notranslate"><span class="pre">test_visual_range_mask_correct_shape()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_visual_range_mask_typeerror"><code class="docutils literal notranslate"><span class="pre">test_visual_range_mask_typeerror()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_visual_range_mask_valueerror"><code class="docutils literal notranslate"><span class="pre">test_visual_range_mask_valueerror()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_visual_range_mask_zero_tyipical_usage"><code class="docutils literal notranslate"><span class="pre">test_visual_range_mask_zero_tyipical_usage()</span></code></a></li>
+<li><a class="reference internal" href="#test.test_visual_range_mask_zero_visual_range"><code class="docutils literal notranslate"><span class="pre">test_visual_range_mask_zero_visual_range()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Flock simulation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">test module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/test.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-test">
+<span id="test-module"></span><h1>test module<a class="headerlink" href="#module-test" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_N_birds_initialized_correctly">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_N_birds_initialized_correctly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_N_birds_initialized_correctly" title="Link to this definition"></a></dt>
+<dd><p>Test that the Flock class constructor correctly inizialize N_birds attribute inside the object.</p>
+<p>GIVEN: An acceptable N_birds value in the class constructor</p>
+<p>WHEN: The constructor is called to create a Flock object</p>
+<p>THEN: object.N_birds is equal to the given value</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_force_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_force_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_force_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _alignment_force has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _alignment_force method</p>
+<p>THEN: The returned array has shape (N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_force_only_one_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_force_only_one_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_force_only_one_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _alignment_force method with only one bird is equal to [0].</p>
+<p>GIVEN: A Flock object with only one bird</p>
+<p>WHEN: I call _alignment_force method</p>
+<p>THEN: The returned array is equal to [0]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_force_type_error_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_force_type_error_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_force_type_error_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the _alignment_force method raises an error when a string is given as input for alignment argument.</p>
+<p>GIVEN: An invalid input type for alignment in _alignment_force method</p>
+<p>WHEN: I call _alignment_force method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_force_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_force_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_force_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _alignment_force returns the expected array.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _alignment_force method</p>
+<p>THEN: The resulting array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_force_valueerror_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_force_valueerror_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_force_valueerror_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the _alignment_force method raises a ValueError when a negative value for alignment is given as input.</p>
+<p>GIVEN: An invalid input value for alignment argument in _alignment_force method</p>
+<p>WHEN: I call _alignment_force method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_force_zero_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_force_zero_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_force_zero_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _alignment_force method with alignment = 0 is full of zeros.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _alignment_force method with alignment = 0</p>
+<p>THEN: The returned array is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_force_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_force_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_force_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _alignment_force method with visual_range = 0 is full of zeros.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _alignment_force method with visual_range = 0</p>
+<p>THEN: The returned array is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_vector_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_vector_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_vector_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _alignment_vector has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _alignment_vector method</p>
+<p>THEN: The returned array has shape (N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_vector_only_one_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_vector_only_one_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_vector_only_one_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _alignment_vector is [[0],[0]] if only one bird is present.</p>
+<p>GIVEN: A Flock object with only one bird</p>
+<p>WHEN: I call _alignment_vector method</p>
+<p>THEN: The returned array is equal to [[0],[0]]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_vector_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_vector_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_vector_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _alignment_vector method returns an array as expected given two birds with known positions and velocities.</p>
+<p>GIVEN: A Flock object with two birds with known positions and velocities</p>
+<p>WHEN: I call _alignment_vector method</p>
+<p>THEN: The returned array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_alignment_vector_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_alignment_vector_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_alignment_vector_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the _alignment_vector method returns an array full of ones when visual_range is 0.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _alignment_vector method with visual_range = 0</p>
+<p>THEN: The resulting array is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_avoidance_force_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_avoidance_force_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_avoidance_force_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _avoidance_force has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _avoidance_force method</p>
+<p>THEN: The returned array has shape (N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_avoidance_force_type_error_avoidance">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_avoidance_force_type_error_avoidance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_avoidance_force_type_error_avoidance" title="Link to this definition"></a></dt>
+<dd><p>Test that the _avoidance_force method raises an error when a string is given as input for avoidance argument.</p>
+<p>GIVEN: An invalid input type for avoidance in _avoidance_force method</p>
+<p>WHEN: I call _avoidance_force method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_avoidance_force_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_avoidance_force_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_avoidance_force_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _avoidance_force returns the expected array.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _avoidance_force method</p>
+<p>THEN: The resulting array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_avoidance_force_valueerror_avoidance">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_avoidance_force_valueerror_avoidance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_avoidance_force_valueerror_avoidance" title="Link to this definition"></a></dt>
+<dd><p>Test that the _avoidance_force method raises a ValueError when a negative value for avoidance is given as input.</p>
+<p>GIVEN: An invalid input value for avoidance argument in _avoidance_force method</p>
+<p>WHEN: I call _avoidance_force method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_avoidance_force_zero_avoid_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_avoidance_force_zero_avoid_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_avoidance_force_zero_avoid_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _avoidance_force method with avoid_range = 0 is equal to the expected one.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _avoidance_force method with avoid_range = 0</p>
+<p>THEN: The returned array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_avoidance_force_zero_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_avoidance_force_zero_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_avoidance_force_zero_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _avoidance_force method with avoidance = 0 is full of zeros.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _avoidance_force method with avoidance = 0</p>
+<p>THEN: The returned array is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_center_direction_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_center_direction_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_center_direction_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _center_direction has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _center_direction method</p>
+<p>THEN: The returned array has shape (N_birds)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_center_direction_normalization">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_center_direction_normalization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_center_direction_normalization" title="Link to this definition"></a></dt>
+<dd><p>Test that the _center_direction returns an array which second dimension is normalized to 1.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _center_direction method</p>
+<p>THEN: The resulting array second dimension is normalized to one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_center_direction_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_center_direction_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_center_direction_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _center_direction returns the expected array when 4 birds with known positions are given.</p>
+<p>GIVEN: A Flock object with 4 birds with known positions</p>
+<p>WHEN: I call _center_direction method</p>
+<p>THEN: The resulting array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_closest_index_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_closest_index_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_closest_index_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the _closest_index method returns a np.ndarray with the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _closest_index method</p>
+<p>THEN: The resulting array has shape (N_birds)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_closest_index_only_one_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_closest_index_only_one_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_closest_index_only_one_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the _closest_index method returns a [0] np.ndarray if there is only one bird.</p>
+<p>GIVEN: A Flock object with one bird</p>
+<p>WHEN: I call _closest_index method</p>
+<p>THEN: The resulting array is equal to [0]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_closest_index_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_closest_index_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_closest_index_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _closest_index method returns the expected np.ndarray given three bird with known positions.</p>
+<p>GIVEN: A Flock object with three birds with known position</p>
+<p>WHEN: I call _closest_index method</p>
+<p>THEN: The resulting array has the correct values</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_force_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_force_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_force_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _coherence_force has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _coherence_force method</p>
+<p>THEN: The returned array has shape (N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_force_only_one_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_force_only_one_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_force_only_one_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _coherence_force method with only one bird is equal to the expected one.</p>
+<p>GIVEN: A Flock object with only one bird</p>
+<p>WHEN: I call _coherence_force method</p>
+<p>THEN: The returned array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_force_type_error_coherence">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_force_type_error_coherence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_force_type_error_coherence" title="Link to this definition"></a></dt>
+<dd><p>Test that the _coherence_force method raises an error when a string is given as input for coherence argument.</p>
+<p>GIVEN: An invalid input type for coherence in _coherence_force method</p>
+<p>WHEN: I call _coherence_force method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_force_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_force_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_force_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _coherence_force returns the expected array.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _coherence_force method</p>
+<p>THEN: The resulting array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_force_valueerror_coherence">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_force_valueerror_coherence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_force_valueerror_coherence" title="Link to this definition"></a></dt>
+<dd><p>Test that the _coherence_force method raises a ValueError when a negative value for coherence is given as input.</p>
+<p>GIVEN: An invalid input value for coherence argument in _coherence_force method</p>
+<p>WHEN: I call _coherence_force method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_force_zero_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_force_zero_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_force_zero_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _coherence_force method with coherence = 0 is full of zeros.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _coherence_force method with coherence = 0</p>
+<p>THEN: The returned array is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_force_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_force_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_force_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _coherence_force method with visual_range = 0 is equal to the expected one.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _coherence_force method with visual_range = 0</p>
+<p>THEN: The returned array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_vector_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_vector_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_vector_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _coherence_vector has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _coherence_vector method</p>
+<p>THEN: The returned array has shape (N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_vector_only_one_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_vector_only_one_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_vector_only_one_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _coherence_vector with only one bird is equal to the opposite of his position.</p>
+<p>GIVEN: A Flock object with only one bird</p>
+<p>WHEN: I call _coherence_vector method</p>
+<p>THEN: The returned array is equal to the opposite of his position</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_vector_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_vector_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_vector_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _coherence_vector method returns an array as expected given two birds with known positions.</p>
+<p>GIVEN: A Flock object with two birds with known positions</p>
+<p>WHEN: I call _coherence_vector method</p>
+<p>THEN: The returned array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_coherence_vector_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_coherence_vector_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_coherence_vector_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the _coherence_vector method returns the opposite of object.positions when visual_range == 0.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _coherence_vector method with visual_range = 0</p>
+<p>THEN: The resulting array is equal to  - object.positions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_compute_forces_changes_attribute_last_forces">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_compute_forces_changes_attribute_last_forces</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_compute_forces_changes_attribute_last_forces" title="Link to this definition"></a></dt>
+<dd><p>Test that the _compute_forces method overwrite the last_forces object attribute.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _compute_forces method</p>
+<p>THEN: The last_forces object attribute is overwritten</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_compute_forces_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_compute_forces_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_compute_forces_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _compute_forces returns the expected array.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _compute_forces method</p>
+<p>THEN: The resulting array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_compute_forces_zero_force_parameters">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_compute_forces_zero_force_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_compute_forces_zero_force_parameters" title="Link to this definition"></a></dt>
+<dd><p>Test that the last_forces object attribute is full of zeros after calling _compute_forces when all the force parameters are 0.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _compute_forces method with all the force parameters equal to 0</p>
+<p>THEN: The object last_forces attribute is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_compute_forces_zero_range_parameters">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_compute_forces_zero_range_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_compute_forces_zero_range_parameters" title="Link to this definition"></a></dt>
+<dd><p>Test that the last_forces object attribute is equal to the coherence force after calling _compute_forces when all the range parameters are 0.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _compute_forces method with all the range parameters equal to 0</p>
+<p>THEN: The object last_forces attribute is equal to the coherence force</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_between_birds_collapsed_positions">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_between_birds_collapsed_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_between_birds_collapsed_positions" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_between_birds method computed when every bird is in the same position returns an array of zeros.</p>
+<p>GIVEN: A Flock object with every bird having the same position</p>
+<p>WHEN: I call _directions_between_birds method</p>
+<p>THEN: The resulting array is an array of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_between_birds_right_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_between_birds_right_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_between_birds_right_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_between_birds method returns an array with the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _directions_between_birds method</p>
+<p>THEN: The resulting array has shape (N_birds, N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_between_birds_single_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_between_birds_single_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_between_birds_single_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_between_birds method computed with only one bird returns an array of zeros.</p>
+<p>GIVEN: A Flock object with a single bird</p>
+<p>WHEN: I call _directions_between_birds method</p>
+<p>THEN: The resulting array is an array of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_between_birds_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_between_birds_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_between_birds_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_between_birds returns the correct array when called on two birds.</p>
+<p>GIVEN: A Flock object with two birds with known positions</p>
+<p>WHEN: I call _directions_between_birds method</p>
+<p>THEN: The resulting array is computed correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_unitary_vectors_collapsed_positions">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_unitary_vectors_collapsed_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_unitary_vectors_collapsed_positions" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_unitary_vectors method computed when every bird is in the same position returns an array of zeros.</p>
+<p>GIVEN: A Flock object with every bird having the same position</p>
+<p>WHEN: I call _directions_unitary_vectors method</p>
+<p>THEN: The resulting array is an array of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_unitary_vectors_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_unitary_vectors_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_unitary_vectors_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_unitary_vectors method returns an array with the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _directions_unitary_vectors method</p>
+<p>THEN: The resulting array has shape (N_birds, N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_unitary_vectors_single_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_unitary_vectors_single_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_unitary_vectors_single_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_unitary_vectors method computed with only one bird returns an array of zeros.</p>
+<p>GIVEN: A Flock object with a single bird</p>
+<p>WHEN: I call _directions_unitary_vectors method</p>
+<p>THEN: The resulting array is an array of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_unitary_vectors_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_unitary_vectors_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_unitary_vectors_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_unitary_vectors returns the correct array when called on two birds.</p>
+<p>GIVEN: A Flock object with two birds with known positions</p>
+<p>WHEN: I call _directions_unitary_vectors method</p>
+<p>THEN: The resulting array is computed correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_unitary_vectors_typical_usage_off_diagonal">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_unitary_vectors_typical_usage_off_diagonal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_unitary_vectors_typical_usage_off_diagonal" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_unitary_vectors returns an array which rows are normalized to one.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _directions_unitary_vectors method</p>
+<p>THEN: The resulting array rows are normalized to one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_directions_unitary_vectors_typical_usage_on_diagonal">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_directions_unitary_vectors_typical_usage_on_diagonal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_directions_unitary_vectors_typical_usage_on_diagonal" title="Link to this definition"></a></dt>
+<dd><p>Test that the _directions_unitary_vectors returns a matrix which has 0 on the diagonal.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _directions_unitary_vectors method</p>
+<p>THEN: The resulting matrix has zeros on the diagonal</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_distances_between_birds_collapsed_positions">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_distances_between_birds_collapsed_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_distances_between_birds_collapsed_positions" title="Link to this definition"></a></dt>
+<dd><p>Test that the _distances_between_birds method computed when every bird is in the same position returns an array of np.inf.</p>
+<p>GIVEN: A Flock object with every bird having the same position</p>
+<p>WHEN: I call _distances_between_birds method</p>
+<p>THEN: The resulting array is an array of np.inf</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_distances_between_birds_right_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_distances_between_birds_right_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_distances_between_birds_right_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the _distances_between_birds method returns an array with the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _distances_between_birds method</p>
+<p>THEN: The resulting array has shape (N_birds, N_birds)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_distances_between_birds_single_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_distances_between_birds_single_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_distances_between_birds_single_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the _distances_between_birds method computed with only one bird returns an array of np.inf.</p>
+<p>GIVEN: A Flock object with a single bird</p>
+<p>WHEN: I call _distances_between_birds method</p>
+<p>THEN: The resulting array is an array of np.inf</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_distances_between_birds_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_distances_between_birds_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_distances_between_birds_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _distances_between_birds returns the correct array when called on two birds.</p>
+<p>GIVEN: A Flock object with two birds with known positions</p>
+<p>WHEN: I call _distances_between_birds method</p>
+<p>THEN: The resulting array is computed correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_edge_mask_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_edge_mask_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_edge_mask_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _edge_mask has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _edge_mask method</p>
+<p>THEN: The returned array has shape (N_birds)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_edge_mask_typeerror">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_edge_mask_typeerror</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_edge_mask_typeerror" title="Link to this definition"></a></dt>
+<dd><p>Test that the _edge_mask method raises a TypeError when a string is given as input.</p>
+<p>GIVEN: An invalid input type for _edge_mask method</p>
+<p>WHEN: I call _edge_mask method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_edge_mask_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_edge_mask_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_edge_mask_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _edge_mask method returns an array as expected given two birds with known positions.</p>
+<p>GIVEN: A Flock object with two birds with known positions</p>
+<p>WHEN: I call _edge_mask method</p>
+<p>THEN: The returned array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_edge_mask_valueerror">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_edge_mask_valueerror</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_edge_mask_valueerror" title="Link to this definition"></a></dt>
+<dd><p>Test that the _edge_mask method raises a ValueError when a negative value is given as input.</p>
+<p>GIVEN: An invalid input value for _edge_mask method</p>
+<p>WHEN: I call _edge_mask method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_edge_mask_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_edge_mask_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_edge_mask_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the _edge_mask method returns a mask full of False when avoid_range is 0.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _edge_mask method with avoid_range = 0</p>
+<p>THEN: The resulting mask is full of False</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_positions_type_error_bool">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_positions_type_error_bool</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_positions_type_error_bool" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_positions method raises a TypeError when a np.array with boolean values is given as input.</p>
+<p>GIVEN: An invalid input type for input_given_positions method</p>
+<p>WHEN: I call input_given_positions method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_positions_type_error_list">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_positions_type_error_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_positions_type_error_list" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_positions method raises a TypeError when a list is given as input.</p>
+<p>GIVEN: An invalid input type for input_given_positions method</p>
+<p>WHEN: I call input_given_positions method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_positions_type_error_string">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_positions_type_error_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_positions_type_error_string" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_positions method raises a TypeError when a np.array full of strings is given as input.</p>
+<p>GIVEN: An invalid input type for input_given_positions method</p>
+<p>WHEN: I call input_given_positions method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_positions_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_positions_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_positions_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_positions input array is equal to the object.positions attribute after calling the method</p>
+<p>GIVEN: A valid array for init_given_positions method</p>
+<p>WHEN: I check object.positions attribute</p>
+<p>THEN: The two arrays are equal</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_positions_value_error">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_positions_value_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_positions_value_error" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_positions method raises a ValueError when an array with invalid shape is given as input.</p>
+<p>GIVEN: An array with invalid shape for input_given_positions method</p>
+<p>WHEN: I call input_given_positions method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_positions_value_error_when_not_in_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_positions_value_error_when_not_in_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_positions_value_error_when_not_in_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_positions method raises a ValueError when the input array has values out of the right range.</p>
+<p>GIVEN: An array with invalid values for input_given_positions method</p>
+<p>WHEN: I call input_given_positions method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_velocities_type_error_list">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_velocities_type_error_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_velocities_type_error_list" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_velocities method raises a TypeError when a list is given as input.</p>
+<p>GIVEN: An invalid input type for input_given_velocities method</p>
+<p>WHEN: I call input_given_velocities method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_velocities_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_velocities_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_velocities_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_velocities input array is equal to the object.velocities attribute after calling the method.</p>
+<p>GIVEN: A valid array for init_given_velocities method</p>
+<p>WHEN: I check object.velocities attribute</p>
+<p>THEN: The two arrays are equal</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_velocities_value_error">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_velocities_value_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_velocities_value_error" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_velocities method raises a ValueError when an array with invalid shape is given as input.</p>
+<p>GIVEN: An array with invalid shape for input_given_velocities method</p>
+<p>WHEN: I call input_given_velocities method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_init_given_velocities_value_error_when_not_in_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_init_given_velocities_value_error_when_not_in_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_init_given_velocities_value_error_when_not_in_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the init_given_velocities method raises a ValueError when the input array has values out of the right range.</p>
+<p>GIVEN: An array with invalid values for input_given_velocities method</p>
+<p>WHEN: I call input_given_velocities method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_invalid_type_N_birds_in_constructor">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_invalid_type_N_birds_in_constructor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_invalid_type_N_birds_in_constructor" title="Link to this definition"></a></dt>
+<dd><p>Test that the Flock class constructor raises an error when an invalid type in N_birds argument is provided.</p>
+<p>GIVEN: An invalid type for N_birds in the class constructor</p>
+<p>WHEN: The constructor is called to create a Flock object</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_invalid_type_space_length_in_constructor">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_invalid_type_space_length_in_constructor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_invalid_type_space_length_in_constructor" title="Link to this definition"></a></dt>
+<dd><p>Test that the Flock class constructor raises an error when an invalid type in space_length argument is provided.</p>
+<p>GIVEN: An invalid type for space_length in the class constructor</p>
+<p>WHEN: The constructor is called to create a Flock object</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_invalid_value_N_birds_in_constructor">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_invalid_value_N_birds_in_constructor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_invalid_value_N_birds_in_constructor" title="Link to this definition"></a></dt>
+<dd><p>Test that the Flock class constructor raises an error when a negative number of birds is provided.</p>
+<p>GIVEN: A negative number for N_birds in the class constructor</p>
+<p>WHEN: The constructor is called to create a Flock object</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_invalid_value_space_length_in_constructor">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_invalid_value_space_length_in_constructor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_invalid_value_space_length_in_constructor" title="Link to this definition"></a></dt>
+<dd><p>Test that the Flock class constructor raises an error when a negative number of space length is provided.</p>
+<p>GIVEN: A negative number for space_length in the class constructor</p>
+<p>WHEN: The constructor is called to create a Flock object</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_num_close_non_zero_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_num_close_non_zero_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_num_close_non_zero_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _num_close_non_zero has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _num_close_non_zero method</p>
+<p>THEN: The returned array has shape (N_birds)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_num_close_non_zero_only_one_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_num_close_non_zero_only_one_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_num_close_non_zero_only_one_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _num_close_non_zero is [1] if only one bird is present.</p>
+<p>GIVEN: A Flock object with only one bird</p>
+<p>WHEN: I call _num_close_non_zero method</p>
+<p>THEN: The returned array is equal to [1]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_num_close_non_zero_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_num_close_non_zero_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_num_close_non_zero_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _num_close_non_zero method returns an array as expected given three birds with known positions.</p>
+<p>GIVEN: A Flock object with three birds with known positions</p>
+<p>WHEN: I call _num_close_non_zero method</p>
+<p>THEN: The returned array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_num_close_non_zero_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_num_close_non_zero_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_num_close_non_zero_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the _num_close_non_zero method returns an array full of ones when visual_range is 0.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _num_close_non_zero method with visual_range = 0</p>
+<p>THEN: The resulting array is full of ones</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_positions_shape_initialized_correctly">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_positions_shape_initialized_correctly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_positions_shape_initialized_correctly" title="Link to this definition"></a></dt>
+<dd><p>Test that the positions attribute of the object has the correct shape after an object is created.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I access to his attribute positions</p>
+<p>THEN: object.positions has the right shape</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_positions_values_initialized_correctly">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_positions_values_initialized_correctly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_positions_values_initialized_correctly" title="Link to this definition"></a></dt>
+<dd><p>Test that the positions attribute of the object has every value in the right range.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I access to his attribute positions</p>
+<p>THEN: Every entry of object.positions array is within the right range</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_separation_force_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_separation_force_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_separation_force_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the array returned from _separation_force has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _separation_force method</p>
+<p>THEN: The returned array has shape (N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_separation_force_only_one_bird">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_separation_force_only_one_bird</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_separation_force_only_one_bird" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _separation_force method with only one bird is equal to [0].</p>
+<p>GIVEN: A Flock object with only one bird</p>
+<p>WHEN: I call _separation_force method</p>
+<p>THEN: The returned array is equal to [0]</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_separation_force_type_error_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_separation_force_type_error_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_separation_force_type_error_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the _separation_force method raises an error when a string is given as input for separation argument.</p>
+<p>GIVEN: An invalid input type for separation in _separation_force method</p>
+<p>WHEN: I call _separation_force method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_separation_force_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_separation_force_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_separation_force_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _separation_force returns the expected array.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _separation_force method</p>
+<p>THEN: The resulting array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_separation_force_valueerror_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_separation_force_valueerror_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_separation_force_valueerror_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the _separation_force method raises a ValueError when a negative value for separation is given as input.</p>
+<p>GIVEN: An invalid input value for separation argument in _separation_force method</p>
+<p>WHEN: I call _separation_force method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_separation_force_zero_separation">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_separation_force_zero_separation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_separation_force_zero_separation" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _separation_force method with separation = 0 is full of zeros.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _separation_force method with separation = 0</p>
+<p>THEN: The returned array is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_separation_force_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_separation_force_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_separation_force_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the returned array from _separation_force method with visual_range = 0 is full of zeros.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _separation_force method with visual_range = 0</p>
+<p>THEN: The returned array is full of zeros</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_simulate_correct_shape_first_array">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_simulate_correct_shape_first_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_simulate_correct_shape_first_array" title="Link to this definition"></a></dt>
+<dd><p>Test that the first array returned from simulate has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call simulate method</p>
+<p>THEN: The first returned array has shape (num_time_steps,N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_simulate_correct_shape_second_array">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_simulate_correct_shape_second_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_simulate_correct_shape_second_array" title="Link to this definition"></a></dt>
+<dd><p>Test that the second array returned from simulate has the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call simulate method</p>
+<p>THEN: The second returned array has shape (num_time_steps,N_birds, 2)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_simulate_type_error_num_time_steps">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_simulate_type_error_num_time_steps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_simulate_type_error_num_time_steps" title="Link to this definition"></a></dt>
+<dd><p>Test that the simulate method raises an error when a float is given as input for num_time_steps argument.</p>
+<p>GIVEN: An invalid input type for num_time_steps in simulate method</p>
+<p>WHEN: I call simulate method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_simulate_typical_usage_first_array">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_simulate_typical_usage_first_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_simulate_typical_usage_first_array" title="Link to this definition"></a></dt>
+<dd><p>Test that the first array returned from simulate is equal to the expected one given typical values of parameters.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call simulate method</p>
+<p>THEN: The first array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_simulate_typical_usage_second_array">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_simulate_typical_usage_second_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_simulate_typical_usage_second_array" title="Link to this definition"></a></dt>
+<dd><p>Test that the second array returned from simulate is equal to the expected one given typical values of parameters.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call simulate method</p>
+<p>THEN: The second array is equal to the expected one</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_simulate_value_error_num_time_steps">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_simulate_value_error_num_time_steps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_simulate_value_error_num_time_steps" title="Link to this definition"></a></dt>
+<dd><p>Test that the simulate method raises an error when a negative value is given as input for num_time_steps argument.</p>
+<p>GIVEN: A negative value for num_time_steps in simulate method</p>
+<p>WHEN: I call simulate method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_simulate_zero_velocity_and_forces">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_simulate_zero_velocity_and_forces</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_simulate_zero_velocity_and_forces" title="Link to this definition"></a></dt>
+<dd><p>Test that given initial static birds without forces, the final positions are equal to the initial positions.</p>
+<p>GIVEN: A Flock object with static birds</p>
+<p>WHEN: I call simulate method with force parameters set to 0, i.e. total force equal 0</p>
+<p>THEN: The initial and final positions are equal</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_space_length_initialized_correctly">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_space_length_initialized_correctly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_space_length_initialized_correctly" title="Link to this definition"></a></dt>
+<dd><p>Test that the Flock class constructor correctly inizialize space_length attribute inside the object.</p>
+<p>GIVEN: An acceptable space_length value in the class constructor</p>
+<p>WHEN: The constructor is called to create a Flock object</p>
+<p>THEN: object.space_length is equal to the given value</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_speed_limit_factors_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_speed_limit_factors_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_speed_limit_factors_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the _speed_limit_factors method returns an array with the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _speed_limit_factors method</p>
+<p>THEN: The resulting array has shape (N_birds)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_speed_limit_factors_typical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_speed_limit_factors_typical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_speed_limit_factors_typical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _speed_limit_factors returns the correct array when called on two birds.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _speed_limit_factors method</p>
+<p>THEN: The resulting array is computed correctly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_speed_limit_factors_zero_velocities">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_speed_limit_factors_zero_velocities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_speed_limit_factors_zero_velocities" title="Link to this definition"></a></dt>
+<dd><p>Test that the _speed_limit_factors method returns an array full one ones if the object.velocities are zeros.</p>
+<p>GIVEN: A Flock object with object.velocities being full of zeros</p>
+<p>WHEN: I call _speed_limit_factors method</p>
+<p>THEN: The resulting array is full of ones</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_changes_positions">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_changes_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_changes_positions" title="Link to this definition"></a></dt>
+<dd><p>Test that the _update_state method changed the internal attribute positions.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _update_state method</p>
+<p>THEN: The object.positions array is changed</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_changes_velocities">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_changes_velocities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_changes_velocities" title="Link to this definition"></a></dt>
+<dd><p>Test that the _update_state method changed the internal attribute velocities.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _update_state method</p>
+<p>THEN: The object.velocities array is changed</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_positions_under_zero_force_parameters">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_positions_under_zero_force_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_positions_under_zero_force_parameters" title="Link to this definition"></a></dt>
+<dd><p>Test that the positions change as expected if all the force parameters are set to 0, i.e. the total force is 0, in the _update_state method.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _update_state method with all the force parameters set to 0</p>
+<p>THEN: The object.positions array changes as expected</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_type_error_dt">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_type_error_dt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_type_error_dt" title="Link to this definition"></a></dt>
+<dd><p>Test that the _update_state method raises an error when a string is given as input for dt argument.</p>
+<p>GIVEN: An invalid input type for dt in _update_state method</p>
+<p>WHEN: I call _update_state method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_typical_usage_positions">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_typical_usage_positions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_typical_usage_positions" title="Link to this definition"></a></dt>
+<dd><p>Test that positions attribute of the Flock object is correctly updated by _update_state method given typical arguments values.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _update_state method given typical arguments values</p>
+<p>THEN: The positions attribute of the Flock object is correctly updated</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_typical_usage_velocities">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_typical_usage_velocities</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_typical_usage_velocities" title="Link to this definition"></a></dt>
+<dd><p>Test that velocities attribute of the Flock object is correctly updated by _update_state method given typical arguments values.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _update_state method given typical arguments values</p>
+<p>THEN: The velocities attribute of the Flock object is correctly updated</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_value_error_dt">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_value_error_dt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_value_error_dt" title="Link to this definition"></a></dt>
+<dd><p>Test that the _update_state method raises an error when a negative value is given as input for dt argument.</p>
+<p>GIVEN: An invalid value for dt in _update_state method</p>
+<p>WHEN: I call _update_state method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_update_state_velocities_under_zero_force_parameters">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_update_state_velocities_under_zero_force_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_update_state_velocities_under_zero_force_parameters" title="Link to this definition"></a></dt>
+<dd><p>Test that the velocities change as expected if all the force parameters are set to 0, i.e. the total force is 0, in the _update_state method.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _update_state method with all the force parameters set to 0</p>
+<p>THEN: The object.velocities array changes as expected</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_velocities_shape_initialized_correctly">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_velocities_shape_initialized_correctly</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_velocities_shape_initialized_correctly" title="Link to this definition"></a></dt>
+<dd><p>Test that the velocities attribute of the object has the correct shape after an object is created.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I access to his attribute velocities</p>
+<p>THEN: object.velocities has the right shape</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_visual_range_mask_correct_shape">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_visual_range_mask_correct_shape</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_visual_range_mask_correct_shape" title="Link to this definition"></a></dt>
+<dd><p>Test that the _visual_range_mask method returns a np.ndarray with the correct shape.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _visual_range_mask method</p>
+<p>THEN: The resulting array has shape (N_birds, N_birds)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_visual_range_mask_typeerror">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_visual_range_mask_typeerror</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_visual_range_mask_typeerror" title="Link to this definition"></a></dt>
+<dd><p>Test that the _visual_range_mask method raises a TypeError when a string is given as input.</p>
+<p>GIVEN: An invalid input type for _visual_range_mask method</p>
+<p>WHEN: I call _visual_range_mask method</p>
+<p>THEN: A TypeError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_visual_range_mask_valueerror">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_visual_range_mask_valueerror</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_visual_range_mask_valueerror" title="Link to this definition"></a></dt>
+<dd><p>Test that the _visual_range_mask method raises a ValueError when a negative value is given as input.</p>
+<p>GIVEN: An invalid input value for _visual_range_mask method</p>
+<p>WHEN: I call _visual_range_mask method</p>
+<p>THEN: A ValueError is raised</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_visual_range_mask_zero_tyipical_usage">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_visual_range_mask_zero_tyipical_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_visual_range_mask_zero_tyipical_usage" title="Link to this definition"></a></dt>
+<dd><p>Test that the _visual_range_mask method returns a mask with True off the diagonal when birds are near each other.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _visual_range_mask method having two birds near each other</p>
+<p>THEN: The resulting mask has True off the diagonal</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_visual_range_mask_zero_visual_range">
+<span class="sig-prename descclassname"><span class="pre">test.</span></span><span class="sig-name descname"><span class="pre">test_visual_range_mask_zero_visual_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test.test_visual_range_mask_zero_visual_range" title="Link to this definition"></a></dt>
+<dd><p>Test that the _visual_range_mask method returns a mask full of False when visual_range is 0.</p>
+<p>GIVEN: A Flock object</p>
+<p>WHEN: I call _visual_range_mask method with visual_range = 0</p>
+<p>THEN: The resulting mask is full of False</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Mario Massimo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
