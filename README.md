@@ -12,7 +12,7 @@ Agent based imulation of Flock dynamic with Python. The scripts contained in thi
 2. [Requirements](#Requirements)
 3. [Repository structure](#Repository-structure)
 4. [Documentation](#Documentation)
-5. [Scripts pverview](#Scripts-overview)
+5. [Scripts overview](#Scripts-overview)
 6. [Usage and examples](#Usage-and-examples)
 7. [Theory background](#Theory-background)
 
@@ -47,7 +47,7 @@ The repository contains the following folders and files:
   - [`utils.py`](scripts/utils.py) script contains the animation function and some useful functions for the configparser arguments interpretation
 - [`config`](config) folder contains 3 configuration files `.ini` to be used from command line as inputs in `simulation.py` script
 - [`requirements.txt`](requirements.txt) file contains the list of dependencies required for the project
--[`docs`](docs) folder contains the source files used to generate the documentation.
+- [`docs`](docs) folder contains the source files used to generate the documentation.
 
 # Documentation
 The documentation can be seen at this [link](https://massimomario.github.io/flock_simulation/).
@@ -73,15 +73,17 @@ Script containing the `animation` function, which animates and displays the floc
 
 Script containing unit tests for all methods in [`flock_class.py`](script/flock_class.py). The tests ensure correctness and stability of the code following the unit testing approach and are implemented using `pytest`.
 
-**Usage** : To run all the tests, navigate in the `scripts` folder and run:
+**Usage** : To run all the tests, navigate in the `scripts` folder and run the test script:
 	
 ```
+cd scripts
 pytest test.py
 ```
 
 **Coverage** : To check the test coverage, use `pytest-cov`:
 
 ```
+cd scripts
 pytest --cov=flock_class test.py
 ```
 	
