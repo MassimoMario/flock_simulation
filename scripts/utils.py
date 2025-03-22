@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+'''
+Author: Mario Massimo
+Date: March 2025
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -51,6 +57,7 @@ def animate(birds_positions_per_time_step, birds_velocities_per_time_step, space
     ax.set_xlim([0,space_length])
     ax.set_ylim([0,space_length])
 
+
     def update(frame):
         scat.set_offsets(birds_positions_per_time_step[frame])
 
@@ -70,7 +77,7 @@ def animate(birds_positions_per_time_step, birds_velocities_per_time_step, space
     plt.show()
 
     if save:
-            ani.save('flock_simulation.gif', writer="pillow", fps=30)
+        ani.save('flock_simulation.gif', writer="pillow", fps=30)
 
 
 
