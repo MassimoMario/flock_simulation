@@ -79,6 +79,13 @@ Script containing unit tests for all methods in [`flock_class.py`](script/flock_
 cd scripts
 pytest test.py
 ```
+Since the Flock class needs a random seed to initialize an object, to provide it run:
+
+```
+SEED=42 pytest test.py
+```
+
+The default seed is 1999.
 
 **Coverage** : To check the test coverage, use `pytest-cov`:
 
