@@ -6,11 +6,12 @@ Date: March 2025
 
 import pytest
 import numpy as np
+import os
 from flock_class import Flock
 
+SEED = int(os.getenv("SEED", 1999))
 
-random_seed = 1999
-
+random_seed = SEED
 
 def test_invalid_type_N_birds_in_constructor():
     """Test that the Flock class constructor raises an error when an invalid type in N_birds argument is provided.
