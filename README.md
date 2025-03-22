@@ -17,7 +17,7 @@ Agent based imulation of Flock dynamic with Python. The scripts contained in thi
 7. [Theory background](#Theory-background)
 
 # Installation
-To start using the repository, irst clone it:
+To start using the repository, first clone it:
 
 ```
 git clone https://github.com/MassimoMario/flock_simulation.git
