@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+'''
+Author: Mario Massimo
+Date: March 2025
+'''
 
 import pytest
 import numpy as np
