@@ -2,9 +2,24 @@
 
 import pytest
 import numpy as np
+import argparse
 from flock_class import Flock
 
-random_seed = 1999
+
+
+parser = argparse.ArgumentParser(
+        description = "Choose the random seed for the tests")
+
+parser.add_argument(
+        "--seed",
+        type = int,
+        default = 1999,
+        help="Random seed"
+    )
+
+args = parser.parse_args()
+
+random_seed = args.seed
 
 
 def test_invalid_type_N_birds_in_constructor():
