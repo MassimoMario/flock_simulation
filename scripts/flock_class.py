@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+'''
+Author: Mario Massimo
+Date: March 2025
+'''
+
 import numpy as np
 from tqdm import tqdm
 
@@ -195,7 +201,7 @@ class Flock:
         directions = self._directions_between_birds()
 
         distances = np.linalg.norm(directions, axis=2)
-        distances[distances == 0] = np.inf
+        distances[distances == 0] = np.inf  # To avoid division by 0 in other methods
 
         return distances
     
@@ -235,7 +241,7 @@ class Flock:
         '''
 
         speed_limit_factors = np.linalg.norm(self.velocities, axis=1) / self.max_speed
-        speed_limit_factors[speed_limit_factors < 1] = 1
+        speed_limit_factors[speed_limit_factors < 1] = 1 # To avoid modifing velocity that are already below the max speed
     
         return speed_limit_factors
 
@@ -323,7 +329,7 @@ class Flock:
         mask = self._visual_range_mask(visual_range)
 
         num_close = np.count_nonzero(mask, axis=1)
-        num_close[num_close == 0] = 1
+        num_close[num_close == 0] = 1 # To avoid division by 0 in other methods
 
         return num_close
     
@@ -441,7 +447,7 @@ class Flock:
         center = np.array([self.space_length/2, self.space_length/2])
         center_directions = center - self.positions
 
-        center_directions[np.all(center_directions==[0,0], axis=1)] = [1e-5, 1e-5]
+        center_directions[np.all(center_directions==[0,0], axis=1)] = [1e-5, 1e-5] # To avoid division by 0 in the next line
         center_directions /= np.linalg.norm(center_directions, axis=1)[:,None]
 
         return center_directions
@@ -488,7 +494,7 @@ class Flock:
         
         closest_index = self._closest_index()
 
-        force_separation = - separation * unit_directions[np.arange(unit_directions.shape[0]),closest_index] * mask[np.arange(mask.shape[0]),closest_index][:,None]
+        force_separation = - separation * unit_directions[np.arange(unit_directions.shape[0]),closest_index] * mask[np.arange(mask.shape[0]),closest_index][:,None] # Fancy indexing is used to rapidly select matrix elements without for loops
 
         return force_separation
     
@@ -531,7 +537,7 @@ class Flock:
         aligment_vector = self._alignment_vector(visual_range)
 
         aligment_lengths = np.linalg.norm(aligment_vector, axis=1)
-        aligment_lengths[aligment_lengths == 0] = 1
+        aligment_lengths[aligment_lengths == 0] = 1 # To avoid division by 0 in the next line
         
         force_alignment = alignment * aligment_vector / aligment_lengths[:,None]
     
