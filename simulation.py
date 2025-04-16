@@ -190,9 +190,17 @@ def main():
         default = 'False'
     )
 
+    parser.add_argument(
+        "--save_ps_vs",
+        type = str,
+        help = "Save birds positions and velocities per time step in a numpy array (True/False or Yes/No)",
+        default = 'False'
+    )
+
 
     args = parser.parse_args()
     setattr(args, 'save', set_type(args.save))
+    setattr(args, 'save_ps_vs', set_type(args.save_ps_vs))
 
     if args.config:
         config = configparser.ConfigParser()
@@ -220,7 +228,7 @@ def main():
 
 
     print('Random seed of the simulation: ', args.seed, '\n')
-    
+
     birds_positions_per_time_step, birds_velocities_per_time_step = flock.simulate(separation = args.separation, 
                                                                                     alignment = args.alignment, 
                                                                                     coherence = args.coherence, 
@@ -238,6 +246,10 @@ def main():
             num_time_steps = args.num_t_steps,
             save = args.save)
 
+
+    if args.save_ps_vs:
+        np.save('birds_positions_per_time_step.npy', birds_positions_per_time_step)
+        np.save('birds_velocities_per_time_step.npy', birds_velocities_per_time_step)
 
 
 
