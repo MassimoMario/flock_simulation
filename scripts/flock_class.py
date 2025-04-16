@@ -6,6 +6,7 @@ Date: March 2025
 
 import numpy as np
 from tqdm import tqdm
+import warnings
 
 
 class Flock:
@@ -160,8 +161,9 @@ class Flock:
         if np.shape(array) != (self.N_birds, 2):
             raise ValueError(f'The input array must have shape ({self.N_birds},2)')
         
-        if not np.all((array < self.max_speed) & (array > - self.max_speed)):
-            raise ValueError(f'Every value of the array must be < {self.max_speed} and > -{self.max_speed} (a maximum speed is needed for a good simulation behaviour)')
+        if not np.all((array < self.max_speed) & (array > -self.max_speed)):
+            warnings.warn(f"For a good simulation behaviour every value of the input array should be < {self.max_speed} and > -{self.max_speed}", 
+                          UserWarning)
         
         self.velocities = array
 
