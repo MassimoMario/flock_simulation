@@ -115,7 +115,7 @@ def main():
         "--seed",
         type = int,
         help = "Random seed (int)",
-        default = 1999
+        default = None
     )
 
 
@@ -219,6 +219,8 @@ def main():
         flock.init_given_velocities(init_positions)
 
 
+    print('Random seed of the simulation: ', args.seed, '\n')
+    
     birds_positions_per_time_step, birds_velocities_per_time_step = flock.simulate(separation = args.separation, 
                                                                                     alignment = args.alignment, 
                                                                                     coherence = args.coherence, 
