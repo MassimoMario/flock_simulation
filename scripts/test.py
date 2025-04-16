@@ -93,7 +93,7 @@ def test_N_birds_initialized_correctly():
 
     flock = Flock(N_birds = 234, space_length = 100, seed = random_seed)
 
-    assert np.isclose(flock.N_birds, 234)
+    assert flock.N_birds == 234
 
 
 
