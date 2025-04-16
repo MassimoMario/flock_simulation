@@ -324,7 +324,7 @@ def test_init_given_velocities_value_error_when_not_in_range():
     flock = Flock(N_birds = 3, space_length = 100, seed = random_seed)
     wrong_array = np.array([[0,0], [0,0], [flock.max_speed+1,0]])
 
-    with pytest.raises(ValueError): 
+    with pytest.warns(UserWarning):
                     flock.init_given_velocities(wrong_array)
 
 
