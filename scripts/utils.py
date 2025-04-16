@@ -136,7 +136,7 @@ def isfloat(string):
 
 def isbool(string):
     ''' A function that returns True if the input string
-        is equal to one of the key words meaning a bool variable
+        is equal to one of the key words meaning a bool variable ('true'/'false' or 'yes'/'no')
 
         Parameters:
         -----------
@@ -171,13 +171,13 @@ def set_type(string):
             If the input string can be casted into an int
 
         float(string) : float
-            If the input string cannot be casted into a 
+            If the input string can be casted into a float
         
         True : bool
-            If the input string is within a list of key words meaning boolean True
+            If the input string is within a list of key words meaning boolean True ('true'/'yes')
 
         False : bool
-            If the input string is within a list of key words meaning boolean False
+            If the input string is within a list of key words meaning boolean False ('false'/'no')
 
         string : str
             Otherwise
