@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 class Flock:
 
-    def __init__(self, N_birds = 200, space_length = 100, seed = 1999):
+    def __init__(self, N_birds = 200, space_length = 100, seed = None):
         ''' Class constructor.
 
         This function inizializes an object of Flock class, with the following attributes: number of birds, space length, 
