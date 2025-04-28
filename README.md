@@ -82,7 +82,7 @@ python simulation.py --config config/config_good_behaviour.ini
 You can save the animation as a GIF and the resulting simulation arrays of bird positions and velocities as `.npy` files:
 
 ```
-python simulation.py --save True --save_ps_vs True
+python simulation.py --save_anim True --save_ps_vs True
 ```
 
 # Repository structure
@@ -146,7 +146,7 @@ pytest --cov=flock_class test.py
 
 - [`simulation.py`](simulation.py)
 
-It's the main script where all the required parameters are taken from command line using `argparse` or from a config file `.ini` using `configparser` library. In this script a flock dynamic is simulated and animated using a Flock object and the animation function from [`utils.py`](scripts/utils.py). The user can choose to save the animation if GIF format using the `--save` argument in the command line.
+It's the main script where all the required parameters are taken from command line using `argparse` or from a config file `.ini` using `configparser` library. In this script a flock dynamic is simulated and animated using a Flock object and the animation function from [`utils.py`](scripts/utils.py). The user can choose to save the animation if GIF format using the `--save_anim` argument in the command line.
 
 The simulation is agent-based, it computes the interaction between birds and update their positions and velocities following some simple rules. The main paramaters of the simulation are **separation**, **alignment**, **coherence** and **avoidance**. Each of those parameters controls the strength of a force acting on each bird. See [Theory background](#Theory-background) section for a mathematical description.
 
