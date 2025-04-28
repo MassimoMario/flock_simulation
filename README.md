@@ -10,10 +10,10 @@ Agent based imulation of Flock dynamic with Python. The scripts contained in thi
 # Table of Contents
 1. [Installation](#Installation)
 2. [Requirements](#Requirements)
-3. [Repository structure](#Repository-structure)
-4. [Documentation](#Documentation)
-5. [Scripts overview](#Scripts-overview)
-6. [Usage and examples](#Usage-and-examples)
+3. [Usage and examples](#Usage-and-examples)
+4. [Repository structure](#Repository-structure)
+5. [Documentation](#Documentation)
+6. [Scripts overview](#Scripts-overview)
 7. [Theory background](#Theory-background)
 
 # Installation
@@ -36,6 +36,53 @@ To install them you can run on the Bash:
 
 ```
 pip install -r requirements.txt
+```
+
+# Usage and examples
+The main script [`simulation.py`](simulation.py) can be runned from the command line providing different argument ending in different configuration.
+
+## :information_source: Help
+For a complete list of parameters and their descriptions, run:
+
+```
+python simulation.py --help
+```
+
+## :one: Simulate and animate a flock
+Example of a simulation with a parameters that produce a good behaviour flock dynamic:
+
+```
+python simulation.py --N 300 --separation 11 --alignment 2.35 --coherence 1.1 --visual_range 30 --avoid_range 23 
+```
+
+![Example GIF of a good behaviour flock dynamic](images_gif/flock_simulation.gif)
+
+## :two: Provide intial positions and velocities
+You can provide initial positions and velocities of N birds in two ways:
+
+:one: Providing individual values:
+```
+python simulation.py --N 3 --positions_i 1 1 --positions_i 50 50 --positions_i 30 55 --velocities_i 1 1 --velocities_i -5 5 --velocities_i -1.1 -2.3
+```
+:warning: The previous setup produce an initial position array equal to `[[1,1],[50,50],[30,55]]` and an initial velocity array equal to `[[1,1],[-5,5],[-1.1,-2.3]]`
+
+:two: Providing a `.npy` file:
+```
+python simulation.py --N 3 --positions_file init_pos.npy --velocities_file init_vel.npy
+```
+
+## :three: Provide a config file
+You can provide simulation parameter from a `.ini` config file:
+
+```
+python simulation.py --config config/config_good_behaviour.ini
+```
+
+## :four: Savings
+You can save the animation as a GIF and the resulting simulation arrays of bird positions and velocities as `.npy` files:
+
+```
+python simulation.py --save True --save_ps_vs True
 ```
 
 # Repository structure
@@ -105,46 +152,7 @@ The simulation is agent-based, it computes the interaction between birds and upd
 
 :warning: If you are providing a config file, take in mind that explicit command line arguments overwrite the config file ones.
 
-# Usage and examples
-The main script [`simulation.py`](simulation.py) can be runned from the command line providing different argument ending in different configuration.
 
-## :information_source: Help
-For a complete list of parameters and their descriptions, run:
-
-```
-python simulation.py --help
-```
-
-## :one: Simulate and animate a flock
-Example of a simulation with a parameters that produce a good behaviour flock dynamic:
-
-```
-python simulation.py --N 300 --separation 11 --alignment 2.35 --coherence 1.1 --visual_range 30 --avoid_range 23 
-```
-
-![Example GIF of a good behaviour flock dynamic](images_gif/flock_simulation.gif)
-
-## :two: Provide intial positions and velocities
-You can provide initial positions and velocities of N birds:
-
-```
-python simulation.py --N 3 --positions_i 1 1 --positions_i 50 50 --positions_i 30 55 --velocities_i 1 1 --velocities_i -5 5 --velocities_i -1.1 -2.3
-```
-:warning: The previous setup produce an initial position array equal to `[[1,1],[50,50],[30,55]]` and an initial velocity array equal to `[[1,1],[-5,5],[-1.1,-2.3]]`
-
-## :three: Provide a config file
-You can provide simulation parameter from a `.ini` config file:
-
-```
-python simulation.py --config config/config_good_behaviour.ini
-```
-
-## :four: Save the animation
-You can save the animation as a GIF:
-
-```
-python simulation.py --save True
-```
 # Theory background
 To simulate the collective emerging behaviour of a flock four simple rules have been taken into account that each bird must follow:
 
