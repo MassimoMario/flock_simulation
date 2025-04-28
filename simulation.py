@@ -111,6 +111,22 @@ def main():
     )
 
 
+
+    parser.add_argument(
+        "--positions_file",
+        type = str,
+        help = "File .npy containing the initial positions array (must have shape (N,2))"
+    )
+
+
+
+    parser.add_argument(
+        "--velocities_file",
+        type = str,
+        help = "File .npy containing the initial velocities array (must have shape (N,2))"
+    )
+
+
     parser.add_argument(
         "--seed",
         type = int,
@@ -218,16 +234,28 @@ def main():
                   seed = args.seed)
     
 
-    if args.positions_i:
+
+    if args.positions_file:
+        init_positions = np.load(args.positions_file)
+        flock.init_given_positions(init_positions)
+
+    elif args.positions_i:
         init_positions = np.array(args.positions_i)
         flock.init_given_positions(init_positions)
 
-    if args.velocities_i:
-        init_positions = np.array(args.velocities_i)
-        flock.init_given_velocities(init_positions)
 
 
-    print('Random seed of the simulation: ', args.seed, '\n')
+    if args.velocities_file:
+        init_velocities = np.load(args.velocities_file)
+        flock.init_given_velocities(init_velocities)
+
+    elif args.velocities_i:
+        init_velocities = np.array(args.velocities_i)
+        flock.init_given_velocities(init_velocities)
+
+
+    print('\nRandom seed of the simulation: ', args.seed, '\n')
+
 
     birds_positions_per_time_step, birds_velocities_per_time_step = flock.simulate(separation = args.separation, 
                                                                                     alignment = args.alignment, 
