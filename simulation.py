@@ -200,9 +200,9 @@ def main():
 
 
     parser.add_argument(
-        "--save",
+        "--save_anim",
         type = str,
-        help = "Save choice (True/False or Yes/No)",
+        help = "Save animation choice (True/False or Yes/No)",
         default = 'False'
     )
 
@@ -272,7 +272,7 @@ def main():
             birds_velocities_per_time_step = birds_velocities_per_time_step,
             space_length = args.space_length,
             num_time_steps = args.num_t_steps,
-            save = args.save)
+            save = args.save_anim)
 
 
     if args.save_ps_vs:
