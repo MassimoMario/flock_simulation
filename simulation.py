@@ -252,6 +252,15 @@ def main():
         np.save('birds_velocities_per_time_step.npy', birds_velocities_per_time_step)
 
 
+    if args.seed == None:
+        print("\nThe simulation random seed is", None, "Do you want to save initial positions and velocities to restart the same simulation? [Yes/No]\n")
+        
+        save_pi_vi = set_type(input())
+
+        if save_pi_vi == True:
+            np.save('initial_postions.npy', birds_positions_per_time_step[0])
+            np.save('initial_velocities.npy', birds_velocities_per_time_step[0])
+
 
 if __name__ == '__main__':
     main()
