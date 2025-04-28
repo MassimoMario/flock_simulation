@@ -405,7 +405,10 @@ def test_directions_between_birds_typical_usage():
 
     directions = flock._directions_between_birds()
 
-    right_directions = flock.positions - flock.positions[:, None]
+    right_directions = np.array([[[ 0,  0],
+                                [ 2,  2]],
+                                [[-2, -2],
+                                [ 0,  0]]])
 
     assert np.allclose(directions, right_directions)
 
@@ -483,10 +486,8 @@ def test_distances_between_birds_typical_usage():
 
     distances = flock._distances_between_birds()
 
-    directions = flock._directions_between_birds()
-
-    right_distances = np.linalg.norm(directions, axis=2)
-    right_distances[right_distances == 0] = np.inf
+    right_distances = np.array([[np.inf, 2*np.sqrt(2)],
+                                [2*np.sqrt(2), np.inf]])
 
     assert np.allclose(distances, right_distances)
 
@@ -565,6 +566,7 @@ def test_directions_unitary_vectors_typical_usage_off_diagonal():
 
     diagonal_mask = np.eye(200, dtype=bool)
     normalized_rows = np.linalg.norm(unit_distances[~diagonal_mask], axis=1)
+
     correct_normalization = np.ones(200*200-200)
     
 
@@ -588,6 +590,7 @@ def test_directions_unitary_vectors_typical_usage_on_diagonal():
 
     diagonal_mask = np.eye(200, dtype=bool)
     normalized_rows = np.linalg.norm(unit_distances[diagonal_mask], axis=1)
+
     correct_normalization = np.zeros(200)
     
 
@@ -611,10 +614,10 @@ def test_directions_unitary_vectors_typical_usage():
 
     unit_directions = flock._directions_unitary_vectors()
 
-    directions = flock._directions_between_birds()
-    distances = flock._distances_between_birds()
-
-    right_unit_directions = directions / distances[:,:,None]
+    right_unit_directions = np.array([[[ 0.,  0.],
+                                        [ 1/np.sqrt(2), 1/np.sqrt(2)]],
+                                        [[-1/np.sqrt(2), -1/np.sqrt(2)],
+                                        [ 0., 0.]]])
 
     assert np.allclose(unit_directions, right_unit_directions)
 
@@ -833,8 +836,7 @@ def test_closest_index_typical_usage():
 
     closest_index = flock._closest_index()
 
-    distances = flock._distances_between_birds()
-    correct_closest = np.argmin(distances, axis=1)
+    correct_closest = np.array([1, 0, 1])
 
     assert np.allclose(closest_index, correct_closest)
 
@@ -911,10 +913,7 @@ def test_num_close_non_zero_typical_usage():
 
     num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
 
-    mask = flock._visual_range_mask(visual_range = 20)
-
-    expected_array = np.count_nonzero(mask, axis=1)
-    expected_array[expected_array == 0] = 1
+    expected_array = np.array([2, 2, 2])
 
     assert np.allclose(num_close_non_zero, expected_array)
 
@@ -994,10 +993,8 @@ def test_alignment_vector_typical_usage():
 
     alignment_vector = flock._alignment_vector(visual_range = 20)
 
-    mask = flock._visual_range_mask(visual_range = 20)
-    num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
-
-    expected_array = (mask[:, :, None] * flock.velocities).sum(axis=1) / num_close_non_zero[:, None]
+    expected_array = np.array([[1., 2.],
+                            [1., 1.]])
 
     assert np.allclose(alignment_vector, expected_array)
 
@@ -1078,10 +1075,8 @@ def test_coherence_vector_typical_usage():
 
     coherence_vector = flock._coherence_vector(visual_range = 20)
 
-    mask = flock._visual_range_mask(visual_range = 20)
-    num_close_non_zero = flock._num_close_non_zero(visual_range = 20)
-
-    expected_array = (mask[:, :, None] * flock.positions).sum(axis=1) / num_close_non_zero[:, None] - flock.positions
+    expected_array = np.array([[ 0.,  1.],
+                            [ 0., -1.]])
 
     assert np.allclose(coherence_vector, expected_array)
 
@@ -1178,7 +1173,7 @@ def test_edge_mask_typical_usage():
 
     edge_mask = flock._edge_mask(avoid_range = 20)
 
-    expected_array = np.any(np.abs(flock.positions - flock.space_length/2.0) >= (flock.space_length/2.0 - 20), axis=1)
+    expected_array = np.array([ True, False])
 
     assert np.allclose(edge_mask, expected_array)
 
@@ -1244,11 +1239,10 @@ def test_center_direction_typical_usage():
 
     unit_center_distances = flock._center_direction()
 
-    center = np.array([flock.space_length/2, flock.space_length/2])
-    expected_center_distances = center - flock.positions
-
-    expected_center_distances[np.all(expected_center_distances==[0,0], axis=1)] = [1e-5, 1e-5]
-    expected_center_distances /= np.linalg.norm(expected_center_distances, axis=1)[:,None]
+    expected_center_distances = np.array([[ 1.,  0.],
+                                        [ 0.,  1.],
+                                        [-1.,  0.],
+                                        [ 1/np.sqrt(2),  1/np.sqrt(2)]])
     
     assert np.allclose(unit_center_distances, expected_center_distances)
 
@@ -1383,14 +1377,16 @@ def test_separation_force_typical_usage():
     THEN: The resulting array is equal to the expected one
     """
     
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,0],[1,10],[5,5],[10,10]])
+    flock.init_given_positions(initial_positions)
 
     separation_force = flock._separation_force(separation = 2, visual_range = 20)
 
-    unit_directions = flock._directions_unitary_vectors()
-    mask = flock._visual_range_mask(visual_range = 20)
-    closest_index = flock._closest_index()
-    expected_separation_force = - 2 * unit_directions[np.arange(unit_directions.shape[0]),closest_index] * mask[np.arange(mask.shape[0]),closest_index][:,None]
+    expected_separation_force = np.array([[-1.41421356, -1.41421356],
+                                        [-1.2493901 ,  1.56173762],
+                                        [ 1.2493901 , -1.56173762],
+                                        [ 1.41421356,  1.41421356]])
     
     assert np.allclose(separation_force, expected_separation_force)
 
@@ -1477,7 +1473,7 @@ def test_alignment_force_only_one_bird():
 
 
 
-def test_alignment_force_zero_separation():
+def test_alignment_force_zero_alignment():
     """Test that the returned array from _alignment_force method with alignment = 0 is full of zeros.
 
     GIVEN: A Flock object 
@@ -1526,14 +1522,16 @@ def test_alignment_force_typical_usage():
     THEN: The resulting array is equal to the expected one
     """
     
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,0],[1,10],[5,5],[10,10]])
+    flock.init_given_positions(initial_positions)
 
     alignment_force = flock._alignment_force(alignment = 2, visual_range = 20)
 
-    aligment_vector = flock._alignment_vector(visual_range = 20)
-    aligment_lengths = np.linalg.norm(aligment_vector, axis=1)
-    aligment_lengths[aligment_lengths == 0] = 1
-    expected_force_alignment = 2 * aligment_vector / aligment_lengths[:,None]
+    expected_force_alignment = np.array([[ 0.23519756,  1.98612238],
+                                        [-0.51434264,  1.93273165],
+                                        [ 1.34026622,  1.48448188],
+                                        [ 0.68160638,  1.88026933]])
     
     assert np.allclose(alignment_force, expected_force_alignment)
 
@@ -1667,12 +1665,16 @@ def test_coherence_force_typical_usage():
     THEN: The resulting array is equal to the expected one
     """
     
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,0],[1,10],[5,5],[10,10]])
+    flock.init_given_positions(initial_positions)
 
     coherence_force = flock._coherence_force(coherence = 2, visual_range = 20)
 
-    coherence_vector = flock._coherence_vector(visual_range = 20)
-    expected_force_coherence = 2 * coherence_vector / np.linalg.norm(coherence_vector, axis=1)[:,None]
+    expected_force_coherence = np.array([[ 1.07810739,  1.6845428 ],
+                                        [ 1.2493901 , -1.56173762],
+                                        [-1.2493901 ,  1.56173762],
+                                        [-1.69599661, -1.05999788]])
     
     assert np.allclose(coherence_force, expected_force_coherence)
 
@@ -1788,13 +1790,16 @@ def test_avoidance_force_typical_usage():
     THEN: The resulting array is equal to the expected one
     """
     
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,0],[1,10],[5,5],[10,10]])
+    flock.init_given_positions(initial_positions)
 
     avoidance_force = flock._avoidance_force(avoidance = 2, avoid_range = 20)
 
-    edge_mask = flock._edge_mask(avoid_range = 20)
-    center_directions = flock._center_direction()
-    expected_avoidance_force = 2 * center_directions * edge_mask[:,None]
+    expected_avoidance_force = np.array([[1.41421356, 1.41421356],
+                                        [1.5493224 , 1.26475298],
+                                        [1.41421356, 1.41421356],
+                                        [1.41421356, 1.41421356]])
     
     assert np.allclose(avoidance_force, expected_avoidance_force)
 
@@ -1883,7 +1888,9 @@ def test_compute_forces_typical_usage():
     THEN: The resulting array is equal to the expected one
     """
     
-    flock = Flock(N_birds = 200, space_length = 100, seed = random_seed)
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,0],[1,10],[5,5],[10,10]])
+    flock.init_given_positions(initial_positions)
 
     flock._compute_forces(separation = 10, 
                           alignment = 2.2, 
@@ -1892,12 +1899,11 @@ def test_compute_forces_typical_usage():
                           visual_range = 30, 
                           avoid_range = 20)
 
-    force_separation = flock._separation_force(separation = 10, visual_range = 30)
-    force_alignment = flock._alignment_force(alignment = 2.2, visual_range = 30)
-    force_coherence = flock._coherence_force(coherence = 2., visual_range = 30)
-    force_avoidance = flock._avoidance_force(avoidance = 10, avoid_range = 20)
 
-    expected_last_forces = force_coherence + force_avoidance + force_alignment + force_separation
+    expected_last_forces = np.array([[ 1.33682471,  3.86927742],
+                                    [ 2.18327471, 14.69672019],
+                                    [13.54292104,  2.45704741],
+                                    [13.19590604, 15.150434  ]])
     
     assert np.allclose(flock.last_forces, expected_last_forces)
 
@@ -2056,7 +2062,9 @@ def test_update_state_typical_usage_positions():
     THEN: The positions attribute of the Flock object is correctly updated
     """
 
-    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,0],[1,10],[5,5],[10,10]], dtype=float)
+    flock.init_given_positions(initial_positions)
 
     flock._update_state(dt = 0.1,
                         separation = 10, 
@@ -2068,19 +2076,11 @@ def test_update_state_typical_usage_positions():
     
     final_positions = np.copy(flock.positions)
 
-
-    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
-
-    flock._compute_forces(separation = 10, 
-                                 alignment = 2.2, 
-                                 coherence = 2.2,
-                                 avoidance = 10,
-                                 visual_range = 30, 
-                                 avoid_range = 40)
-        
-    flock.positions += flock.velocities *0.1 + 0.5*flock.last_forces*0.1*0.1
     
-    correct_final_positions = np.copy(flock.positions)
+    correct_final_positions = np.array([[ 0.05714559, -0.07679264],
+                                        [ 1.23439129, 10.28635114],
+                                        [ 4.93953773,  5.29700202],
+                                        [10.04854382, 10.24230606]])
 
     assert np.allclose(final_positions, correct_final_positions)
 
@@ -2097,7 +2097,9 @@ def test_update_state_typical_usage_velocities():
     THEN: The velocities attribute of the Flock object is correctly updated
     """
 
-    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
+    flock = Flock(N_birds = 4, space_length = 100, seed = random_seed)
+    initial_positions = np.array([[0,0],[1,10],[5,5],[10,10]], dtype=float)
+    flock.init_given_positions(initial_positions)
 
     flock._update_state(dt = 0.1,
                         separation = 10, 
@@ -2109,22 +2111,10 @@ def test_update_state_typical_usage_velocities():
     
     final_velocities = np.copy(flock.velocities)
 
-
-    flock = Flock(N_birds = 50, space_length = 100, seed = random_seed)
-
-    flock._compute_forces(separation = 10, 
-                                 alignment = 2.2, 
-                                 coherence = 2.2,
-                                 avoidance = 10,
-                                 visual_range = 30, 
-                                 avoid_range = 40)
-        
-    flock.velocities += flock.last_forces*0.1
-    speed_limit_factors = flock._speed_limit_factors()
-    flock.velocities = flock.velocities / speed_limit_factors[:, None]
-    flock.velocities = np.clip(flock.velocities, -flock.max_speed, flock.max_speed)
-
-    correct_final_velocities = np.copy(flock.velocities)
+    correct_final_velocities = np.array([[ 0.64368771, -0.56603984],
+                                        [ 2.45932357,  3.59053869],
+                                        [ 0.06627643,  3.10068128],
+                                        [ 1.13675347,  3.17528233]])
 
     assert np.allclose(final_velocities, correct_final_velocities)
 
