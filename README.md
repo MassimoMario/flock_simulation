@@ -85,6 +85,9 @@ You can save the animation as a GIF and the resulting simulation arrays of bird 
 python simulation.py --save_anim True --save_ps_vs True
 ```
 
+The saving key words are `True`/`Yes`, `False`/`No`.
+
+
 # Repository structure
 The repository contains the following folders and files:
 - [`simulation.py`](simulation.py) is the main script for simulating and animating the flock.
