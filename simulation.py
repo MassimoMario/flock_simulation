@@ -286,7 +286,7 @@ def main():
         save_pi_vi = set_type(input())
 
         if save_pi_vi == True:
-            np.save('initial_postions.npy', birds_positions_per_time_step[0])
+            np.save('initial_positions.npy', birds_positions_per_time_step[0])
             np.save('initial_velocities.npy', birds_velocities_per_time_step[0])
 
 
