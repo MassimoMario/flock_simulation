@@ -215,7 +215,7 @@ def main():
 
 
     args = parser.parse_args()
-    setattr(args, 'save', set_type(args.save))
+    setattr(args, 'save_anim', set_type(args.save_anim))
     setattr(args, 'save_ps_vs', set_type(args.save_ps_vs))
 
     if args.config:
