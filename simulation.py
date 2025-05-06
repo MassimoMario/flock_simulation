@@ -59,8 +59,11 @@ def main():
     num_time_steps : int, optional
         Total number of time steps, default is 300
 
-    save : bool, optional
-        Bool variable to save or not the gif produce, default is False
+    save_anim : bool, optional
+        Bool variable to save or not the animation in gif format, default is False
+
+    save_ps_vs : bool, optional
+        Bool variable to save or not the arrays produces by the simulation in .npy format, default is False
 
 
     Returns
